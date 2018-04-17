@@ -16,7 +16,6 @@ const Review = db.define('review', {
   },
   imgUrl: {
     type: Sequelize.STRING,
-    allowNull: false
   }
 })
 
