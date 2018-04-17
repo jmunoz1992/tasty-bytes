@@ -18,8 +18,8 @@ Product.belongsToMany(Category, {through: 'ProductCategory'});
 Category.belongsToMany(Product, {through: 'ProductCategory'});
 
 //Review associations
-Product.belongsToMany(User, {through: Review});  //trying to decide if we want to do this or not
-User.belongsToMany(Product, {through: Review});  //trying to decide if we want to do this or not
+// Product.belongsToMany(User, {through: Review});  //trying to decide if we want to do this or not
+// User.belongsToMany(Product, {through: Review});  //trying to decide if we want to do this or not
 Product.hasMany(Review);
 Review.belongsTo(Product);
 User.hasMany(Review);
