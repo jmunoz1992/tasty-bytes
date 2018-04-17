@@ -11,16 +11,12 @@
  */
 const db = require('../server/db')
 const {Product} = require('../server/db/models')
-const test = require('../server/db/models')
 
 async function seed () {
   await db.sync()
   console.log('db synced!')
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
-
-  console.log(test);
-  console.log('Product: ', Product)
 
   const products = await Promise.all([
     Product.create({
