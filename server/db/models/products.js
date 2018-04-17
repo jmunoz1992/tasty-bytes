@@ -19,10 +19,6 @@ const Products = db.define('products', {
       notEmpty: true
     }
   },
-  price: {
-    type: Sequelize.FLOAT,
-    allowNull: false
-  },
   inventoryQty: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
@@ -31,24 +27,26 @@ const Products = db.define('products', {
       min: 0
     }
   },
-  // will be calculated from all ratings from all reviews for this product
-  ratingsAvg: {
-    type: Sequelize.FLOAT,
-    defaultValue: 0.0
-  },
-  // will be calculated from pkgWt / price
-  unitCost: {
-    type: Sequelize.FLOAT,
-    defaultValue: 0.0
-  },
-  images: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-    defaultValue: ['http://fillmurray.com/140/200']
+  image: {
+    type: Sequelize.STRING,
+    defaultValue: 'http://fillmurray.com/140/200',
   },
   pkgWt: {
     type: Sequelize.INTEGER,
     allowNull: false
-  }
+  },
+  price: {
+    type: Sequelize.FLOAT,
+    allowNull: false
+  },
+  unitCost: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return this.getDataValue('price') / this.getDataValue('pkgWt');
+    }
+  },
 });
+
+// still need to create virtual hook/getter method for avg ratings by pulling from Reviews model???
 
 module.exports = Products;
