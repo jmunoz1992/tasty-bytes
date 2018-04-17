@@ -46,7 +46,7 @@ const Product = db.define('product', {
       return this.getDataValue('price') / this.getDataValue('pkgWt');
     }
   },
-});
+} );
 
 // still need to create virtual hook/getter method for avg ratings by pulling from Reviews model???
 
