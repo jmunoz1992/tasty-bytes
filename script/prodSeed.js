@@ -14,7 +14,7 @@ const {Product} = require('../server/db/models')
 const test = require('../server/db/models')
 
 async function seed () {
-  await db.sync({force: true})
+  await db.sync()
   console.log('db synced!')
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
@@ -28,7 +28,6 @@ async function seed () {
       shortDescription: 'tasty strawberries covered in chocolate',
       fullDescription: 'show your love with some delicious strawberries glazed with the most decadent chocolate in the world',
       inventoryQty: 1000,
-      image: '',
       pkgWt: 30, // 30 strawberries/box
       price: 99.99
     }),
@@ -37,7 +36,6 @@ async function seed () {
       shortDescription: 'rich chocolate truffles',
       fullDescription: 'dazzle your loved one with the best chocolate truffles',
       inventoryQty: 500,
-      image: '',
       pkgWt: 24, // 24 chocolates per box
       price: 89.99
     }),
@@ -46,7 +44,6 @@ async function seed () {
       shortDescription: 'real sour gummies',
       fullDescription: 'pucker up these gummies are the most sour your taste buds have ever come across',
       inventoryQty: 200,
-      image: '',
       pkgWt: 50, // 50 gummies per bag
       price: 59.99
     }),
@@ -55,7 +52,6 @@ async function seed () {
       shortDescription: 'lollies that you keep lickin',
       fullDescription: 'the most luscious lollipops youve ever licked, lick it up',
       inventoryQty: 700,
-      image: '',
       pkgWt: 10, // 10 lollipops/bundle
       price: 49.99
     }),
@@ -64,7 +60,6 @@ async function seed () {
       shortDescription: 'the most velvety creamy ice cream',
       fullDescription: 'this ice icream is what dreams are made of, you cant get enough of it',
       inventoryQty: 100,
-      image: '',
       pkgWt: 10,
       price: 49.99
     }),
