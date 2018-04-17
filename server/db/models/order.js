@@ -6,7 +6,7 @@ const Order = db.define('order', {
     type: Sequelize.DATE,
     allowNull: true,
   },
- arrived:{
+ arrived: {
     type: Sequelize.DATE,
     allowNull: true,
  }
