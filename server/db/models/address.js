@@ -31,6 +31,7 @@ const Address = db.define('address', {
     get () {
             return this.getDataValue('name') + this.getDataValue('street') + ', ' + this.getDataValue('city') + ', ' + this.getDataValue('state') + ', ' + this.getDataValue('zipcode')
     }
-})
+  }
+});
 
 module.exports = Address
