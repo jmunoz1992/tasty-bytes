@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {Product} = require('../server/db/models')
+const {Product, Category} = require('../server/db/models/index.js')
 const test = require('../server/db/models')
 
 async function seed () {
@@ -29,7 +29,7 @@ async function seed () {
       fullDescription: 'show your love with some delicious strawberries glazed with the most decadent chocolate in the world',
       inventoryQty: 1000,
       pkgWt: 30, // 30 strawberries/box
-      price: 99.99
+      price: 99.99,
     }),
     Product.create({
       title: 'chocolate truffles',
@@ -64,6 +64,28 @@ async function seed () {
       price: 49.99
     }),
   ]);
+
+  const categories = await Promise.all([
+    Category.create({name: 'chocolate', description: 'candy that contains chocolate'}),
+    Category.create({name: 'sour', description: 'candy that is sour'}),
+    Category.create({name: 'hard candy', description: 'this is hard candy'}),
+    Category.create({name: 'nuts', description: 'candy that contains nuts'}),
+    Category.create({name: 'organic', description: 'candy that is made from only organic ingredients'}),
+    Category.create({name: 'fair trade', description: 'candy that is made from only fair trade ingredients'}),
+    ])
+
+    const updatedProds= []
+
+  products.forEach((product) => {
+    console.log(categories.length)
+    updatedProds.push(product.setCategories([
+      categories[product.id-1],
+      categories[product.id]
+    ]))
+  })
+
+  await Promise.all(updatedProds)
+
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${products.length} products`)

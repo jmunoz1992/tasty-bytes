@@ -12,7 +12,7 @@
     "deploy": "script/deploy",
     "lint": "eslint ./ --ignore-path .gitignore",
     "postinstall": "touch secrets.js",
-    "seed": "node script/userSeed.js && node script/prodSeed.js && node script/addressSeed.js && node script/categorySeed.js",
+    "seed": "node script/userSeed.js && node script/prodSeed.js && node script/addressSeed.js ",
     "seed-user": "node script/userSeed.js",
     "seed-address": "node script/addressSeed.js",
     "seed-product": "node script/prodSeed.js",
