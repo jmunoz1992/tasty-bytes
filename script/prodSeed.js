@@ -11,12 +11,16 @@
  */
 const db = require('../server/db')
 const {Product} = require('../server/db/models')
+const test = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
   console.log('db synced!')
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
+
+  console.log(test);
+  console.log('Product: ', Product)
 
   const products = await Promise.all([
     Product.create({
@@ -67,7 +71,7 @@ async function seed () {
   ]);
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(`seeded ${products.length} users`)
+  console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
 }
 
