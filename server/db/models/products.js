@@ -45,6 +45,7 @@ const Products = db.define('products', {
     type: Sequelize.ARRAY(Sequelize.STRING),
     defaultValue: ['http://fillmurray.com/140/200']
   },
+  // weight of the product itself. not including the packinging
   pkgWt: {
     type: Sequelize.INTEGER,
     allowNull: false
