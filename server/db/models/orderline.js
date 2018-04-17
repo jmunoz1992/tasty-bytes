@@ -7,7 +7,7 @@ const Orderline = db.define('orderline', {
     allowNull: false
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.DECIMAL(5, 2), // initially setting for upper price limit to be 999.99
     allowNull: false
   },
   totalPrice: {
