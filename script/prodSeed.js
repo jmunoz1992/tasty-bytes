@@ -74,10 +74,9 @@ async function seed () {
     Category.create({name: 'fair trade', description: 'candy that is made from only fair trade ingredients'}),
     ])
 
-    const updatedProds= []
+  const updatedProds= []
 
   products.forEach((product) => {
-    console.log(categories.length)
     updatedProds.push(product.setCategories([
       categories[product.id-1],
       categories[product.id]
