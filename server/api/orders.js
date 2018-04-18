@@ -2,7 +2,7 @@ const router = require('express')();
 const Order = require('../db/models/order');
 
 
-// GET all orders
+// GET all orders.
 router.get('/', (req, res, next) => {
   Order.findAll({
     where: req.query})
@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
     .catch(next)
   })
 
-// GET particular order
+// GET particular order.
 router.get('/:id', (req, res, next) => {
   Order.findOne({
     where: {
@@ -25,7 +25,7 @@ router.get('/:id', (req, res, next) => {
   .catch(next)
 })
 
-//POST a new order
+//POST a new order.
 router.post('/', (req, res, next) => {
   Order.create(req.body)
   .then(order => {
@@ -34,7 +34,7 @@ router.post('/', (req, res, next) => {
   .catch(next);
 });
 
-//PUT update an order's infomration
+//PUT update an order's infomration.
 router.put('/:id', (req, res, next) => {
   Order.update(req.body, {
     where: {
@@ -49,7 +49,7 @@ router.put('/:id', (req, res, next) => {
   .catch(next);
 })
 
-//DELETE an order by ID
+//DELETE an order by ID.
 router.delete('/:id', (req, res, next) => {
   Order.destroy({
     where: {
