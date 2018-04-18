@@ -10,7 +10,7 @@ const Orderline = db.define('orderline', {
     type: Sequelize.INTEGER, // will be in cents
     allowNull: false
   },
-  priceActual: {
+  price: {
     type: Sequelize.VIRTUAL,
     get () {
       return (this.getDataValue('priceCents') / 100).toFixed(2);
