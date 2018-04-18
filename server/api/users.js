@@ -33,6 +33,7 @@ router.get('/:userId/reviews', (req, res, next) => {
     .catch(next)
 })
 
+
 //get all addresses for a specific user
 router.get('/:userId/addresses', (req, res, next) => {
   User.findById(req.params.userId, {

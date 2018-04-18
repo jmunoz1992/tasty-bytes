@@ -23,7 +23,7 @@ const getOrders = orders => ({type: GET_ORDERS, orders})
  */
 export const fetchOrders = () =>
   dispatch =>
-    axios.get('/api/orders')
+    axios.get('/api/admin/orders')
       .then(res => {
         dispatch(getOrders(res.data))}
     )

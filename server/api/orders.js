@@ -1,22 +1,15 @@
 const router = require('express')();
-const Order = require('../db/models/order');
+const { Order, OrderLine } = require('../db/models');
 
-
-// GET all orders.
-router.get('/', (req, res, next) => {
-  Order.findAll({
-    where: req.query})
-    .then(orders => {
-      res.status(200).json(orders);
-    })
-    .catch(next)
-  })
 
 // GET particular order.
 router.get('/:id', (req, res, next) => {
   Order.findOne({
     where: {
       id: req.params.id
+    },
+    include: {
+      model: OrderLine
     }
   })
   .then(order => {
@@ -27,7 +20,21 @@ router.get('/:id', (req, res, next) => {
 
 //POST a new order.
 router.post('/', (req, res, next) => {
-  Order.create(req.body)
+  Order.create({
+    id: req.body.id,
+    orderlines: {
+      id: req.body.orderlines.id,
+      qty: req.body.orderlines.qty,
+      price: req.body.orderlines.price,
+      productId: req.body.orderlines.productId,
+      orderId: req.body.orderlines.orderId,
+    }
+  }, {
+    include: {
+      model: OrderLine,
+      as: 'orderlines'
+    }
+  })
   .then(order => {
     res.status(201).json(order)
   })
@@ -36,9 +43,22 @@ router.post('/', (req, res, next) => {
 
 //PUT update an order's infomration.
 router.put('/:id', (req, res, next) => {
-  Order.update(req.body, {
+  Order.update({
+    id: req.body.id,
+    orderlines: {
+      id: req.body.orderlines.id,
+      qty: req.body.orderlines.qty,
+      price: req.body.orderlines.price,
+      productId: req.body.orderlines.productId,
+      orderId: req.body.orderlines.orderId,
+    }
+  }, {
     where: {
       id: req.params.id
+    },
+    include: {
+      model: OrderLine,
+      as: 'orderlines'
     },
     returning: true
   })
