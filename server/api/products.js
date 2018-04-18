@@ -4,7 +4,6 @@ const Category = require('../db/models/category');
 
 // find all products- main products homepage-works
 router.get('/', (req, res, next) => {
-  console.log('I AM IN HERE get 1');
   Product.findAll({where: req.query})
   .then(products => {
     res.status(200).json(products);
@@ -14,7 +13,6 @@ router.get('/', (req, res, next) => {
 
 // find specific product by id - when 'See Details' is clicked-works
 router.get('/:id', (req, res, next) => {
-  console.log('I AM IN HERE get 2');
   Product.findOne({
     where: {
       id: req.params.id
@@ -28,7 +26,6 @@ router.get('/:id', (req, res, next) => {
 
 // find specific product via categories menu
 router.get('/category/:id', (req, res, next) => {
-  console.log('I AM IN HERE get 3');
   Category.findById(req.params.id, {
     include: {
       model: Product,
@@ -43,7 +40,6 @@ router.get('/category/:id', (req, res, next) => {
 
 // add product to database- purely for admin
 router.post('/', (req, res, next) => {
-  console.log('I AM IN HERE');
   Product.create(req.body)
   .then(product => {
     res.status(201).json(product);
@@ -52,7 +48,7 @@ router.post('/', (req, res, next) => {
 });
 
 // update product to database- purely for admin
-router.put('/', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   Product.update(req.body, {
     where: {
       id: req.params.id
