@@ -14,7 +14,7 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 });
 
-//create new review
+//create new review.  Make sure in react/redux we submit the review info with the userId and productId
 router.post('/', (req, res, next) => {
   Review.create(req.body)
   .then(review => {
@@ -46,7 +46,7 @@ router.delete('/:id', (req, res, next) => {
     }
   })
   .then(deletedReview => {
-    res.send(`Product is deleted from database: ${deletedReview}`);
+    res.send(`Review is deleted from database: ${deletedReview}`);
   })
   .catch(next);
 });
