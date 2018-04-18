@@ -8,7 +8,7 @@ import orders from './orders'
 
 const reducer = combineReducers({
   user,
-  products
+  products,
   orders,
 })
 
