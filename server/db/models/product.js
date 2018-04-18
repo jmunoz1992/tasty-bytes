@@ -28,16 +28,22 @@ const Product = db.define('product', {
   },
   image: {
     type: Sequelize.STRING,
-    defaultValue: 'http://fillmurray.com/140/200',
+    defaultValue: 'https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg',
   },
   // weight of the product itself. not including the packinging
-  pkgWt: {
-    type: Sequelize.INTEGER,
+  pdtWt: {
+    type:Sequelize.INTEGER,
     allowNull: false
   },
-  price: {
-    type: Sequelize.DECIMAL(5, 2),
+  priceCents: {
+    type: Sequelize.INTEGER, // will be in cents
     allowNull: false
+  },
+  priceActual: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return (this.getDataValue('priceCents') / 100).toFixed(2);
+    }
   },
   unitCost: {
     type: Sequelize.VIRTUAL,

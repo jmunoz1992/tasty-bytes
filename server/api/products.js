@@ -49,42 +49,4 @@ router.get('/category/:categoryId', (req, res, next) => {
   .catch(next);
 });
 
-
-// add product to database- purely for admin
-router.post('/', (req, res, next) => {
-  Product.create(req.body)
-  .then(product => {
-    res.status(201).json(product);
-  })
-  .catch(next);
-});
-
-// update product to database- purely for admin
-router.put('/:id', (req, res, next) => {
-  Product.update(req.body, {
-    where: {
-      id: req.params.id
-    },
-    returning: true
-  })
-  .then(function(results) {
-    const updated = results[1][0];
-    res.json(updated);
-  })
-  .catch(next);
-});
-
-// delete product from database- purely for admin
-router.delete('/:id', (req, res, next) => {
-  Product.destroy({
-    where: {
-      id: req.params.id
-    }
-  })
-  .then(deletedProduct => {
-    res.send(`Product is deleted from database: ${deletedProduct}`);
-  })
-  .catch(next);
-});
-
 module.exports = router;

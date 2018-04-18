@@ -6,6 +6,7 @@ router.use('/users', require('./users'));
 router.use('/products', require('./products'))
 router.use('/orders', require('./orders'))
 router.use('/reviews', require('./reviews'))
+router.use('/admin', require('./admin'))
 
 
 // // USE BELOW ONCE WEW HAVE ADMIN USERS AND STUFF...
