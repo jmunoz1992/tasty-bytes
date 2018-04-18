@@ -39,8 +39,8 @@ Order.belongsTo(User);
 User.hasMany(Order);
 
 //User Address associations
-Address.belongsTo(User, {as: 'UserId', foreignKey: 'userId', constraints: false, allowNull:true, defaultValue:null});
-User.hasMany(Address, {as: 'UserId', foreignKey: 'userId', constraints: false, allowNull:true, defaultValue:null});
+Address.belongsTo(User, {as: 'AddressOwner', foreignKey: 'userId', constraints: false, allowNull:true, defaultValue:null});
+User.hasMany(Address, {as: 'AddressOwner', foreignKey: 'userId', constraints: false, allowNull:true, defaultValue:null});
 
 User.belongsTo(Address, {as: 'UserAddress', foreignKey: 'addressId', constraints: false, allowNull:true, defaultValue:null})
 Address.hasOne(User, {as: 'UserAddress', foreignKey: 'addressId', constraints: false, allowNull:true, defaultValue:null})

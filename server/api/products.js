@@ -1,6 +1,5 @@
 const router = require('express')();
-const Product = require('../db/models/product');
-const Category = require('../db/models/category');
+const { Product, Category, Review} = require('../db/models')
 
 // find all products- main products homepage-works
 router.get('/', (req, res, next) => {
@@ -24,9 +23,22 @@ router.get('/:id', (req, res, next) => {
   .catch(next);
 });
 
+// find reviews for a  specific product
+router.get('/:productId/reviews', (req, res, next) => {
+  Product.findById(req.params.productId, {
+    include: {
+      model: Review,
+    }
+  })
+  .then(product => {
+    res.status(200).json(product);
+  })
+  .catch(next);
+});
+
 // find specific product via categories menu
-router.get('/category/:id', (req, res, next) => {
-  Category.findById(req.params.id, {
+router.get('/category/:categoryId', (req, res, next) => {
+  Category.findById(req.params.categoryId, {
     include: {
       model: Product,
     }
