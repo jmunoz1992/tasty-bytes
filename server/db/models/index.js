@@ -43,7 +43,7 @@ Address.belongsTo(User, {as: 'UserId', foreignKey: 'userId', constraints: false,
 User.hasMany(Address, {as: 'UserId', foreignKey: 'userId', constraints: false, allowNull:true, defaultValue:null});
 
 User.belongsTo(Address, {as: 'UserAddress', foreignKey: 'addressId', constraints: false, allowNull:true, defaultValue:null})
-Address.hasMany(User, {as: 'UserAddress', foreignKey: 'addressId', constraints: false, allowNull:true, defaultValue:null})
+Address.hasOne(User, {as: 'UserAddress', foreignKey: 'addressId', constraints: false, allowNull:true, defaultValue:null})
 
 //Order Address associations
 Order.belongsTo(Address, {as: 'shipAddress'})

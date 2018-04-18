@@ -1,4 +1,3 @@
-const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
@@ -37,7 +36,7 @@ const Product = db.define('product', {
     allowNull: false
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.DECIMAL(5, 2),
     allowNull: false
   },
   unitCost: {
@@ -46,7 +45,7 @@ const Product = db.define('product', {
       return this.getDataValue('price') / this.getDataValue('pkgWt');
     }
   },
-});
+} );
 
 // still need to create virtual hook/getter method for avg ratings by pulling from Reviews model???
 

@@ -10,8 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {Order} = require('../server/db/models')
-const test = require('../server/db/models')
+const { Order, OrderLine } = require('../server/db/models')
 
 async function seed () {
   await db.sync()
@@ -19,33 +18,106 @@ async function seed () {
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
 
-  console.log(test);
-  console.log('Order: ', Order)
-
   const orders = await Promise.all([
     Order.create({
       shipped: '2018-04-17 15:06:19',
-      arrived: '2018-04-20 15:06:19'
+      arrived: '2018-04-20 15:06:19',
+      userId: 1,
+      shipAddressId: 1,
+      billAddressId: 1,
+
     }),
     Order.create({
       shipped: '2018-04-20 17:53:19',
-      arrived: '2018-04-27 19:01:27'
+      arrived: '2018-04-27 19:01:27',
+      userId: 2,
+      shipAddressId: 4,
+      billAddressId: 4,
     }),
     Order.create({
       shipped: '2018-04-27 19:01:17',
-      arrived: '2018-04-28 12:56:11'
+      arrived: '2018-04-28 12:56:11',
+      userId: 3,
+      shipAddressId: 3,
+      billAddressId: 3,
     }),
     Order.create({
       shipped: '2018-04-18 15:06:19',
-      arrived: '2018-04-20 15:06:19'
+      arrived: '2018-04-20 15:06:19',
+      userId: 4,
+      shipAddressId: 4,
+      billAddressId: 4,
     }),
     Order.create({
       shipped: '2018-04-18 15:06:19',
-      arrived: '2018-04-20 23:01:40'
+      arrived: '2018-04-20 23:01:40',
+      userId: 5,
+      shipAddressId: 7,
+      billAddressId: 8,
     }),
+    Order.create({
+      shipped: '2018-04-18 15:06:19',
+      arrived: '2018-04-20 23:01:40',
+      userId: 1,
+      shipAddressId: 9,
+      billAddressId: 1,
+    })
   ]);
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
+
+  const orderLines = await Promise.all([
+    OrderLine.create({
+      orderId: 1,
+      productId: 1,
+      qty: 2,
+      price: 10.99,
+    }),
+    OrderLine.create({
+      orderId: 1,
+      productId: 3,
+      qty: 1,
+      price: 12.99,
+    }),
+    OrderLine.create({
+      orderId: 2,
+      productId: 2,
+      qty: 3,
+      price: 31.99,
+    }),
+    OrderLine.create({
+      orderId: 2,
+      productId: 1,
+      qty: 1,
+      price: 15.99,
+    }),
+    OrderLine.create({
+      orderId: 3,
+      productId: 5,
+      qty: 2,
+      price: 20.99,
+    }),
+    OrderLine.create({
+      orderId: 3,
+      productId: 4,
+      qty: 1,
+      price: 40.99,
+    }),
+    OrderLine.create({
+      orderId: 3,
+      productId: 3,
+      qty: 1,
+      price: 7.99,
+    }),
+    OrderLine.create({
+      orderId: 4,
+      productId: 5,
+      qty: 2,
+      price: 15.99,
+    }),
+
+  ]);
+
   console.log(`seeded ${orders.length} orders`)
   console.log(`seeded successfully`)
 }
