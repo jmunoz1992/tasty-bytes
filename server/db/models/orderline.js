@@ -13,8 +13,14 @@ const Orderline = db.define('orderline', {
     allowNull: false
   },
   priceCents: {
-    type: Sequelize.DECIMAL(5, 2), // initially setting for upper price limit to be 999.99
+    type: Sequelize.INTEGER, // will be in cents
     allowNull: false
+  },
+  price: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return (this.getDataValue('priceCents') / 100).toFixed(2);
+    }
   },
   totalPrice: {
     type: Sequelize.VIRTUAL,
