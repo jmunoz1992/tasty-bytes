@@ -7,4 +7,6 @@ export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
 export {default as AllProductsHome} from './all-products.jsx'
+export {default as OrderItem} from './orders/order-item.jsx'
+export {default as OrderView} from './orders/order-view.jsx'
 
