@@ -80,7 +80,7 @@ router.put('/:userId', (req, res, next) => {
 });
 
 // delete user from database
-router.put('/:userId', (req, res, next) => {
+router.put('/:userId/delete', (req, res, next) => {
   let userToDestroy;
   User.findById(req.params.userId)
     .then(user => {
