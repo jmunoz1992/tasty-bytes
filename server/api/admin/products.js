@@ -27,7 +27,7 @@ router.put('/products/:id', async (req, res, next) => {
       inventoryQty: req.body.inventoryQty,
       image: req.body.image,
       pkgWt: req.body.pkgWt,
-      price: req.body.price
+      priceCents: req.body.priceActual * 100
     }, {
       where: {
         id: req.params.id
@@ -50,7 +50,7 @@ router.post('/products', async (req, res, next) => {
       inventoryQty: req.body.inventoryQty,
       image: req.body.image,
       pkgWt: req.body.pkgWt,
-      price: req.body.price
+      priceCents: req.body.priceActual * 100
     });
     res.status(201).json(result);
   } catch (err) {
