@@ -15,7 +15,6 @@ router.get('/:id', (req, res, next) => {
 });
 
 //create new review
-//may need to add productId & userId too
 router.post('/', (req, res, next) => {
   Review.create(req.body)
   .then(review => {
@@ -25,7 +24,6 @@ router.post('/', (req, res, next) => {
 });
 
 //update existing review
-//(not sure how result[1][0] works tho...)
 router.put('/:id', (req, res, next) => {
   Review.update(req.body, {
     where: {
