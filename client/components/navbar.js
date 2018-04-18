@@ -8,35 +8,39 @@ import { Button, Card, Row, Col, NavItem, Dropdown } from 'react-materialize';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
-  {/* Dropdown Structure */}
-  {isLoggedIn ? (
-    <ul id="accountDropdown" className="dropdown-content">
-      <li><a href="#!">My Account</a></li>
-      <li><a href="#!">Orders</a></li>
-      <li><a href="#!">Logout</a></li>
-    </ul>
-  ) : (
-    <ul id="accountDropdown" className="dropdown-content">
-      <li><a href="#!">Login</a></li>
-      <li><a href="#!">Sign Up</a></li>
-    </ul>
-  )}
-
-  {/* Dropdown Structure ends */}
     <nav>
     <div className="nav-wrapper">
     <a href="#" className="brand-logo">Logo</a>
+
     <ul id="nav-mobile" className="right hide-on-med-and-down">
-      {/* <li><a className="dropdown-trigger" href="#!" data-target="accountDropdown">Account<i className="material-icons right">arrow_drop_down</i></a></li> */}
       <li>
-      <Dropdown trigger={
-        <Button>Drop me!</Button>
-      }>
-      <NavItem>one</NavItem>
-      <NavItem>two</NavItem>
-      <NavItem divider />
-      <NavItem>three</NavItem>
-    </Dropdown>
+
+      </li>
+
+
+      <li>
+      {isLoggedIn ? (
+        <Dropdown
+        rigger={
+        <a href="#!">Account<i className="material-icons right">arrow_drop_down</i></a>
+        }
+        options={{belowOrigin: true, hover: true}}
+        >
+        <NavItem>My Account</NavItem>
+        <NavItem>My Orders</NavItem>
+        <NavItem>Logout</NavItem>
+      </Dropdown>
+    ) : (
+      <Dropdown
+      trigger={
+        <a href="#!">Account<i className="material-icons right">arrow_drop_down</i></a>
+         }
+         options={{belowOrigin: true, hover: true}}
+         >
+        <NavItem>Login</NavItem>
+        <NavItem>Signup</NavItem>
+      </Dropdown>
+    )}
     </li>
       <li><a href="#"><i className="material-icons left">shopping_cart</i>1 ITEM</a></li>
       </ul>
