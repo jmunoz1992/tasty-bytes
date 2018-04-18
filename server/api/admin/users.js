@@ -1,10 +1,9 @@
 const router = require('express').Router()
-const { User, Address, Review, Order, OrderLine } = require('../db/models')
+const { User, Address, Review, Order, OrderLine } = require('../../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
   User.findAll({
-    attributes: ['id', 'name']
   })
     .then(users => res.json(users))
     .catch(next)
@@ -13,7 +12,7 @@ router.get('/', (req, res, next) => {
 //get basic info on a user
 router.get('/:userId', (req, res, next) => {
   User.findById(req.params.userId, {
-    attributes: ['id', 'name', 'email', 'addressId', 'imgUrl'],
+    attributes: ['id', 'name', 'email', 'addressId'],
     include: [{ model: Address, as: 'UserAddress' }]
   })
     .then(user => res.json(user))
@@ -53,14 +52,7 @@ router.get('/:userId/orders', (req, res, next) => {
 
 //add new user
 router.post('/', (req, res, next) => {
-  User.create({
-    id: req.body.id,
-    name: req.body.name,
-    username: req.body.username,
-    email: req.body.email,
-    imgUrl: req.body.imgUrl,
-    addressId: req.body.addressId,
-  })
+  User.create(req.body)
     .then(user => {
       res.status(201).json(user);
     })
@@ -71,20 +63,14 @@ router.post('/', (req, res, next) => {
 router.put('/:userId', (req, res, next) => {
   User.findById(req.params.userId)
     .then(user => {
-      user.update({
-        id: req.body.id,
-        name: req.body.name,
-        username: req.body.username,
-        email: req.body.email,
-        imgUrl: req.body.imgUrl,
-        addressId: req.body.addressId,
-      })
+      user.update(req.body)
         .then(updatedUser => {
           const userData = {
             id: updatedUser.id,
             name: updatedUser.name,
             email: updatedUser.email,
-            imgUrl: updatedUser.imgUrl
+            imgUrl: updatedUser.imgUrl,
+            isAdmin: updatedUser.isAdmin,
           }
           res.json(userData)
         })
