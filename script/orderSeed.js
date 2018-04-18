@@ -115,7 +115,24 @@ async function seed () {
       qty: 2,
       priceCents: 1599,
     }),
-
+    OrderLine.create({
+      orderId: 4,
+      productId: 1,
+      qty: 1,
+      priceCents: 1249,
+    }),
+    OrderLine.create({
+      orderId: 5,
+      productId: 4,
+      qty: 8,
+      priceCents: 1599,
+    }),
+    OrderLine.create({
+      orderId: 6,
+      productId: 5,
+      qty: 2,
+      priceCents: 1599,
+    }),
   ]);
 
   console.log(`seeded ${orders.length} orders`)
