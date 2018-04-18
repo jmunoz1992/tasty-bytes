@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllProductsHome, OrderView} from './components'
+import {Login, Signup, UserHome, AllProductsHome, OrderView, AllUsers} from './components'
 import {me, fetchOrders} from './store'
 
 
@@ -29,7 +29,10 @@ class Routes extends Component {
             </Switch>
         }
         {/* Displays our Login component as a fallback */}
-        <Route component={AllProductsHome} />
+        <Route path="/admin/users" component={AllUsers} />
+        {/* this is not working for some reason...
+          <Route path="/products" component={AllProductsHome} />
+        */}
       </Switch>
     )
   }

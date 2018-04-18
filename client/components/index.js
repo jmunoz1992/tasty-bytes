@@ -9,4 +9,4 @@ export {Login, Signup} from './auth-form'
 export {default as AllProductsHome} from './all-products.jsx'
 export {default as OrderItem} from './orders/order-item.jsx'
 export {default as OrderView} from './orders/order-view.jsx'
-
+export {default as AllUsers} from './all-users.jsx'
