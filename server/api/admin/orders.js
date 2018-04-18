@@ -15,6 +15,29 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+//POST a new order.
+router.post('/', (req, res, next) => {
+  Order.create({
+    id: req.body.id,
+    orderlines: {
+      id: req.body.orderlines.id,
+      qty: req.body.orderlines.qty,
+      priceCents: req.body.orderlines.price * 100,
+      productId: req.body.orderlines.productId,
+      orderId: req.body.orderlines.orderId,
+    }
+  }, {
+    include: {
+      model: OrderLine,
+      as: 'orderlines'
+    }
+  })
+  .then(order => {
+    res.status(201).json(order)
+  })
+  .catch(next);
+});
+
 
 //DELETE an order by ID.
 router.delete('/:id', (req, res, next) => {
@@ -38,7 +61,7 @@ router.put('/:id', (req, res, next) => {
     orderlines: {
       id: req.body.orderlines.id,
       qty: req.body.orderlines.qty,
-      price: req.body.orderlines.price,
+      priceCents: req.body.orderlines.price * 100,
       productId: req.body.orderlines.productId,
       orderId: req.body.orderlines.orderId,
     }

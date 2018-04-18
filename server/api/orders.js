@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
     orderlines: {
       id: req.body.orderlines.id,
       qty: req.body.orderlines.qty,
-      price: req.body.orderlines.price,
+      priceCents: req.body.orderlines.price * 100,
       productId: req.body.orderlines.productId,
       orderId: req.body.orderlines.orderId,
     }
@@ -48,7 +48,7 @@ router.put('/:id', (req, res, next) => {
     orderlines: {
       id: req.body.orderlines.id,
       qty: req.body.orderlines.qty,
-      price: req.body.orderlines.price,
+      priceCents: req.body.orderlines.price * 100,
       productId: req.body.orderlines.productId,
       orderId: req.body.orderlines.orderId,
     }
