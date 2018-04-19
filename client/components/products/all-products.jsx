@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from './product-card.jsx';
-import {fetchProducts} from '../store/index.js'
-// need to add prop components into ProductCardView
+import {fetchProducts} from '../../store';
+import { withRouter } from 'react-router-dom'
 
 export class AllProductsHome extends Component {
   componentDidMount() {
@@ -14,10 +14,10 @@ export class AllProductsHome extends Component {
     return (
       <div className="center-align">
         <h1>ALL PRODUCTS</h1>
-        <div className="center-align">
+        <div className="cent er-align">
           <div className="row">
             {products && products.map(product => {
-              return <ProductCardView key={product.id} product={product} />
+              return (<ProductCardView key={product.id} product={product} />);
             })}
           </div>
         </div>
@@ -41,7 +41,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(AllProductsHome);
+)(AllProductsHome));

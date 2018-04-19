@@ -6,10 +6,12 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
-export {default as AllProductsHome} from './all-products.jsx'
 export {default as OrderItem} from './orders/order-item.jsx'
 export {default as OrderView} from './orders/order-view.jsx'
 export {default as AllUsers} from './all-users.jsx'
+
+export {default as AllProductsHome} from './products/all-products.jsx'
+export {default as SingleProduct} from './products/single-product.jsx'
 export {default as ShoppingCart} from './shoppingCart/shoppingCart.jsx'
 export {default as ProductCardView} from './product-card.jsx'
 export {default as AllCategories} from './all-categories.jsx'
