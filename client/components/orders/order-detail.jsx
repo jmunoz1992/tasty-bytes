@@ -13,10 +13,6 @@ export class OrderView extends Component {
   }
   render() {
     const ordersAll = this.props.orders ? this.props.orders : [];
-    //filter orders before rendering!
-    const orders = ordersAll.filter( order => {
-        
-    })
     return (
       <div>
         {!orders
