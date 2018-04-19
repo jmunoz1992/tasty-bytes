@@ -11,7 +11,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 
     <nav>
     <div className="nav-wrapper">
-    <a href="#" className="brand-logo">Logo</a>
+    <a href="/" className="brand-logo">Logo</a>
 
     <ul id="nav-mobile" className="right hide-on-med-and-down">
 
@@ -20,7 +20,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       {isLoggedIn ? (
         <Dropdown
         rigger={
-        <a href="#!">Account<i className="material-icons right">arrow_drop_down</i></a>
+        <a>Account<i className="material-icons right">arrow_drop_down</i></a>
         }
         options={{belowOrigin: true, hover: true}}
         >
@@ -31,12 +31,15 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     ) : (
       <Dropdown
       trigger={
-        <a href="#!">Account<i className="material-icons right">arrow_drop_down</i></a>
+        <a>Account<i className="material-icons right">arrow_drop_down</i></a>
          }
          options={{belowOrigin: true, hover: true}}
          >
-        <NavItem>Login</NavItem>
-        <NavItem>Signup</NavItem>
+        <NavItem href="/login">Login</NavItem>
+        <NavItem href="/signup">Signup</NavItem>
+
+        <NavItem href="/#">My Account</NavItem>
+        <NavItem href="/#">My Orders</NavItem>
       </Dropdown>
     )}
     </li>
