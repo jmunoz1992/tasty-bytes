@@ -1,58 +1,72 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import { ProductCardView } from '../product-card.jsx';
 // import {Link} from 'react-router-dom'
 // import {logout} from '../store'
 
 const OrderItem = (props) => {
 //const OrderItem = ({ handleClick, isLoggedIn }) => {
-    console.log('The props are: ', props);
+    console.log('The props are: here', props);
+    //need to add photo eager loading!
+    const {id, createdAt, shipped, arrived} = props.content
+    console.log(id, createdAt, shipped, arrived);
+
+    const orderStatus = date => {
+      if(date === null) {
+        return "Incomplete"
+      }
+      if(date > new Date()){
+        return "Incomplete"
+      }
+      if(date < new Date()){
+        return "Complete"
+      }
+    }
+
+    // export const ProductCardView = (props) => {
+    //   const {title, shortDescription, priceActual, image} = props.product;
+    
+    const cardInfo = {
+        title: "test title",
+        shortDescription: "test descirptioooooooooooo",
+        image: 'no image',
+    }
+    
+    let itemNum = props.content.orderlines[0].id-1;
+    console.log(itemNum, "this is item num");
     
     return (
-
-    <div className="row">
-        <div className="col s1"> Order ID: <br /> Date: </div>
-        <div className="col s2"> Insert Product Image </div>
-        <div className="col s4"> Insert product title and description</div>
-        <div className="col s2"> Insert the shipping status </div>
-        <div className="col s3"> Order management screen </div>
-    </div>
-
-
-    //   <div>
-    //     <h1>Tasty Bytes</h1>
-    //     <nav>
-    //       {isLoggedIn ? (
-    //         <div>
-    //           {/* The navbar will show these links after you log in */}
-    //           <Link to="/home">Home</Link>
-    //           <a href="#" onClick={handleClick}>
-    //             Logout
-    //           </a>
-    //         </div>
-    //       ) : (
-    //         <div>
-    //           {/* The navbar will show these links before you log in */}
-    //           <Link to="/login">Login</Link>
-    //           <Link to="/signup">Sign Up</Link>
-    //         </div>
-    //       )}
-    //     </nav>
-    //     <hr />
-    //   </div>
+      <div>
+      {props.content.orderlines.map( orderline => {
+ return (            <div className="row" key={id + "-" + orderline.id}>
+                <div className="col s1"> Order ID: {id} <br /> Item Number: {orderline.id-itemNum} <br /> Date: {createdAt} </div>
+                <div className="col s6"> <ProductCardView product={cardInfo} /> </div>
+                <div className="col s2"> Shipping status {orderStatus(shipped)} </div>
+                <div className="col s3"> Order management screen <br /> Units: {orderline.qty}  <br /> Cost Per Unit: {orderline.totalPrice/orderline.qty}  <br /> Total cost: {orderline.totalPrice} </div>
+            </div>)}
+            )}    
+        </div>
     )
 
 }
 /**
  * CONTAINER
  */
-// const mapState = state => {
-//   return null;
-// }
+// const mapStateToProps = state => {
+//   return {
+//     products: state.products,
+//     reviews: state.reviews
+//   };
+// };
 
-// const mapDispatch = dispatch => {
-//   return null;
-// }
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     loadProducts() {
+//       dispatch(fetchProducts());
+//     },
+//   };
+// };
 
 export default connect(null, null)(OrderItem)
 
