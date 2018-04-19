@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {ProductCardView} from '../product-card.jsx';
 import {Button, Icon} from 'react-materialize'
 import {Link} from 'react-router-dom';
+import {OrderEdit} from '../.'
 
 // import {Link} from 'react-router-dom' import {logout} from '../store'
 
@@ -58,9 +59,8 @@ const OrderItem = (props) => {
                   <div className="col s2"> Order management <br /> Units: {orderline.qty} <br /> Cost Per Unit: {orderline.totalPrice / orderline.qty} <br /> Total cost: {orderline.totalPrice} <br />
                     <div>
                       <Link to={`/orders/${id}`}>
-                        <Button waves="light">
-                          Edit Order
-                        </Button>
+                        
+                          <OrderEdit />
                       </Link>
                     </div>
                   </div>
