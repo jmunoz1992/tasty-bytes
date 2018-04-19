@@ -2,17 +2,14 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllProductsHome, OrderView, AllUsers} from './components'
+import {Login, Signup, UserHome, OrderView, AllUsers, AllProductsHome, SingleProduct} from './components'
 import {me, fetchOrders} from './store'
 
-
-/**
- * COMPONENT
- */
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
   }
+
 
   render () {
     const {isLoggedIn} = this.props
@@ -30,9 +27,8 @@ class Routes extends Component {
         }
         {/* Displays our Login component as a fallback */}
         <Route path="/admin/users" component={AllUsers} />
-        {/* this is not working for some reason...
-          <Route path="/products" component={AllProductsHome} />
-        */}
+        <Route exact path="/products/:id" component={SingleProduct} />
+        <Route path="/" component={AllProductsHome} />
       </Switch>
     )
   }

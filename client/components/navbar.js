@@ -25,7 +25,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
   {/* Dropdown Structure ends */}
     <nav>
     <div className="nav-wrapper">
-    <a href="#" className="brand-logo">Logo</a>
+    <Link to={'/'}>TASTY BYTES</Link>
     <ul id="nav-mobile" className="right hide-on-med-and-down">
       {/* <li><a className="dropdown-trigger" href="#!" data-target="accountDropdown">Account<i className="material-icons right">arrow_drop_down</i></a></li> */}
       <li>
