@@ -1,23 +1,24 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from './product-card.jsx';
-import {fetchProducts} from '../../store';
+import {fetchProducts, fetchCartProducts, addOrUpdateCart} from '../../store';
 import { withRouter } from 'react-router-dom'
 
 export class AllProductsHome extends Component {
   componentDidMount() {
     this.props.loadProducts();
+    this.props.loadCart();
   }
 
   render() {
-    const {products} = this.props;
+    const {products, updateCart} = this.props;
     return (
       <div className="center-align">
         <h1>ALL PRODUCTS</h1>
         <div className="cent er-align">
           <div className="row">
             {products && products.map(product => {
-              return (<ProductCardView key={product.id} product={product} />);
+              return (<ProductCardView key={product.id} product={product} updateCart={updateCart} />);
             })}
           </div>
         </div>
@@ -37,6 +38,12 @@ const mapDispatchToProps = dispatch => {
   return {
     loadProducts() {
       dispatch(fetchProducts());
+    },
+    loadCart() {
+      dispatch(fetchCartProducts());
+    },
+    updateCart(id, qty) {
+      dispatch(addOrUpdateCart(id, qty));
     },
   };
 };
