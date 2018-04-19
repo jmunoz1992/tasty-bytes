@@ -7,6 +7,7 @@ import users from './users'
 import products from './products'
 import orders from './orders'
 import categories from './categories'
+import authMessage from './notAuthMessage'
 
 const reducer = combineReducers({
   user,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   orders,
   users,
   categories,
+  authMessage,
 })
 
 
@@ -30,3 +32,4 @@ export * from './users'
 export * from './products'
 export * from './orders'
 export * from './categories'
+export * from './notAuthMessage'

@@ -22,6 +22,9 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/admin/orders" component={OrderView} />
         <Route path="/admin/orders/:id" compomemt={OrderView} />
+        <Route path="/admin/users" component={AllUsers} />
+        <Route path="/admin/categories" component={AllCategories} />
+        <Route path="/products" component={AllProductsHome} />
         {
           isLoggedIn &&
             <Switch>
@@ -30,10 +33,7 @@ class Routes extends Component {
             </Switch>
         }
         {/* Displays our Login component as a fallback */}
-        <Route path="/admin/users" component={AllUsers} />
-        <Route path="/admin/categories" component={AllCategories} />
-        <Route path="/products" component={AllProductsHome} />
-        <Route path="/products" component={AllProductsHome} />
+
       </Switch>
     )
   }

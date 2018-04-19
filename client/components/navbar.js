@@ -19,7 +19,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       <li>
       {isLoggedIn ? (
         <Dropdown
-        rigger={
+        trigger={
         <a>Account<i className="material-icons right">arrow_drop_down</i></a>
         }
         options={{belowOrigin: true, hover: true}}

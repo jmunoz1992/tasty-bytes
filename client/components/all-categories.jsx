@@ -39,6 +39,7 @@ handleSubmit = (event) => {
     const { category } = this.state
     return (
       <div className="center-align">
+
         <h1>ALL CATEGORIES</h1>
         <div>
           <form onSubmit={(event) => {this.handleSubmit(event)}} >
