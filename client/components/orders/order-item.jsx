@@ -13,11 +13,8 @@ const OrderItem = (props) => {
   const {id, createdAt, shipped, arrived} = props.content
 
   const orderStatus = date => {
-    console.log('ionsdie shipping status')
     var d = new Date(date);
-    console.log(d, typeof d)
-    console.log(date, typeof date)
-    console.log(new Date());
+
     if (d === null) {
       return "Incomplete"
     }
