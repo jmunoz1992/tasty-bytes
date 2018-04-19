@@ -22,10 +22,16 @@ const Orderline = db.define('orderline', {
       return (this.getDataValue('priceCents') / 100).toFixed(2);
     }
   },
+  totalPriceCents: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return this.getDataValue('qty') * this.getDataValue('priceCents');
+    }
+  },
   totalPrice: {
     type: Sequelize.VIRTUAL,
     get () {
-      return this.getDataValue('qty') * this.getDataValue('price');
+      return (this.getDataValue('qty') * (this.getDataValue('priceCents') / 100).toFixed(2));
     }
   }
 });
