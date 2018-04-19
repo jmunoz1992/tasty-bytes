@@ -6,7 +6,7 @@ import { logout } from '../store'
 
 import { Button, Card, Row, Col, NavItem, Dropdown, Icon, Navbar as NavBar } from 'react-materialize';
 
-const Navbar = ({ handleClick, isLoggedIn, user }) => (
+const Navbar = ({ handleClick, isLoggedIn, user, cartItems }) => (
   <div>
 
     <nav>
@@ -56,7 +56,11 @@ const Navbar = ({ handleClick, isLoggedIn, user }) => (
                 </Dropdown>
               )}
           </li>
-          <li><a href="/cart"><i className="material-icons left">shopping_cart</i>1 ITEM</a></li>
+          <li><a href="/cart"><i className="material-icons left">shopping_cart</i>
+          {cartItems.length ?
+            `${cartItems.length} item(s)` :
+            null
+          }</a></li>
         </ul>
       </div>
     </nav>
@@ -73,7 +77,8 @@ const Navbar = ({ handleClick, isLoggedIn, user }) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    user: state.user
+    user: state.user,
+    cartItems: state.cartItems,
   }
 }
 
