@@ -4,18 +4,16 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-import { Button, Card, Row, Col, NavItem, Dropdown } from 'react-materialize';
+import { Button, Card, Row, Col, NavItem, Dropdown, Icon, Navbar as NavBar } from 'react-materialize';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
+
     <nav>
     <div className="nav-wrapper">
     <a href="#" className="brand-logo">Logo</a>
 
     <ul id="nav-mobile" className="right hide-on-med-and-down">
-      <li>
-
-      </li>
 
 
       <li>
@@ -46,7 +44,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       </ul>
       </div>
     </nav>
-    </div>
+
+
+  </div>
+
+
 )
 
 /**
