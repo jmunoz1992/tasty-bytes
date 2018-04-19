@@ -53,9 +53,6 @@ const Navbar = ({ handleClick, isLoggedIn, user }) => (
                 >
                   <NavItem href="/login">Login</NavItem>
                   <NavItem href="/signup">Signup</NavItem>
-
-                  <NavItem href="/#">My Account</NavItem>
-                  <NavItem href="/#">My Orders</NavItem>
                 </Dropdown>
               )}
           </li>

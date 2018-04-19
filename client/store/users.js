@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import { getMessage } from './index'
 
 const GET_USERS = 'GET_USERS'
 
@@ -13,7 +14,9 @@ export const fetchUsers = () => {
     return axios.get('/api/admin/users')
         .then(res => res.data)
         .then(users => {
-            dispatch(getUsers(users))
+          if (typeof users === 'string') {
+            dispatch(getMessage(users))
+          } else dispatch(getUsers(users))
         })
         .catch(error => console.log(error))
   }
