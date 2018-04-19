@@ -1,50 +1,66 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { logout } from '../store'
 
 import { Button, Card, Row, Col, NavItem, Dropdown, Icon, Navbar as NavBar } from 'react-materialize';
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, user }) => (
   <div>
 
     <nav>
-    <div className="nav-wrapper">
-    <a href="/" className="brand-logo">Logo</a>
+      <div className="nav-wrapper">
+        <a href="/" className="brand-logo">Logo</a>
 
-    <ul id="nav-mobile" className="right hide-on-med-and-down">
+        <ul id="nav-mobile" className="right hide-on-med-and-down">
 
+          <li>
+            {(user && user.isAdmin) ? (
+              <Dropdown
+                trigger={
+                  <a>Admin Options<i className="material-icons right">arrow_drop_down</i></a>
+                }
+                options={{ belowOrigin: true, hover: true }}
+              >
+                <NavItem href="/admin/users">Users</NavItem>
+                <NavItem href="/admin/orders">Orders</NavItem>
+                <NavItem href="#">Products</NavItem>
+                <NavItem href="/admin/categories">Product Categories</NavItem>
+              </Dropdown>
+            ) :
+              <div />
+            }
+          </li>
+          <li>
+            {isLoggedIn ? (
+              <Dropdown
+                trigger={
+                  <a>Account<i className="material-icons right">arrow_drop_down</i></a>
+                }
+                options={{ belowOrigin: true, hover: true }}
+              >
+                <NavItem>My Account</NavItem>
+                <NavItem>My Orders</NavItem>
+                <NavItem>Logout</NavItem>
+              </Dropdown>
+            ) : (
+                <Dropdown
+                  trigger={
+                    <a>Account<i className="material-icons right">arrow_drop_down</i></a>
+                  }
+                  options={{ belowOrigin: true, hover: true }}
+                >
+                  <NavItem href="/login">Login</NavItem>
+                  <NavItem href="/signup">Signup</NavItem>
 
-      <li>
-      {isLoggedIn ? (
-        <Dropdown
-        rigger={
-        <a>Account<i className="material-icons right">arrow_drop_down</i></a>
-        }
-        options={{belowOrigin: true, hover: true}}
-        >
-        <NavItem>My Account</NavItem>
-        <NavItem>My Orders</NavItem>
-        <NavItem>Logout</NavItem>
-      </Dropdown>
-    ) : (
-      <Dropdown
-      trigger={
-        <a>Account<i className="material-icons right">arrow_drop_down</i></a>
-         }
-         options={{belowOrigin: true, hover: true}}
-         >
-        <NavItem href="/login">Login</NavItem>
-        <NavItem href="/signup">Signup</NavItem>
-
-        <NavItem href="/#">My Account</NavItem>
-        <NavItem href="/#">My Orders</NavItem>
-      </Dropdown>
-    )}
-    </li>
-      <li><a href="#"><i className="material-icons left">shopping_cart</i>1 ITEM</a></li>
-      </ul>
+                  <NavItem href="/#">My Account</NavItem>
+                  <NavItem href="/#">My Orders</NavItem>
+                </Dropdown>
+              )}
+          </li>
+          <li><a href="#"><i className="material-icons left">shopping_cart</i>1 ITEM</a></li>
+        </ul>
       </div>
     </nav>
 
@@ -59,7 +75,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
