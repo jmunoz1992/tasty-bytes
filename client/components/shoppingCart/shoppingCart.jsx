@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from '../products/product-card.jsx';
-import {fetchProducts} from '../../store/index.js'
+import {fetchCartProducts} from '../../store/index.js'
 
 // need to add prop components into ProductCardView
 
@@ -14,10 +14,12 @@ export class ShoppingCart extends Component {
 
 
   componentDidMount() {
-    this.props.loadProducts();
+    this.props.loadCartProducts();
   }
 
   render() {
+
+    console.log(this.props);
 
     // const {products} = this.props;
     return (
@@ -74,15 +76,14 @@ export class ShoppingCart extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products,
-    reviews: state.reviews
+    cartItems: state.cartItems
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadProducts() {
-      dispatch(fetchProducts());
+    loadCartProducts() {
+      dispatch(fetchCartProducts());
     },
   };
 };
