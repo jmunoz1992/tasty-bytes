@@ -10,9 +10,10 @@ export const gotProducts = function (inputProducts) {
   };
 };
 
+//I DONT THINK THIS SHOULD BE HERE..IT WILL CAUSE ISSUES -JS
 export const gotReviews = function (inputReviews) {
   return {
-    type: GET_PRODUCTS,
+    type: GET_REVIEWS,
     reviews: inputReviews
   };
 };
@@ -27,6 +28,7 @@ export function fetchProducts() {
   };
 }
 
+//I DONT THINK THIS SHOULD BE HERE..IT WILL CAUSE ISSUES -JS
 export function fetchReviews(id) {
   return function thunk(dispatch) {
     axios.get(`/api/products/${id}/reviews`)
@@ -41,6 +43,7 @@ export default function reducer(state = [], action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return  action.products;
+    //I DONT THINK THIS SHOULD BE HERE..IT WILL CAUSE ISSUES -JS
     case GET_REVIEWS:
       return  action.reviews;
     default:
