@@ -1,42 +1,73 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { ProductCardView } from '../product-card.jsx';
+import { ProductCardView } from '../products/product-card.jsx';
 import {fetchProducts} from '../../store/index.js'
-import {Table} from 'react-materialize';
+
 // need to add prop components into ProductCardView
 
+import { CartItem } from './cartItem.jsx';
+import { Table, Button } from 'react-materialize';
+
 export class ShoppingCart extends Component {
+
+
+
+
   componentDidMount() {
     this.props.loadProducts();
   }
 
   render() {
-    const {products} = this.props;
+
+    // const {products} = this.props;
     return (
       <div className="center-align">
-        <h1>Shopping Cart</h1>
-        <div >
-        <Table style={{maxWidth: 1000}}>
-        <thead>
-        <tr>
-          <th data-field="pic"></th>
-          <th data-field="disc">Name</th>
-          <th data-field="qty">QTY</th>
-          <th data-field="uPrice">Unit Price</th>
-          <th data-field="Total">Total</th>
-          <th data-field="Delete"></th>
-        </tr>
-        </thead>
-        <tbody>
-          {/*<div className="row">
+
+      {/*  <h1>ALL PRODUCTS</h1>
+        <div className="center-align">
+          <div className="row">
             {products && products.map(product => {
               return <ProductCardView key={product.id} product={product} />
             })}
-          </div>*/}
-          </tbody>
-          </Table>
+          </div>
         </div>
-      </div>
+          */}
+
+          <h3>Your Shopping Cart</h3>
+          <br />
+          <table >
+            <thead>
+            <tr>
+              <th data-field="pic"></th>
+              <th data-field="name">Item Name</th>
+              <th data-field="QTY">QTY</th>
+              <th data-field="price">Unit Price</th>
+              <th data-field="totalPrice">Total</th>
+              <th data-field="delete">Delete</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          <CartItem />
+
+          <CartItem />
+        </tbody>
+
+        <thead className="right-align">
+        <tr>
+        <th>
+        <Button waves='light'>Update Cart</Button>
+        </th>
+        <th className="right-align" data-field="Sub Total">Sub Total: $99999</th>
+        </tr>
+        </thead>
+      </table>
+
+      <Button waves='light' style={{marginRight: '15px'}}>Go back to shopping</Button>
+      <Button waves='light' style={{marginLeft: '15px'}}>Check Out</Button>
+
+          </div>
+
     );
   }
 }
