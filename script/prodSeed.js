@@ -26,40 +26,45 @@ async function seed () {
       shortDescription: 'tasty strawberries covered in chocolate',
       fullDescription: 'show your love with some delicious strawberries glazed with the most decadent chocolate in the world',
       inventoryQty: 1000,
-      pkgWt: 30, // 30 strawberries/box
-      price: 99.99,
+      pdtWt: 30, // 30 strawberries/box
+      priceCents: 9999,
+      image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
     }),
     Product.create({
       title: 'chocolate truffles',
       shortDescription: 'rich chocolate truffles',
       fullDescription: 'dazzle your loved one with the best chocolate truffles',
       inventoryQty: 500,
-      pkgWt: 24, // 24 chocolates per box
-      price: 89.99
+      pdtWt: 24, // 24 chocolates per box
+      priceCents: 8999,
+      image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
     }),
     Product.create({
       title: 'sour gummies',
       shortDescription: 'real sour gummies',
       fullDescription: 'pucker up these gummies are the most sour your taste buds have ever come across',
       inventoryQty: 200,
-      pkgWt: 50, // 50 gummies per bag
-      price: 59.99
+      pdtWt: 50, // 50 gummies per bag
+      priceCents: 5999,
+      image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
     }),
     Product.create({
       title: 'luscious lollipops',
       shortDescription: 'lollies that you keep lickin',
       fullDescription: 'the most luscious lollipops youve ever licked, lick it up',
       inventoryQty: 700,
-      pkgWt: 10, // 10 lollipops/bundle
-      price: 49.99
+      pdtWt: 10, // 10 lollipops/bundle
+      priceCents: 4999,
+      image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
     }),
     Product.create({
       title: 'ice cream',
       shortDescription: 'the most velvety creamy ice cream',
       fullDescription: 'this ice icream is what dreams are made of, you cant get enough of it',
       inventoryQty: 100,
-      pkgWt: 10,
-      price: 49.99
+      pdtWt: 10,
+      priceCents: 4999,
+      image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
     }),
   ]);
 

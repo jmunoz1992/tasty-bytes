@@ -2,18 +2,36 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Orderline = db.define('orderline', {
+    id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false
+  },
   qty: {
     type: Sequelize.INTEGER,
     allowNull: false
   },
-  price: {
-    type: Sequelize.DECIMAL(5, 2), // initially setting for upper price limit to be 999.99
+  priceCents: {
+    type: Sequelize.INTEGER, // will be in cents
     allowNull: false
+  },
+  price: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return (this.getDataValue('priceCents') / 100).toFixed(2);
+    }
+  },
+  totalPriceCents: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return this.getDataValue('qty') * this.getDataValue('priceCents');
+    }
   },
   totalPrice: {
     type: Sequelize.VIRTUAL,
     get () {
-      return this.getDataValue('qty') * this.getDataValue('price');
+      return (this.getDataValue('qty') * (this.getDataValue('priceCents') / 100).toFixed(2));
     }
   }
 });
