@@ -12,8 +12,7 @@ const Navbar = ({ handleClick, isLoggedIn, user }) => (
     <nav>
 
       <div className="nav-wrapper">
-    <Link to={'/'}>TASTY BYTES</Link>
-
+        <Link to={'/'}>TASTY BYTES</Link>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
 
           <li>

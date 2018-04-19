@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { ProductCardView } from '../product-card.jsx';
+import { ProductCardView } from '../products/product-card.jsx';
 import {fetchProducts} from '../../store/index.js'
 // need to add prop components into ProductCardView
 
