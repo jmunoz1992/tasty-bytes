@@ -8,28 +8,33 @@ import { cartItem } from './cartItem.jsx';
 import { Table, Input } from 'react-materialize';
 
 export class CartItem extends Component {
+
   componentDidMount() {
     // this.props.loadProducts();
   }
 
+
+
   render() {
-    // const {products} = this.props;
+
+    console.log(this.props)
+    const { currentItem } = this.props;
     return (
       <tr>
-      <td><img width='125' src= "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg" /></td>
-            <td>chocolate strawberries</td>
+      <td><img width="125" src={currentItem.imgUrl} /></td>
+            <td>{currentItem.productName}</td>
 
             <td>
             <form>
 
-              <input type="text" defaultValue={1}/>
+              <input type="text" defaultValue={currentItem.qty} />
 
           </form>
 
 
             </td>
-            <td>$3.76</td>
-            <td>$3.76</td>
+            <td>{currentItem.currentPrice}</td>
+            <td>{currentItem.currentPrice * currentItem.qty}</td>
             <td>
             <Input name='group1' type='checkbox' value='red' label='Delete' />
             </td>
@@ -43,8 +48,8 @@ export class CartItem extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products,
-    reviews: state.reviews
+    // products: state.products,
+    // reviews: state.reviews
   };
 };
 
