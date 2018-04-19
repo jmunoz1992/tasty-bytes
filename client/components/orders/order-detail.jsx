@@ -3,21 +3,20 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../../store'
 import {OrderItem} from '../.'
-import { fetchProducts } from './../../store/index.js'
-
 // import {Link} from 'react-router-dom' import {logout} from '../store'
 
 export class OrderView extends Component {
   componentDidMount() {
     this
       .props
-      .getOrders();
-
+      .getOrders()
   }
   render() {
-    const orders = this.props.orders ? this.props.orders : [];
-    const products = this.props.products ? this.props.products : [];
-    
+    const ordersAll = this.props.orders ? this.props.orders : [];
+    //filter orders before rendering!
+    const orders = ordersAll.filter( order => {
+        
+    })
     return (
       <div>
         {!orders
@@ -28,7 +27,7 @@ export class OrderView extends Component {
             </div>
           : <div>
             {orders.map(order => {
-              return (<OrderItem content={order} products={products} key={order.id} />)
+              return (<OrderItem content={order} key={order.id} />)
             })}
           </div>
 }
@@ -41,16 +40,13 @@ export class OrderView extends Component {
  * CONTAINER
  */
 const mapState = state => {
-  return {orders: state.orders,
-          products: state.products
-        };
+  return {orders: state.orders};
 }
 
 const mapDispatch = dispatch => {
   return {
     getOrders: () => {
       dispatch(fetchOrders())
-      dispatch(fetchProducts())
     }
   };
 }
