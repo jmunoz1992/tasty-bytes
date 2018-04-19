@@ -56,7 +56,7 @@ const Navbar = ({ handleClick, isLoggedIn, user }) => (
                 </Dropdown>
               )}
           </li>
-          <li><a href="#"><i className="material-icons left">shopping_cart</i>1 ITEM</a></li>
+          <li><a href="/cart"><i className="material-icons left">shopping_cart</i>1 ITEM</a></li>
         </ul>
       </div>
     </nav>

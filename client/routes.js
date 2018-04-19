@@ -22,10 +22,10 @@ class Routes extends Component {
         <Route path="/admin/orders" component={OrderView} />
         <Route path="/admin/orders/:id" compomemt={OrderView} />
         <Route path="/admin/users" component={AllUsers} />
-       <Route exact path="/products/:id" component={SingleProduct} />
+        <Route exact path="/products/:id" component={SingleProduct} />
         <Route path="/admin/categories" component={AllCategories} />
-        <Route path="/" component={AllProductsHome} />
         <Route path="/cart" component={ShoppingCart} />
+        <Route path="/" component={AllProductsHome} />
         {
           isLoggedIn &&
             <Switch>
