@@ -25,6 +25,7 @@ export class OrderView extends Component {
             </div>
           : <div>
             {orders.map(order => {
+              console.log("Should have 6 of these: ". order)
               return (<OrderItem content={order} key={order.id} />)
             })}
           </div>

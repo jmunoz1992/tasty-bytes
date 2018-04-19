@@ -6,40 +6,39 @@ import {connect} from 'react-redux'
 
 const OrderItem = (props) => {
 //const OrderItem = ({ handleClick, isLoggedIn }) => {
-    console.log('The props are: ', props);
-    
+    console.log('The props are: here', props);
+    //need to add photo eager loading!
+    const {id, createdAt, shipped, arrived} = props.content
+    console.log(id, createdAt, shipped, arrived);
+
+    const orderStatus = date => {
+      if(date === null) {
+        return "Incomplete"
+      }
+      if(date > new Date()){
+        return "Incomplete"
+      }
+      if(date < new Date()){
+        return "Complete"
+      }
+    }
+
+
+
+
     return (
-
-    <div className="row">
-        <div className="col s1"> Order ID: <br /> Date: </div>
-        <div className="col s2"> Insert Product Image </div>
-        <div className="col s4"> Insert product title and description</div>
-        <div className="col s2"> Insert the shipping status </div>
-        <div className="col s3"> Order management screen </div>
-    </div>
-
-
-    //   <div>
-    //     <h1>Tasty Bytes</h1>
-    //     <nav>
-    //       {isLoggedIn ? (
-    //         <div>
-    //           {/* The navbar will show these links after you log in */}
-    //           <Link to="/home">Home</Link>
-    //           <a href="#" onClick={handleClick}>
-    //             Logout
-    //           </a>
-    //         </div>
-    //       ) : (
-    //         <div>
-    //           {/* The navbar will show these links before you log in */}
-    //           <Link to="/login">Login</Link>
-    //           <Link to="/signup">Sign Up</Link>
-    //         </div>
-    //       )}
-    //     </nav>
-    //     <hr />
-    //   </div>
+        <div>
+            {props.content.orderlines.map( orderline =>
+(            <div className="row" key={id + "-" + orderline.id}>
+                <div className="col s1"> Order ID: {id} <br /> Order ID: {orderline.id} <br /> Date: {createdAt} </div>
+                <div className="col s2"> <img src={"http://fillmurray.com/200/200"} /> </div>
+                <div className="col s4"> Insert product title and description.  <br />  Units: {orderline.qty}  <br /> Cost Per Unit: {orderline.totalPrice/orderline.qty}  <br /> Total cost: {orderline.totalPrice}
+                </div>
+                <div className="col s2"> Shipping status {orderStatus(shipped)} </div>
+                <div className="col s3"> Order management screen </div>
+            </div>)
+            )}    
+        </div>
     )
 
 }
