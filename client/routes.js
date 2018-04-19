@@ -32,6 +32,7 @@ class Routes extends Component {
         <Route path="/admin/users" component={AllUsers} />
         <Route path="/admin/categories" component={AllCategories} />
         <Route path="/products" component={AllProductsHome} />
+        <Route path="/products" component={AllProductsHome} />
       </Switch>
     )
   }

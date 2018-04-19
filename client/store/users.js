@@ -19,6 +19,31 @@ export const fetchUsers = () => {
   }
 }
 
+export const deleteUser = (userId) => {
+  console.log('USER ID - ', userId)
+  return dispatch => {
+    return axios.put(`/api/admin/users/${userId}/delete`)
+        .then(res => res.data)
+        .then(message => {
+          console.log(message)
+            dispatch(fetchUsers())
+        })
+        .catch(error => console.log(error))
+  }
+}
+
+export const updateUser = (userId, updates) => {
+  return dispatch => {
+    return axios.put(`/api/admin/users/${userId}`, updates)
+        .then(res => res.data)
+        .then(message => {
+          console.log(message)
+            dispatch(fetchUsers())
+        })
+        .catch(error => console.log(error))
+  }
+}
+
 export default function (state = [], action) {
   switch (action.type) {
     case GET_USERS:
