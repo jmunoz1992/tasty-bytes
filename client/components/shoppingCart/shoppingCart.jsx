@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from '../product-card.jsx';
 import {fetchProducts} from '../../store/index.js'
+
 // need to add prop components into ProductCardView
 
 import { CartItem } from './cartItem.jsx';
@@ -11,11 +12,13 @@ export class ShoppingCart extends Component {
 
 
 
+
   componentDidMount() {
     this.props.loadProducts();
   }
 
   render() {
+
     // const {products} = this.props;
     return (
       <div className="center-align">
@@ -64,6 +67,7 @@ export class ShoppingCart extends Component {
       <Button waves='light' style={{marginLeft: '15px'}}>Check Out</Button>
 
           </div>
+
     );
   }
 }

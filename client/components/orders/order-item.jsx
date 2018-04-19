@@ -1,65 +1,91 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
-// import {logout} from '../store'
+import {ProductCardView} from '../product-card.jsx';
+import {Button, Icon} from 'react-materialize'
+import {Link} from 'react-router-dom';
+
+// import {Link} from 'react-router-dom' import {logout} from '../store'
 
 const OrderItem = (props) => {
-//const OrderItem = ({ handleClick, isLoggedIn }) => {
-    console.log('The props are: ', props);
-    
-    return (
+  // const OrderItem = ({ handleClick, isLoggedIn }) => { need to add photo eager
+  // loading!
+  const {id, createdAt, shipped, arrived} = props.content
 
-    <div className="row">
-        <div className="col s1"> Order ID: <br /> Date: </div>
-        <div className="col s2"> Insert Product Image </div>
-        <div className="col s4"> Insert product title and description</div>
-        <div className="col s2"> Insert the shipping status </div>
-        <div className="col s3"> Order management screen </div>
+  const orderStatus = date => {
+    console.log('ionsdie shipping status')
+    var d = new Date(date);
+    console.log(d, typeof d)
+    console.log(date, typeof date)
+    console.log(new Date());
+    if (d === null) {
+      return "Incomplete"
+    }
+    if (d > new Date()) {
+      return "Incomplete"
+    }
+    if (d < new Date()) {
+      return "Complete"
+    }
+  }
+
+  // export const ProductCardView = (props) => {   const {title, shortDescription,
+  // priceActual, image} = props.product;
+
+
+  const products = props.products;
+
+
+  let itemNum = props.content.orderlines[0].id - 1;
+  return (
+    <div>
+      {props
+        .content
+        .orderlines
+        .map(orderline => {
+          return (
+              <div className="row" key={orderline.id}>
+
+              { products && products.map(product => {
+                  if(product.id === orderline.productId){
+                    return (<ProductCardView key={product.id} product={product} />)
+                  }
+              })}
+
+              <div className="row" key={id + '-' + orderline.id}>
+                  <div className="col s2"> Order ID: {id} <br /> Item Number: {orderline.id - itemNum} <br /> Date: {createdAt}
+                  </div>
+                  <div className="col s2">
+                    Shipping status: <br /> {orderStatus(shipped)}
+                  </div>
+                  <div className="col s2"> Order management <br /> Units: {orderline.qty} <br /> Cost Per Unit: {orderline.totalPrice / orderline.qty} <br /> Total cost: {orderline.totalPrice} <br />
+                    <div>
+                      <Link to={`/orders/${id}`}>
+                        <Button waves="light">
+                          Edit Order
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          )
+        })}
     </div>
-
-
-    //   <div>
-    //     <h1>Tasty Bytes</h1>
-    //     <nav>
-    //       {isLoggedIn ? (
-    //         <div>
-    //           {/* The navbar will show these links after you log in */}
-    //           <Link to="/home">Home</Link>
-    //           <a href="#" onClick={handleClick}>
-    //             Logout
-    //           </a>
-    //         </div>
-    //       ) : (
-    //         <div>
-    //           {/* The navbar will show these links before you log in */}
-    //           <Link to="/login">Login</Link>
-    //           <Link to="/signup">Sign Up</Link>
-    //         </div>
-    //       )}
-    //     </nav>
-    //     <hr />
-    //   </div>
-    )
+  )
 
 }
 /**
  * CONTAINER
  */
-// const mapState = state => {
-//   return null;
-// }
-
-// const mapDispatch = dispatch => {
-//   return null;
-// }
+// const mapStateToProps = state => {   return {     products: state.products,
+//   reviews: state.reviews   }; }; const mapDispatchToProps = dispatch => {
+// return {     loadProducts() {       dispatch(fetchProducts());     },   }; };
 
 export default connect(null, null)(OrderItem)
 
 /**
  * PROP TYPES
  */
-// Navbar.propTypes = {
-//   handleClick: PropTypes.func.isRequired,
-//   isLoggedIn: PropTypes.bool.isRequired
-// }
+// Navbar.propTypes = {   handleClick: PropTypes.func.isRequired,   isLoggedIn:
+// PropTypes.bool.isRequired }
