@@ -81,7 +81,6 @@ router.put('/:userId', (req, res, next) => {
 // delete user from database
 router.put('/:userId/delete', (req, res, next) => {
   let userToDestroy;
-  console.log("DO I GET HERE?!?!")
   User.findById(req.params.userId)
     .then(user => {
       userToDestroy = user.name;
