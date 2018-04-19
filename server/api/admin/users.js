@@ -84,7 +84,7 @@ router.put('/:userId/delete', (req, res, next) => {
   User.findById(req.params.userId)
     .then(user => {
       userToDestroy = user.name;
-      user.destroy(req.body)
+      user.destroy()
         .then(() => res.send(`User named ${userToDestroy} has been destroyed`))
     })
     .catch(next);
