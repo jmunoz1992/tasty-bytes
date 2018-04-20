@@ -3,10 +3,7 @@ import {fetchOrders, orderShipped} from '../../store'
 import {Button, Dropdown, NavItem} from 'react-materialize'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-// import {Link} from 'react-router-dom';
 
-// import {Link} from 'react-router-dom' import {logout} from '../store'
-//WE NEED TO DO SOME THUNKS! LET'S DELETE ORDER AND MARK SHIPPED. MARK SHIPPED FIRST
 
 export class OrderEdit extends Component {
   constructor(props){
