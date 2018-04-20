@@ -77,6 +77,12 @@ router.put('/', (req, res, next) => {
   }
 });
 
+router.post('/clearCart', (req, res, next) => {
+  req.session.cart = [];
+  console.log(req.session.cart)
+  res.send(req.session.cart)
+})
+
 router.delete('/:productId', (req, res, next) => {
   req.session.cart = req.session.cart.filter(product =>
     product.id !== +req.params.productId
