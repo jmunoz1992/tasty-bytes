@@ -9,6 +9,7 @@ import orders from './orders'
 import selectedProducts from './selectedProducts'
 import cartItems from './cart'
 import categories from './categories'
+import authMessage from './notAuthMessage'
 
 
 const reducer = combineReducers({
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   selectedProducts,
   cartItems,
   categories,
+  authMessage,
 })
 
 
@@ -37,3 +39,4 @@ export * from './orders'
 export * from './selectedProducts'
 export * from './cart'
 export * from './categories'
+export * from './notAuthMessage'

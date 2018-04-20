@@ -12,7 +12,6 @@ export {default as ShoppingCart} from './shoppingCart/shoppingCart.jsx'
 export {default as AllProductsHome} from './products/all-products.jsx'
 export {ProductCardView} from './products/product-card.jsx'
 export {default as SingleProduct} from './products/single-product.jsx'
-
 export {default as AllCategories} from './all-categories.jsx'
 export {default as CategoryCardView} from './category-card.jsx'
 

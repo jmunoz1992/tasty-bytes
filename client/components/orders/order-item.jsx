@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+<<<<<<< HEAD
 import {ProductCardView} from '../index.js';
+=======
+import {ProductCardView} from '../products/product-card.jsx';
+>>>>>>> 1f10647e316765455a906c48a4d6f7264c2bea05
 import {Button, Icon} from 'react-materialize'
 import {Link} from 'react-router-dom';
 import {OrderEdit} from './order-edit.jsx'

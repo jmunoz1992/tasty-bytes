@@ -14,12 +14,19 @@ export class ShoppingCart extends Component {
 
 
   componentDidMount() {
-    this.props.loadProducts();
+    this.props.loadCartProducts();
   }
 
   render() {
 
-    // const {products} = this.props;
+    const { cartItems } = this.props;
+
+    let sum = cartItems.reduce( (accumulator, currentItem) => {
+      return (accumulator + currentItem.currentPrice * currentItem.qty)
+    }, 0)
+
+    console.log(sum)
+
     return (
       <div className="center-align">
 
@@ -48,9 +55,12 @@ export class ShoppingCart extends Component {
           </thead>
 
           <tbody>
-          <CartItem />
 
-          <CartItem />
+          {cartItems.map( item => {
+            return (<CartItem key={item.productId} currentItem={item} />)
+          })
+          }
+
         </tbody>
 
         <thead className="right-align">
@@ -58,7 +68,7 @@ export class ShoppingCart extends Component {
         <th>
         <Button waves='light'>Update Cart</Button>
         </th>
-        <th className="right-align" data-field="Sub Total">Sub Total: $99999</th>
+        <th className="right-align" data-field="Sub Total">Sub Total: ${sum}</th>
         </tr>
         </thead>
       </table>
@@ -74,15 +84,14 @@ export class ShoppingCart extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products,
-    reviews: state.reviews
+    cartItems: state.cartItems
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadProducts() {
-      dispatch(fetchProducts());
+    loadCartProducts() {
+      dispatch(fetchCartProducts());
     },
   };
 };

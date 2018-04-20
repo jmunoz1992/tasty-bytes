@@ -1,29 +1,35 @@
 import React, {Component} from 'react';
-import store, {fetchProducts} from '../../store';
+import {fetchProducts, addOrUpdateCart} from '../../store';
 import { Button, NavItem, Dropdown, Tabs, Tab } from 'react-materialize';
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
 
-
-export default class SingleProduct extends Component {
-  constructor() {
-    super();
-    this.state = store.getState();
+export class SingleProduct extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      qty: 1
+    }
   }
 
   componentDidMount () {
-    const fetchThunk = fetchProducts();
-    store.dispatch(fetchThunk);
-    this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
+    this.props.loadProducts();
   }
 
-  componentWillUnmount() {
-      this.unsubscribe();
+  handleChange = (evt) => {
+    let qty = evt.target.value;
+    this.setState({
+      qty
+    })
   }
 
   render() {
-    const {products} = this.state;
-    const productId = +(window.location.pathname).split('/')[2];
-    const productSelected = products.filter(product => product.id === productId)[0];
-    console.log('selected product ', productSelected);
+    let products = this.props.products;
+    const productId = +this.props.match.params.id;
+    let productSelected;
+    if (products){
+      productSelected = products.filter(product => product.id === productId)[0];
+    }
     return (
         <div className="center-align">
           {productSelected ?
@@ -50,15 +56,19 @@ export default class SingleProduct extends Component {
                         <p>NOT IN STOCK</p>
                       }
                     </div>
-                    <Dropdown trigger={
-                        <Button>Qty</Button>
-                      }>
-                      <NavItem>1</NavItem>
-                      <NavItem>2</NavItem>
-                      <NavItem divider />
-                      <NavItem>3</NavItem>
-                    </Dropdown>
-                    <Button>ADD TO CART</Button>
+                    <label>QTY</label>
+                    <input
+                    onChange={this.handleChange}
+                    type="number"
+                    name= "qty"
+                    step="1"
+                    min="0"
+                    max={productSelected.inventoryQty}
+                    defaultValue= {this.state.qty} />
+                    <Button
+                    onClick= {() => {this.props.updateCart(productSelected.id, this.state.qty)}}
+                    >ADD TO CART
+                    </Button>
                     <br />
                   </div>
                 </div>
@@ -73,3 +83,27 @@ export default class SingleProduct extends Component {
     );
   }
 }
+
+
+const mapStateToProps = state => {
+  return {
+    products: state.products,
+    reviews: state.reviews
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadProducts() {
+      dispatch(fetchProducts());
+    },
+    updateCart(id, qty) {
+      dispatch(addOrUpdateCart(id, qty));
+    },
+  };
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SingleProduct));

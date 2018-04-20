@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom'
 
 export const ProductCardView = (props) => {
@@ -18,7 +18,7 @@ export const ProductCardView = (props) => {
             <div>
               <Link to={`/products/${id}`}>See Details</Link>
               &nbsp; &nbsp; &nbsp;
-              <a href="#">Add to Cart</a>
+              <a onClick={() => {props.updateCart(id)}}>Add to Cart</a>
             </div>
           </div>
         </div>
