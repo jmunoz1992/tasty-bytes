@@ -5,7 +5,7 @@ import { fetchCategories, addCategory, deleteCategory } from '../store/index.js'
 
 
 export class AllCategories extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       category: {}
@@ -20,45 +20,52 @@ export class AllCategories extends Component {
     let newCategory = this.state.category
     const value = event.target.value;
     let categoryInfo = {
-        name: name ? value : newCategory.name,
-        description: description ? value : newCategory.description
+      name: name ? value : newCategory.name,
+      description: description ? value : newCategory.description
     }
     this.setState({
       category: categoryInfo
     })
-}
+  }
 
-handleSubmit = (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
     let category = this.state.category
     this.props.createCategory(category)
-}
+  }
 
   render() {
-    const { categories, removeCategory, createCategory } = this.props;
+    console.log(this.props.authMessage)
+    const { categories, removeCategory, authMessage } = this.props;
     const { category } = this.state
     return (
       <div className="center-align">
-
-        <h1>ALL CATEGORIES</h1>
-        <div>
-          <form onSubmit={(event) => {this.handleSubmit(event)}} >
-          <h4>Add a New Category</h4>
-            Category Name: <input required onChange={(evt) => this.handleChange(evt, 'name', null)} name="name" value={category.name} />
-            Category Description: <textarea onChange={(evt) => this.handleChange(evt, null, 'description')} name="description" value={category.description} />
-            <button>Add Category</button>
-          </form>
-        </div>
-        <div className="center-align">
-          <div className="row">
-            {categories && categories.map(category => {
-              return <CategoryCardView
-                key={category.id}
-                category={category}
-                removeCategory={removeCategory} />
-            })}
-          </div>
-        </div>
+        {
+          authMessage ?
+            <h2>{authMessage}</h2>
+            :
+            <div>
+              <h1>ALL CATEGORIES</h1>
+              <div>
+                <form onSubmit={(event) => { this.handleSubmit(event) }} >
+                  <h4>Add a New Category</h4>
+                  Category Name: <input required onChange={(evt) => this.handleChange(evt, 'name', null)} name="name" value={category.name} />
+                  Category Description: <textarea onChange={(evt) => this.handleChange(evt, null, 'description')} name="description" value={category.description} />
+                  <button>Add Category</button>
+                </form>
+              </div>
+              <div className="center-align">
+                <div className="row">
+                  {categories && categories.map(category => {
+                    return <CategoryCardView
+                      key={category.id}
+                      category={category}
+                      removeCategory={removeCategory} />
+                  })}
+                </div>
+              </div>
+            </div>
+        }
       </div>
     );
   }
@@ -67,6 +74,8 @@ handleSubmit = (event) => {
 const mapStateToProps = state => {
   return {
     categories: state.categories,
+    user: state.user,
+    authMessage: state.authMessage
   };
 };
 
