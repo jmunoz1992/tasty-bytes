@@ -10,9 +10,14 @@ export class AllUsers extends Component {
   }
 
   render() {
-    const {users, toggleAdmin, removeUser} = this.props;
+    const {users, toggleAdmin, removeUser, authMessage} = this.props;
     return (
       <div className="center-align">
+      {
+        authMessage ?
+        <h2>{authMessage}</h2>
+        :
+        <div>
         <h1>ALL USERS</h1>
         <div className="center-align">
           <div className="row">
@@ -26,6 +31,9 @@ export class AllUsers extends Component {
             })}
           </div>
         </div>
+        </div>
+          }
+
       </div>
     );
   }
@@ -34,6 +42,7 @@ export class AllUsers extends Component {
 const mapStateToProps = state => {
   return {
     users: state.users,
+    authMessage: state.authMessage
   };
 };
 
@@ -43,7 +52,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchUsers());
     },
     removeUser(event, userId) {
-      console.log("ID HERE", userId)
       event.preventDefault();
       return dispatch(deleteUser(userId));
     },

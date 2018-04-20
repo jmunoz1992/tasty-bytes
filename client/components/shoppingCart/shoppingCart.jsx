@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { ProductCardView } from '../product-card.jsx';
-import {fetchProducts} from '../../store/index.js'
+import { ProductCardView } from '../products/product-card.jsx';
+import {fetchCartProducts} from '../../store/index.js'
 
 // need to add prop components into ProductCardView
 
@@ -14,24 +14,27 @@ export class ShoppingCart extends Component {
 
 
   componentDidMount() {
-    this.props.loadProducts();
+    this.props.loadCartProducts();
   }
 
   render() {
 
-    // const {products} = this.props;
+    const { cartItems } = this.props;
+
+    cartItems.forEach( item => {
+      item.currentPrice = 1;
+    })
+
+    let sum = cartItems.reduce( (accumulator, currentItem) => {
+      return (accumulator + currentItem.currentPrice * currentItem.qty)
+    }, 0)
+
+    console.log(sum)
+
+    if ( cartItems.length){
+
     return (
       <div className="center-align">
-
-      {/*  <h1>ALL PRODUCTS</h1>
-        <div className="center-align">
-          <div className="row">
-            {products && products.map(product => {
-              return <ProductCardView key={product.id} product={product} />
-            })}
-          </div>
-        </div>
-          */}
 
           <h3>Your Shopping Cart</h3>
           <br />
@@ -48,20 +51,23 @@ export class ShoppingCart extends Component {
           </thead>
 
           <tbody>
-          <CartItem />
 
-          <CartItem />
+          {cartItems.map( item => {
+            return (<CartItem key={item.id} currentItem={item} />)
+          })
+          }
+
         </tbody>
 
         <thead className="right-align">
-        <tr>
-        <th>
+          <tr>
+          <th>
         <Button waves='light'>Update Cart</Button>
-        </th>
-        <th className="right-align" data-field="Sub Total">Sub Total: $99999</th>
-        </tr>
+          </th>
+        <th className="right-align" data-field="Sub Total">Sub Total: ${sum}  </th>
+          </tr>
         </thead>
-      </table>
+        </table>
 
       <Button waves='light' style={{marginRight: '15px'}}>Go back to shopping</Button>
       <Button waves='light' style={{marginLeft: '15px'}}>Check Out</Button>
@@ -69,20 +75,26 @@ export class ShoppingCart extends Component {
           </div>
 
     );
-  }
+  } else {
+    return(
+      <div className="center-align container">
+        <img className="responsive-img" src="/../../../images/empty_cart_800x600_dribbble.png" />
+      </div>
+    )}
+}
+
 }
 
 const mapStateToProps = state => {
   return {
-    products: state.products,
-    reviews: state.reviews
+    cartItems: state.cartItems
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadProducts() {
-      dispatch(fetchProducts());
+    loadCartProducts() {
+      dispatch(fetchCartProducts());
     },
   };
 };

@@ -1,23 +1,24 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from './product-card.jsx';
-import {fetchProducts} from '../store/index.js'
-// need to add prop components into ProductCardView
+import {fetchProducts, fetchCartProducts, addOrUpdateCart} from '../../store';
+import { withRouter } from 'react-router-dom'
 
 export class AllProductsHome extends Component {
   componentDidMount() {
     this.props.loadProducts();
+    this.props.loadCart();
   }
 
   render() {
-    const {products} = this.props;
+    const {products, updateCart} = this.props;
     return (
       <div className="center-align">
         <h1>ALL PRODUCTS</h1>
-        <div className="center-align">
+        <div className="cent er-align">
           <div className="row">
             {products && products.map(product => {
-              return <ProductCardView key={product.id} product={product} />
+              return (<ProductCardView key={product.id} product={product} updateCart={updateCart} />);
             })}
           </div>
         </div>
@@ -38,10 +39,16 @@ const mapDispatchToProps = dispatch => {
     loadProducts() {
       dispatch(fetchProducts());
     },
+    loadCart() {
+      dispatch(fetchCartProducts());
+    },
+    updateCart(id, qty) {
+      dispatch(addOrUpdateCart(id, qty));
+    },
   };
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(AllProductsHome);
+)(AllProductsHome));

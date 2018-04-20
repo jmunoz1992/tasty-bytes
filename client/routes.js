@@ -3,18 +3,15 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import {Login, Signup, UserHome, AllProductsHome, OrderView, AllUsers, AllCategories, ShoppingCart } from './components'
+import {Login, Signup, UserHome, AllProductsHome, OrderView, AllUsers, AllCategories, ShoppingCart, SingleProduct } from './components'
 
-import {me, fetchOrders} from './store'
+import {me, fetchOrders, fetchCartProducts} from './store'
 
-
-/**
- * COMPONENT
- */
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
   }
+
 
   render () {
     const {isLoggedIn} = this.props
@@ -22,7 +19,13 @@ class Routes extends Component {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/admin/orders" component={OrderView} />
+        <Route path="/admin/orders/:id" compomemt={OrderView} />
+        <Route path="/admin/users" component={AllUsers} />
+        <Route exact path="/products/:id" component={SingleProduct} />
+        <Route path="/admin/categories" component={AllCategories} />
         <Route path="/cart" component={ShoppingCart} />
+        <Route path="/" component={AllProductsHome} />
         {
           isLoggedIn &&
             <Switch>
@@ -31,14 +34,6 @@ class Routes extends Component {
             </Switch>
         }
         {/* Displays our Login component as a fallback */}
-
-        <Route path="/admin/orders" component={OrderView} />
-        <Route path="/admin/orders/:id" compomemt={OrderView} />
-
-        <Route path="/admin/users" component={AllUsers} />
-        <Route path="/admin/categories" component={AllCategories} />
-        <Route path="/products" component={AllProductsHome} />
-        <Route path="/products" component={AllProductsHome} />
       </Switch>
     )
   }
@@ -58,8 +53,9 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
-      dispatch(me())
-      dispatch(fetchOrders())
+      dispatch(me());
+      dispatch(fetchOrders());
+      dispatch(fetchCartProducts());
     }
   }
 }

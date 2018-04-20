@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {ProductCardView} from '../product-card.jsx';
+import {ProductCardView} from '../products/product-card.jsx';
 import {Button, Icon} from 'react-materialize'
 import {Link} from 'react-router-dom';
 

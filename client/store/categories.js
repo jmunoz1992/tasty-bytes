@@ -1,5 +1,5 @@
 import axios from 'axios'
-import history from '../history'
+import { getMessage } from './index'
 
 const GET_CATEGORIES = 'GET_CATEGORIES'
 const NEW_CATEGORY = 'NEW_CATEGORY'
@@ -19,7 +19,9 @@ export const fetchCategories = () => {
     return axios.get('/api/admin/categories')
         .then(res => res.data)
         .then(categories => {
-            dispatch(getCategories(categories))
+          if (typeof categories === 'string') {
+            dispatch(getMessage(categories))
+          } else dispatch(getCategories(categories))
         })
         .catch(error => console.log(error))
   }
