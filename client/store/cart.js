@@ -44,6 +44,18 @@ export function deleteCartItem(id) {
   };
 }
 
+export function clearCart() {
+  return function thunk(dispatch) {
+    axios.post(`/api/cart/clearCart`)
+    .then(res => res.data)
+    .then(emptyCart => {
+      console.log(emptyCart)
+      dispatch(getCartProducts(emptyCart));
+    })
+    .catch(err => console.error(err));
+  };
+}
+
 
 export default function reducer(state = [], action) {
   switch (action.type) {
