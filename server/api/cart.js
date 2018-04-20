@@ -24,7 +24,6 @@ router.get('/', (req, res, next) => {
 
 //get current product price and inv qty for the cart
 router.post('/productInfo', (req, res, next) => {
-  console.log(req.body)
   Product.findAll({
     where: {
       id: {
