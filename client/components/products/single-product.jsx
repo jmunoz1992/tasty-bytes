@@ -47,8 +47,7 @@ export class SingleProduct extends Component {
         <div className="center-align">
           {productSelected ?
             <div className="row center-align">
-            <div className="col s3 m3 center-align"></div>
-
+            <div className="col s3 m3 center-align" />
             <div className="col s6 m6 center-align">
                 <div className="card blue-grey darken-1 center-align">
                   <div className="card-content white-text center-align">

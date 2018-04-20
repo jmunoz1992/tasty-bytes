@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {fetchOrders} from '../../store'
-import {OrderItem} from '../.'
+import { connect } from 'react-redux'
+import {fetchOrders, orderShipped} from '../../store'
+import OrderItem from './order-item.jsx'
 import { fetchProducts } from './../../store/index.js'
 
 // import {Link} from 'react-router-dom' import {logout} from '../store'
@@ -13,8 +13,10 @@ export class OrderView extends Component {
       .props
       .getOrders();
 
+
   }
   render() {
+    // console.log('props inside orde-rview ', this.props)
     const orders = this.props.orders ? this.props.orders : [];
     const products = this.props.products ? this.props.products : [];
     
@@ -27,7 +29,7 @@ export class OrderView extends Component {
               </p>
             </div>
           : <div>
-            {orders.map(order => {
+            {orders.map((order) => {
               return (<OrderItem content={order} products={products} key={order.id} />)
             })}
           </div>
@@ -51,6 +53,9 @@ const mapDispatch = dispatch => {
     getOrders: () => {
       dispatch(fetchOrders())
       dispatch(fetchProducts())
+    },
+    updateOrder: () => {
+      dispatch(orderShipped())
     }
   };
 }

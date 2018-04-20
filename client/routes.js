@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import {Login, Signup, UserHome, AllProductsHome,EditProduct,  AddProduct, OrderView, AllUsers, AllCategories, ShoppingCart, SingleProduct } from './components'
 
-import {me, fetchOrders, fetchCartProducts} from './store'
+import {me, fetchCartProducts} from './store'
 
 class Routes extends Component {
   componentDidMount () {
@@ -56,7 +56,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me());
-      dispatch(fetchOrders());
+      // dispatch(fetchOrders());
       dispatch(fetchCartProducts());
     }
   }

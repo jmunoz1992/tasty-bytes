@@ -56,11 +56,11 @@ const Navbar = ({ handleClick, isLoggedIn, user, cartItems }) => (
                 </Dropdown>
               )}
           </li>
-          <li><a href="/cart"><i className="material-icons left">shopping_cart</i>
+          <li><NavItem href="/cart"><i className="material-icons left">shopping_cart</i>
           {cartItems.length ?
             `${cartItems.length} item(s)` :
             null
-          }</a></li>
+          }</NavItem></li>
         </ul>
       </div>
     </nav>
