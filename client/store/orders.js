@@ -32,17 +32,23 @@ export const fetchOrders = () =>
     )
       .catch(err => console.log(err))
 
-export const orderShipped = (orderId) =>
-dispatch => {
-
-  console.log('we aRE IN THE STORE')
-  
-  return axios.put(`/api/admin/orders/${orderId}`)
-    .then(res => {
-      console.log('we aRE IN THE STORE')
-      dispatch(updateOrder(res.data))}
-  )
-    .catch(err => console.log(err))
+// export const orderShipped = (orderId) =>
+// dispatch => {  
+//   return axios.put(`/api/admin/orders/${orderId}`)
+//     .then(res => {
+//       dispatch(updateOrder(res.data))}
+//   )
+//     .catch(err => console.log(err))
+// }
+export function orderShipped(id) {
+  return function thunk(dispatch) {
+    axios.put(`/api/admin/orders${id}`, {id})
+    .then(res => res.data)
+    .then(cartItems => {
+      dispatch(getOrders(cartItems));
+    })
+    .catch(err => console.error(err));
+  };
 }
 
 // export const auth = (email, password, method) =>

@@ -1,11 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-<<<<<<< HEAD
 import {ProductCardView} from '../index.js';
-=======
-import {ProductCardView} from '../products/product-card.jsx';
->>>>>>> 1f10647e316765455a906c48a4d6f7264c2bea05
 import {Button, Icon} from 'react-materialize'
 import {Link} from 'react-router-dom';
 import {OrderEdit} from './order-edit.jsx'
@@ -17,6 +13,13 @@ export class OrderItem extends Component {
   constructor(props){
     super(props)
   }
+  // componentDidMount() {
+  //   this
+  //     .props
+  //     .getOrders();
+
+
+  // }
 
   render(){
   const {id, createdAt, shipped} = this.props.content
@@ -39,6 +42,7 @@ export class OrderItem extends Component {
 
 
     let itemNum = this.props.content.orderlines[0].id - 1;
+    // console.log('order item props are: ', this.props)
     return (
       <div>
         {this.props
@@ -62,7 +66,7 @@ export class OrderItem extends Component {
                     </div>
                     <div className="col s2"> Order management <br /> Units: {orderline.qty} <br /> Cost Per Unit: {orderline.totalPrice / orderline.qty} <br /> Total cost: {orderline.totalPrice} <br />
                       <div>
-                        <OrderEdit content={this.props} />
+                        <OrderEdit />
                       </div>
                     </div>
                   </div>

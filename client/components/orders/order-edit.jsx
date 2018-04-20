@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-// import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Button, Dropdown, NavItem} from 'react-materialize'
 import {fetchOrders, orderShipped} from '../../store'
+import {Button, Dropdown, NavItem} from 'react-materialize'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 // import {Link} from 'react-router-dom';
 
 // import {Link} from 'react-router-dom' import {logout} from '../store'
@@ -12,11 +12,10 @@ export class OrderEdit extends Component {
   constructor(props){
     super(props)
     this.handleClick = this.handleClick.bind(this)
-
   }
-  componentDidMount(){
-    this.props.getOrders() ;
-  }
+  // componentDidMount(){
+  //   this.props.getOrders() ;
+  // }
 
 
 // console.log("edit props are: ", props) 
@@ -24,16 +23,18 @@ export class OrderEdit extends Component {
 // console.log('this is type of ', typeof runThis);
 
   handleClick () {
-    console.log('props are: ', this.props)
-    const id = this.props.content.content.id;
-    this.props.updateOnClick(id)
+    console.log('props are: ', this)
+    // const id = this.props.content.content.id;
+    // this.props.markShipped(id)
 
   }
 
     render(){
 
-    const orders = this.props.orders ? this.props.orders : [];
+      console.log('props are (render): ', this.props)
 
+    const orders = this.props.orders ? this.props.orders : [];
+    // console.log('order edit props are: ', this.props)
     return (
       <div>
       <Dropdown trigger={
@@ -61,13 +62,18 @@ const mapDispatch = dispatch => {
   return {
     getOrders: () => {
       dispatch(fetchOrders())
-      dispatch(fetchProducts())
     },
-    updateOrder: () => {
+    markShipped: () => {
       dispatch(orderShipped())
     }
   };
 }
+
+// const mapDispatch = (dispatch) => {
+//   const boundActionCreators = bindActionCreators(getOrders(), dispatch);
+//   const allActionProps = {...boundActionCreators, dispatch}
+//   return allActionProps;
+// }
 
 export default connect(mapState, mapDispatch)(OrderEdit);
 

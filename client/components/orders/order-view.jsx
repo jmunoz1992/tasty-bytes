@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import {fetchOrders, orderShipped} from '../../store'
 import {OrderItem} from './order-item.jsx'
 import { fetchProducts } from './../../store/index.js'
@@ -13,8 +13,10 @@ export class OrderView extends Component {
       .props
       .getOrders();
 
+
   }
   render() {
+    // console.log('props inside orde-rview ', this.props)
     const orders = this.props.orders ? this.props.orders : [];
     const products = this.props.products ? this.props.products : [];
     
