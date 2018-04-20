@@ -54,13 +54,10 @@ router.delete('/:id', (req, res, next) => {
 
 
 router.put('/:orderId', (req, res, next) => {
-  console.log('my req.body is: ', req.body)
   Order.findById(req.params.orderId)
     .then(order => {
-      console.log('my order is ', req)
       order.update(req.body)
         .then(updatedOrder => {
-          console.log('updated order: ', updatedOrder)
           const orderData = {
               id: updatedOrder.id,
               shipped: updatedOrder.shipped,
