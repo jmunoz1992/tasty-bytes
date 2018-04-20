@@ -21,8 +21,8 @@ export class CartItem extends Component {
     const { currentItem } = this.props;
     return (
       <tr>
-      <td><img width="125" src={currentItem.imgUrl} /></td>
-            <td>{currentItem.productName}</td>
+      <td><img width="125" src={currentItem.image} /></td>
+            <td>{currentItem.title}</td>
 
             <td>
             <form>
