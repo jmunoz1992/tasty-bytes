@@ -42,7 +42,7 @@ const Navbar = ({ handleClick, isLoggedIn, user, cartItems }) => (
               >
                 <NavItem>My Account</NavItem>
                 <NavItem>My Orders</NavItem>
-                <NavItem>Logout</NavItem>
+                <NavItem onClick= {handleClick} >Logout</NavItem>
               </Dropdown>
             ) : (
                 <Dropdown
@@ -84,8 +84,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
-      dispatch(logout())
+    handleClick(evt) {
+      evt.preventDefault();
+      return dispatch(logout())
     }
   }
 }
