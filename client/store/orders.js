@@ -5,6 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_ORDERS = 'GET_ORDERS'
+const UPDATE_ORDER = 'UPDATE_ORDER'
 // const REMOVE_ORDER = 'REMOVE_ORDER'
 
 /**
@@ -16,6 +17,8 @@ const defaultOrder = []
  * ACTION CREATORS
  */
 const getOrders = orders => ({type: GET_ORDERS, orders})
+const updateOrder = order => ({type: UPDATE_ORDER, order})
+
 // const removeOrder = () => ({type: REMOVE_ORDER})
 
 /**
@@ -28,6 +31,19 @@ export const fetchOrders = () =>
         dispatch(getOrders(res.data))}
     )
       .catch(err => console.log(err))
+
+export const orderShipped = (orderId) =>
+dispatch => {
+
+  console.log('we aRE IN THE STORE')
+  
+  return axios.put(`/api/admin/orders/${orderId}`)
+    .then(res => {
+      console.log('we aRE IN THE STORE')
+      dispatch(updateOrder(res.data))}
+  )
+    .catch(err => console.log(err))
+}
 
 // export const auth = (email, password, method) =>
 //   dispatch =>
@@ -56,6 +72,8 @@ export default function (state = defaultOrder, action) {
   switch (action.type) {
     case GET_ORDERS:
       return action.orders
+    case UPDATE_ORDER:
+      return action.order
     // case REMOVE_ORDER:
     //   return defaultOrder
     default:

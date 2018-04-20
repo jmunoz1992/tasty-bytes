@@ -1,22 +1,26 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {ProductCardView} from '../product-card.jsx';
+import {ProductCardView} from '../index.js';
 import {Button, Icon} from 'react-materialize'
 import {Link} from 'react-router-dom';
-import {OrderEdit} from '../.'
+import {OrderEdit} from './order-edit.jsx'
+import { orderShipped } from '../../store/index.js';
 
 // import {Link} from 'react-router-dom' import {logout} from '../store'
 
-const OrderItem = (props) => {
-  // const OrderItem = ({ handleClick, isLoggedIn }) => { need to add photo eager
-  // loading!
-  const {id, createdAt, shipped, arrived} = props.content
+export class OrderItem extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  render(){
+  const {id, createdAt, shipped} = this.props.content
 
   const orderStatus = date => {
     var d = new Date(date);
 
-    if (d === null) {
+    if (date === null) {
       return "Incomplete"
     }
     if (d > new Date()) {
@@ -27,50 +31,44 @@ const OrderItem = (props) => {
     }
   }
 
-  // export const ProductCardView = (props) => {   const {title, shortDescription,
-  // priceActual, image} = props.product;
+    const products = this.props.products;
 
 
-  const products = props.products;
+    let itemNum = this.props.content.orderlines[0].id - 1;
+    return (
+      <div>
+        {this.props
+          .content
+          .orderlines
+          .map(orderline => {
+            return (
+                <div className="row" key={orderline.id}>
 
+                { products && products.map(product => {
+                    if(product.id === orderline.productId){
+                      return (<ProductCardView key={product.id} product={product} />)
+                    }
+                })}
 
-  let itemNum = props.content.orderlines[0].id - 1;
-  return (
-    <div>
-      {props
-        .content
-        .orderlines
-        .map(orderline => {
-          return (
-              <div className="row" key={orderline.id}>
-
-              { products && products.map(product => {
-                  if(product.id === orderline.productId){
-                    return (<ProductCardView key={product.id} product={product} />)
-                  }
-              })}
-
-              <div className="row" key={id + '-' + orderline.id}>
-                  <div className="col s2"> Order ID: {id} <br /> Item Number: {orderline.id - itemNum} <br /> Date: {createdAt}
-                  </div>
-                  <div className="col s2">
-                    Shipping status: <br /> {orderStatus(shipped)}
-                  </div>
-                  <div className="col s2"> Order management <br /> Units: {orderline.qty} <br /> Cost Per Unit: {orderline.totalPrice / orderline.qty} <br /> Total cost: {orderline.totalPrice} <br />
-                    <div>
-                      <Link to={`/orders/${id}`}>
-                        
-                          <OrderEdit />
-                      </Link>
+                <div className="row" key={id + '-' + orderline.id}>
+                    <div className="col s2"> Order ID: {id} <br /> Item Number: {orderline.id - itemNum} <br /> Date: {createdAt}
+                    </div>
+                    <div className="col s2">
+                      Shipping status: <br /> {orderStatus(shipped)}
+                    </div>
+                    <div className="col s2"> Order management <br /> Units: {orderline.qty} <br /> Cost Per Unit: {orderline.totalPrice / orderline.qty} <br /> Total cost: {orderline.totalPrice} <br />
+                      <div>
+                        <OrderEdit content={this.props} />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-          )
-        })}
-    </div>
-  )
+            )
+          })}
+      </div>
+    )
 
+  }
 }
 /**
  * CONTAINER
@@ -79,8 +77,25 @@ const OrderItem = (props) => {
 //   reviews: state.reviews   }; }; const mapDispatchToProps = dispatch => {
 // return {     loadProducts() {       dispatch(fetchProducts());     },   }; };
 
-export default connect(null, null)(OrderItem)
+const mapState = state => {
+  return {orders: state.orders,
+          products: state.products
+        };
+}
 
+const mapDispatch = dispatch => {
+  return {
+    getOrders: () => {
+      dispatch(fetchOrders())
+      dispatch(fetchProducts())
+    },
+    updateOrder: () => {
+      dispatch(orderShipped())
+    }
+  };
+}
+
+export default connect(mapState, mapDispatch)(OrderItem)
 /**
  * PROP TYPES
  */
