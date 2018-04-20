@@ -37,7 +37,6 @@ export class ShoppingCart extends Component {
     if (!sum){
       sum = 0;
     }
-    console.log(sum)
 
 
     if ( cartItems.length ){
