@@ -1,5 +1,7 @@
 const router = require('express')();
 const { Product } = require('../db/models')
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 
 // To calculate the total price of the order, given the items in the cart
 // function calculateOrderTotal (products) {
@@ -19,6 +21,22 @@ router.get('/', (req, res, next) => {
   if (!req.session.cart) req.session.cart = [];
   res.json(req.session.cart);
 });
+
+//get current product price and inv qty for the cart
+router.post('/productInfo', (req, res, next) => {
+  console.log(req.body)
+  Product.findAll({
+    where: {
+      id: {
+        [Op.in]: req.body.products
+      }
+    },
+    attributes: ['id', 'inventoryQty', 'priceCents', 'pdtWt']
+  })
+  .then(prices => {
+    res.status(200).json(prices)
+  }).catch(next);
+})
 
 // This route is triggered when you press any 'add to cart' button
 // If your cart doesn't already exist, make a new array to hold it
