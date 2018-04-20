@@ -10,6 +10,7 @@ export const getCartPrices = function (cartPrices) {
 };
 
 export function fetchCartPriceInv(products) {
+  console.log("cartPrice: ",products)
   return function thunk(dispatch) {
     axios.post(`/api/cart/productInfo`, products)
     .then(res => res.data)

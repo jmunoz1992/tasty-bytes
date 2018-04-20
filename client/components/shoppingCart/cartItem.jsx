@@ -34,7 +34,11 @@ export class CartItem extends Component {
 
             </td>
             <td>{currentItem.currentPrice}</td>
+              {(currentItem.currentPrice) ? (
             <td>{currentItem.currentPrice * currentItem.qty}</td>
+            ) :
+             null
+            }
             <td>
             <Input name='group1' type='checkbox' value='red' label='Delete' />
             </td>
