@@ -7,19 +7,10 @@ import {Link} from 'react-router-dom';
 import OrderEdit from './order-edit.jsx'
 import { orderShipped } from '../../store/index.js';
 
-// import {Link} from 'react-router-dom' import {logout} from '../store'
-
 export class OrderItem extends Component {
   constructor(props){
     super(props)
   }
-  // componentDidMount() {
-  //   this
-  //     .props
-  //     .getOrders();
-
-
-  // }
 
   render(){
   const {id, createdAt, shipped} = this.props.content
@@ -84,13 +75,6 @@ const mapState = state => {
         };
 }
 
-// const mapDispatch = dispatch => {
-
-// }
 
 export default connect(mapState, null)(OrderItem)
-/**
- * PROP TYPES
- */
-// Navbar.propTypes = {   handleClick: PropTypes.func.isRequired,   isLoggedIn:
-// PropTypes.bool.isRequired }
+
