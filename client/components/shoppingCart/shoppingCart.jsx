@@ -21,24 +21,20 @@ export class ShoppingCart extends Component {
 
     const { cartItems } = this.props;
 
+    cartItems.forEach( item => {
+      item.currentPrice = 1;
+    })
+
     let sum = cartItems.reduce( (accumulator, currentItem) => {
       return (accumulator + currentItem.currentPrice * currentItem.qty)
     }, 0)
 
     console.log(sum)
 
+    if ( cartItems.length){
+
     return (
       <div className="center-align">
-
-      {/*  <h1>ALL PRODUCTS</h1>
-        <div className="center-align">
-          <div className="row">
-            {products && products.map(product => {
-              return <ProductCardView key={product.id} product={product} />
-            })}
-          </div>
-        </div>
-          */}
 
           <h3>Your Shopping Cart</h3>
           <br />
@@ -57,21 +53,21 @@ export class ShoppingCart extends Component {
           <tbody>
 
           {cartItems.map( item => {
-            return (<CartItem key={item.productId} currentItem={item} />)
+            return (<CartItem key={item.id} currentItem={item} />)
           })
           }
 
         </tbody>
 
         <thead className="right-align">
-        <tr>
-        <th>
+          <tr>
+          <th>
         <Button waves='light'>Update Cart</Button>
-        </th>
-        <th className="right-align" data-field="Sub Total">Sub Total: ${sum}</th>
-        </tr>
+          </th>
+        <th className="right-align" data-field="Sub Total">Sub Total: ${sum}  </th>
+          </tr>
         </thead>
-      </table>
+        </table>
 
       <Button waves='light' style={{marginRight: '15px'}}>Go back to shopping</Button>
       <Button waves='light' style={{marginLeft: '15px'}}>Check Out</Button>
@@ -79,7 +75,14 @@ export class ShoppingCart extends Component {
           </div>
 
     );
-  }
+  } else {
+    return(
+      <div className="center-align container">
+        <img className="responsive-img" src="/../../../images/empty_cart_800x600_dribbble.png" />
+      </div>
+    )}
+}
+
 }
 
 const mapStateToProps = state => {
