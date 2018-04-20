@@ -52,32 +52,6 @@ router.delete('/:id', (req, res, next) => {
     .catch(next)
 })
 
-//PUT update an order's infomration.
-// router.put('/:id', (req, res, next) => {
-//   console.log('about to update! backend.')
-//   return Order.update({
-//     id: req.body.id,
-//     shipped: req.body.shipped,
-//     arrived: req.body.arrived,
-//     orderlines: {
-//       id: req.body.orderlines.id,
-//       qty: req.body.orderlines.qty,
-//       priceCents: req.body.orderlines.price * 100,
-//       productId: req.body.orderlines.productId,
-//       orderId: req.body.orderlines.orderId,
-//     }
-//   }, {
-//       include: {
-//         model: OrderLine,
-//         as: 'orderlines'
-//       }
-//     })
-//     .then(results => {
-//       const updated = results[1][0];
-//       res.json(updated);
-//     })
-//     .catch(next);
-// })
 
 router.put('/:orderId', (req, res, next) => {
   console.log('my req.body is: ', req.body)
