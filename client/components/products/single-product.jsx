@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
 import {fetchProducts, addOrUpdateCart} from '../../store';
 import { Button, NavItem, Dropdown, Tabs, Tab } from 'react-materialize';
+import { EditProduct} from '../index';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 export class SingleProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      qty: 1
+      qty: 1,
+      editFormShow: false
     }
   }
 
@@ -23,12 +26,22 @@ export class SingleProduct extends Component {
     })
   }
 
+  handleEdit = () => {
+    this.setState({
+      editFormShow: !this.state.editFormShow
+    })
+  }
+
   render() {
-    let products = this.props.products;
+    let { products, user } = this.props;
     const productId = +this.props.match.params.id;
     let productSelected;
     if (products){
       productSelected = products.filter(product => product.id === productId)[0];
+    }
+    let isAdmin = false;
+    if (user) {
+      isAdmin = user.isAdmin;
     }
     return (
         <div className="center-align">
@@ -70,9 +83,22 @@ export class SingleProduct extends Component {
                     >ADD TO CART
                     </Button>
                     <br />
-                  </div>
-                </div>
-              </div>
+                    {
+                      isAdmin ?
+                      <Button onClick= { () => {this.setState({editFormShow: !this.state.editFormShow})} } >Edit Product</Button>
+                      :
+                      <div />
+                    }
+                    <br />
+                    </div>
+                    </div>
+                    </div>
+                            {
+                              (isAdmin && this.state.editFormShow) ?
+                              <EditProduct product={productSelected} handleEdit={this.handleEdit} />
+                              :
+                              <div />
+                            }
               <Tabs className='tab-demo z-depth-1'>
                   <Tab title="READ REVIEWS">INSERT SOME COOL REVIEWS HERE</Tab>
                   <Tab title="WRITE A REVIEW">POP UP REVIEW FORM FOR LOGGED IN USERS</Tab>
@@ -88,7 +114,8 @@ export class SingleProduct extends Component {
 const mapStateToProps = state => {
   return {
     products: state.products,
-    reviews: state.reviews
+    reviews: state.reviews,
+    user: state.user,
   };
 };
 
