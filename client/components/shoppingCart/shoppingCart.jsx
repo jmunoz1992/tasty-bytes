@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { fetchCartProducts} from '../../store/index.js'
 import { ProductCardView } from '../index.js';
 import {fetchProducts} from '../../store/index.js'
 
@@ -10,28 +11,37 @@ import { Table, Button } from 'react-materialize';
 
 export class ShoppingCart extends Component {
 
-
-
-
   componentDidMount() {
     this.props.loadCartProducts();
+
   }
 
   render() {
 
-    const { cartItems } = this.props;
+    const { cartItems, cartPrices } = this.props;
 
-    cartItems.forEach( item => {
-      item.currentPrice = 1;
-    })
+    if (cartPrices.length){
+      cartItems.forEach( item => {
+        let found = cartPrices.find(element => {
+          return element.id === item.id;
+        })
+
+        if (found) {
+          item.currentPrice = Math.round(found.priceCents) / 100;
+        }
+      })
+    }
 
     let sum = cartItems.reduce( (accumulator, currentItem) => {
       return (accumulator + currentItem.currentPrice * currentItem.qty)
     }, 0)
 
-    console.log(sum)
+    if (!sum){
+      sum = 0;
+    }
 
-    if ( cartItems.length){
+
+    if ( cartItems.length ){
 
     return (
       <div className="center-align">
@@ -87,7 +97,8 @@ export class ShoppingCart extends Component {
 
 const mapStateToProps = state => {
   return {
-    cartItems: state.cartItems
+    cartItems: state.cartItems,
+    cartPrices: state.cartPrices
   };
 };
 
