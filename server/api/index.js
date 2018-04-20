@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const passport = require('passport')
 module.exports = router
 
 
@@ -10,7 +9,7 @@ router.use('/reviews', require('./reviews'))
 router.use('/cart', require('./cart'))
 
 
-// USE BELOW ONCE WEW HAVE ADMIN USERS AND STUFF...
+// // USE BELOW ONCE WE HAVE ADMIN USERS AND STUFF...
 // function isAdmin (req, res, next) {
 //   if (req.user && req.user.isAdmin === true) {
 //     next();
@@ -23,6 +22,7 @@ router.use('/cart', require('./cart'))
 
 // router.use('/admin', isAdmin, require('./admin'));
 
+//remove when we start using admin restrictions
 router.use('/admin', require('./admin'));
 
 
