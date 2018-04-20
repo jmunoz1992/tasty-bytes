@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {fetchOrders, orderShipped} from '../../store'
-import {OrderItem} from './order-item.jsx'
+import OrderItem from './order-item.jsx'
 import { fetchProducts } from './../../store/index.js'
 
 // import {Link} from 'react-router-dom' import {logout} from '../store'

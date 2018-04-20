@@ -40,12 +40,16 @@ export const fetchOrders = () =>
 //   )
 //     .catch(err => console.log(err))
 // }
-export function orderShipped(id) {
+export function orderShipped(id, updates) {
+  console.log('called thunk', id)
   return function thunk(dispatch) {
-    axios.put(`/api/admin/orders${id}`, {id})
-    .then(res => res.data)
-    .then(cartItems => {
-      dispatch(getOrders(cartItems));
+    console.log('about to axios put these updates', updates);
+    return axios.put(`/api/admin/orders/${id}`, updates)
+    .then(res => {
+      console.log('attempting promise')
+      return res.data})
+    .then(update => {
+      dispatch(fetchOrders());
     })
     .catch(err => console.error(err));
   };

@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {ProductCardView} from '../index.js';
 import {Button, Icon} from 'react-materialize'
 import {Link} from 'react-router-dom';
-import {OrderEdit} from './order-edit.jsx'
+import OrderEdit from './order-edit.jsx'
 import { orderShipped } from '../../store/index.js';
 
 // import {Link} from 'react-router-dom' import {logout} from '../store'
@@ -42,7 +42,6 @@ export class OrderItem extends Component {
 
 
     let itemNum = this.props.content.orderlines[0].id - 1;
-    // console.log('order item props are: ', this.props)
     return (
       <div>
         {this.props
@@ -66,7 +65,7 @@ export class OrderItem extends Component {
                     </div>
                     <div className="col s2"> Order management <br /> Units: {orderline.qty} <br /> Cost Per Unit: {orderline.totalPrice / orderline.qty} <br /> Total cost: {orderline.totalPrice} <br />
                       <div>
-                        <OrderEdit />
+                        <OrderEdit content={this.props.content}/>
                       </div>
                     </div>
                   </div>
@@ -78,12 +77,6 @@ export class OrderItem extends Component {
 
   }
 }
-/**
- * CONTAINER
- */
-// const mapStateToProps = state => {   return {     products: state.products,
-//   reviews: state.reviews   }; }; const mapDispatchToProps = dispatch => {
-// return {     loadProducts() {       dispatch(fetchProducts());     },   }; };
 
 const mapState = state => {
   return {orders: state.orders,
@@ -91,19 +84,11 @@ const mapState = state => {
         };
 }
 
-const mapDispatch = dispatch => {
-  return {
-    getOrders: () => {
-      dispatch(fetchOrders())
-      dispatch(fetchProducts())
-    },
-    updateOrder: () => {
-      dispatch(orderShipped())
-    }
-  };
-}
+// const mapDispatch = dispatch => {
 
-export default connect(mapState, mapDispatch)(OrderItem)
+// }
+
+export default connect(mapState, null)(OrderItem)
 /**
  * PROP TYPES
  */

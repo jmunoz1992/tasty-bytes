@@ -13,28 +13,19 @@ export class OrderEdit extends Component {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }
-  // componentDidMount(){
-  //   this.props.getOrders() ;
-  // }
-
-
-// console.log("edit props are: ", props) 
-// const runThis = props.shipped;
-// console.log('this is type of ', typeof runThis);
 
   handleClick () {
-    console.log('props are: ', this)
-    // const id = this.props.content.content.id;
-    // this.props.markShipped(id)
+    const id = this.props.content.id
+    const updates = {
+      id: id,
+      shipped: new Date()
+    }
 
+    this.props.markShipped(id, updates)
   }
 
     render(){
 
-      console.log('props are (render): ', this.props)
-
-    const orders = this.props.orders ? this.props.orders : [];
-    // console.log('order edit props are: ', this.props)
     return (
       <div>
       <Dropdown trigger={
@@ -43,15 +34,12 @@ export class OrderEdit extends Component {
         <NavItem onClick={this.handleClick}>Delete</NavItem>
         <NavItem onClick={this.handleClick}>Mark Shipped</NavItem>
       </Dropdown>
-
       </div>
     )
 
   }
 }
-/**
- * CONTAINER
- */
+
 const mapState = state => {
   return {orders: state.orders,
           products: state.products
@@ -63,23 +51,10 @@ const mapDispatch = dispatch => {
     getOrders: () => {
       dispatch(fetchOrders())
     },
-    markShipped: () => {
-      dispatch(orderShipped())
+    markShipped: (id, updates) => {
+      dispatch(orderShipped(id, updates))
     }
   };
 }
 
-// const mapDispatch = (dispatch) => {
-//   const boundActionCreators = bindActionCreators(getOrders(), dispatch);
-//   const allActionProps = {...boundActionCreators, dispatch}
-//   return allActionProps;
-// }
-
 export default connect(mapState, mapDispatch)(OrderEdit);
-
-
-/**
- * PROP TYPES
- */
-// Navbar.propTypes = {   handleClick: PropTypes.func.isRequired,   isLoggedIn:
-// PropTypes.bool.isRequired }
