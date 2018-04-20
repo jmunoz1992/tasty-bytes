@@ -13,8 +13,8 @@ export function fetchCartPriceInv(products) {
   return function thunk(dispatch) {
     axios.post(`/api/cart/productInfo`, products)
     .then(res => res.data)
-    .then(cartInfo => {
-
+    .then(prices => {
+      dispatch(getCartPrices(prices))
     })
     .catch(err => console.error(err));
   };
