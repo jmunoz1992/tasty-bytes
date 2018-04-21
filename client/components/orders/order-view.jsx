@@ -4,32 +4,104 @@ import { connect } from 'react-redux'
 import {fetchOrders, orderShipped} from '../../store'
 import OrderItem from './order-item.jsx'
 import { fetchProducts } from './../../store/index.js'
+import categories from '../../store/categories';
+import AdminSort from './admin-sort.jsx'
 
 // import {Link} from 'react-router-dom' import {logout} from '../store'
 
 export class OrderView extends Component {
+  constructor(props){
+    super(props)
+    this.handleCategory = this.handleCategory.bind(this)
+
+    this.state = {
+      filteredOrders: [],
+    }
+  }
   componentDidMount() {
     this
       .props
       .getOrders();
 
+      
+    }
+  handleCategory(cat, orders){
 
+    if (cat === 1) {
+    orders = orders.filter(order => {
+      console.log('outer')
+      if (order.cancel === null && order.startProcessing === null){
+        console.log('inner')
+        this.setState({
+          filteredOrders: orders
+        })
+        return order
+      }
+      else {
+        return false;
+      }
+    })
+    }
+    else if (cat === 2) {
+      orders = orders.filter(order => {
+        if (order.cancel === null && order.startProcessing !== null){
+          return order
+        }
+        else {
+          return false;
+        }
+      })
+    }
+    else if (cat === 3) {
+      orders = orders.filter(order => {
+        if (order.cancel !== null){
+          return order
+        }
+        else {
+          return false;
+        }
+      })
+    }
+    else if (cat === 4) {
+      orders = orders.filter(order => {
+        if (order.cancel === null && order.shipped !== null){
+          return order
+        }
+        else {
+          return false;
+        }
+      })
+    }
+    else if (cat === 5) {
+    orders = this.props.orders;
+    }
+    this.setState({
+      filteredOrders: orders
+    })
   }
+  
   render() {
-    // console.log('props inside orde-rview ', this.props)
-    const orders = this.props.orders ? this.props.orders : [];
-    const products = this.props.products ? this.props.products : [];
+    let orders = this.props.orders ? this.props.orders : [];
+    const products = this.props.products ? this.props.products : [];    
     
     return (
       <div>
-        {!orders
+        <div>
+       { orders.length
+        ? 
+        (<AdminSort handleCatSelect={this.handleCategory} orders={orders} />)
+        :
+        (<div />)
+        }
+        </div>
+        {!this.state.filteredOrders.length
           ? <div>
               <p>
-                There are no orders in the database
+                There are no orders, select category
               </p>
             </div>
           : <div>
-            {orders.map((order) => {
+            {this.state.filteredOrders.map((order) => {
               return (<OrderItem content={order} products={products} key={order.id} />)
             })}
           </div>
@@ -44,7 +116,8 @@ export class OrderView extends Component {
  */
 const mapState = state => {
   return {orders: state.orders,
-          products: state.products
+          products: state.products,
+          categories: state.categories
         };
 }
 
