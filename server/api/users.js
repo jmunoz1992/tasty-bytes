@@ -2,13 +2,13 @@ const router = require('express').Router()
 const { User, Address, Review, Order, OrderLine } = require('../db/models')
 module.exports = router
 
-router.get('/', (req, res, next) => {
-  User.findAll({
-    attributes: ['id', 'name']
-  })
-    .then(users => res.json(users))
-    .catch(next)
-})
+// router.get('/', (req, res, next) => {
+//   User.findAll({
+//     attributes: ['id', 'name', 'email']
+//   })
+//     .then(users => res.json(users))
+//     .catch(next)
+// })
 
 //get basic info on a user
 router.get('/:userId', (req, res, next) => {

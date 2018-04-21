@@ -1,7 +1,18 @@
 import axios from 'axios';
 
+/**
+ * INITIAL STATE
+ */
+const defaultProducts = [];
+
+/**
+ * ACTION TYPES
+ */
 const GET_PRODUCTS = 'GET_PRODUCTS';
 
+/**
+ * ACTION CREATORS
+ */
 export const gotProducts = function (inputProducts) {
   return {
     type: GET_PRODUCTS,
@@ -9,9 +20,12 @@ export const gotProducts = function (inputProducts) {
   };
 };
 
+/**
+ * THUNK CREATORS
+ */
 export function fetchProducts() {
   return function thunk(dispatch) {
-    axios.get('/api/products')
+    return axios.get('/api/products')
     .then(res => res.data)
     .then(products => {
       dispatch(gotProducts(products));
@@ -19,7 +33,10 @@ export function fetchProducts() {
   };
 }
 
-export default function reducer(state = [], action) {
+/**
+ * REDUCER
+ */
+export default function reducer(state = defaultProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return  action.products;

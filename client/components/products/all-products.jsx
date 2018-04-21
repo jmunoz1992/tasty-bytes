@@ -13,9 +13,9 @@ export class AllProductsHome extends Component {
   render() {
     const {products, updateCart} = this.props;
     return (
-      <div className="center-align">
+      <div className="center-align" id="all-products">
         <h1>ALL PRODUCTS</h1>
-        <div className="cent er-align">
+        <div className="center-align">
           <div className="row">
             {products && products.map(product => {
               return (<ProductCardView key={product.id} product={product} updateCart={updateCart} />);
@@ -30,7 +30,6 @@ export class AllProductsHome extends Component {
 const mapStateToProps = state => {
   return {
     products: state.products,
-    reviews: state.reviews
   };
 };
 

@@ -23,7 +23,7 @@ router.get('/:id', (req, res, next) => {
   .catch(next);
 });
 
-// find reviews for a  specific product
+// find reviews for a specific product
 router.get('/:productId/reviews', (req, res, next) => {
   Product.findById(req.params.productId, {
     include: {

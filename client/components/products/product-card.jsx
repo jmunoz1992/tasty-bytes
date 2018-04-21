@@ -7,11 +7,11 @@ export const ProductCardView = (props) => {
         <div className="col s12 m6 center-align">
           <div className="card blue-grey darken-1 center-align">
             <div className="card-content white-text center-align">
-              <span className="card-title">{title}</span>
+              <span className="card-title" id="title">{title}</span>
               <img src={image} alt="Chocolate" height="100" width="100" />
-              <p>{shortDescription} </p>
+              <p id="shortDescrip">{shortDescription} </p>
               <br />
-              <p>${priceActual} </p>
+              <p id="priceActual">${priceActual} </p>
               <p>NUM STARS</p>
               <p>NUM REVIEWS</p>
             </div>
@@ -24,3 +24,5 @@ export const ProductCardView = (props) => {
         </div>
     );
 };
+
+
