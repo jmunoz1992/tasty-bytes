@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import { FiveStars } from '../index'
 
 export const ReviewCardView = (props) => {
   const { title, content, numStars, imgUrl, id } = props.review;
@@ -8,21 +9,22 @@ export const ReviewCardView = (props) => {
     isAdmin = props.user.isAdmin
   }
   return (
-      <div className="review-item">
-        <div className="review-content">
+    <div className="review-item">
+      <div className="review-content">
+        <FiveStars numStars={numStars} />
         <p id="numStars">{numStars} Stars</p>
-          <h6 id="title">{title}</h6>
-          {
-            imgUrl ?
+        <h5 id="title"><em>Subject: </em>{title}</h5>
+        {
+          imgUrl ?
             <img src={imgUrl} height="80" width="80" />
             :
             <div />
-          }
-            <p id="content">{content} </p>
-          <br />
+        }
+        <p id="content"><em>Review: </em>{content} </p>
+        <br />
 
-        </div>
       </div>
+    </div >
   );
 };
 
