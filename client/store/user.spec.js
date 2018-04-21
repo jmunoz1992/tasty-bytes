@@ -11,6 +11,7 @@
 // const middlewares = [thunkMiddleware]
 // const mockStore = configureMockStore(middlewares)
 
+
 // describe('User store', () => {
 //   describe('thunk creators', () => {
 //     let store
@@ -54,3 +55,4 @@
 //     })
 //   })
 // });
+
