@@ -2,7 +2,7 @@
 
 const {expect} = require('chai')
 const db = require('../index')
-const Review = db.model('user')
+const Review = db.model('review')
 
 describe('Review model', () => {
   before(() => {
@@ -14,7 +14,7 @@ describe('Review model', () => {
     review = Review.build({
       title: 'Love It',
       content: 'omg it is the best thing ever and it is so good and i love it',
-      numStars: 5
+      numStars: 5,
     });
   });
 

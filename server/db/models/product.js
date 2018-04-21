@@ -49,7 +49,6 @@ const Product = db.define('product', {
     type: Sequelize.VIRTUAL,
     get () {
       return Math.round(this.getDataValue('priceCents') / 100 / this.getDataValue('pdtWt') * 100) / 100;
-
     }
   },
 } );
