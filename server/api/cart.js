@@ -19,7 +19,7 @@ const Op = Sequelize.Op
 // their cart is empty
 router.get('/', (req, res, next) => {
   if (!req.session.cart || !req.session.cart.length) {
-    if (!req.session.passport.user) {
+    if (!req.session.passport || !req.session.passport.user) {
       req.session.cart = [];
       res.json(req.session.cart);
     }
