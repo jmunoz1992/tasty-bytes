@@ -83,7 +83,6 @@ export default function reducer(state = defaultProducts, action) {
       return action.products;
     case GET_NEW_PRODUCT:
       return [...state, action.product];
-
     default:
       return state;
   }

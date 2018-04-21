@@ -51,6 +51,8 @@ describe('AllProducts component', () => {
     const wrapper = shallow(
       <AllProductsHome
         products={[product1]}
+        reviews={{}}
+        user={{}}
         loadProducts={() => {}}
         loadCart={() => {}}
         updateCart={(id, qty) => {}}
@@ -70,6 +72,8 @@ describe('AllProducts component', () => {
     const wrapper = shallow(
       <AllProductsHome
         products={[product1]}
+        reviews={{}}
+        user={{}}
         loadProducts={() => {}}
         loadCart={() => {}}
         updateCart={(id, qty) => {}}
@@ -84,6 +88,8 @@ describe('AllProducts component', () => {
     const wrapper = shallow(
       <AllProductsHome
         products={[{}]}
+        reviews={{}}
+        user={{}}
         loadProducts={() => {}}
         loadCart={() => {}}
         updateCart={updateCartFunc}
