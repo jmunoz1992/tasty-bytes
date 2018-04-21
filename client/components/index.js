@@ -19,3 +19,4 @@ export {default as CategoryCardView} from './category-card.jsx'
 
 export {default as OrderDetail} from './orders/order-detail.jsx'
 export {default as OrderView} from './orders/order-view.jsx'
+export {default as AdminSort} from './orders/admin-sort.jsx'
