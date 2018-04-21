@@ -11,36 +11,44 @@ export class OrderEdit extends Component {
     this.handleClickShipped = this.handleClickShipped.bind(this)
     this.handleClickProcess = this.handleClickProcess.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
+    this.state = {
+        id: props.content.id,
+        shipped: props.content.shipped,
+        startProcessing: props.content.startProcessing,
+        cancel: props.content.cancel
+    }
   }
 
   handleClickShipped () {
     const id = this.props.content.id
-    const updates = {
-      id: id,
-      shipped: new Date()
-    }
-    this.props.orderUpate(id, updates)
+      this.setState({
+        shipped: new Date()}, () => {
+        console.log('sjhipped clicked.. state is ', this.state.shipped)
+      })
+    this.props.orderUpate(id, this.state)
   }
 
   handleClickProcess () {
     const id = this.props.content.id
-    const updates = {
-      id: id,
-      startProcessing: new Date()
-    }
-    this.props.orderUpate(id, updates)
+    this.setState({
+      startProcessing: new Date()}, () => {
+      console.log('processed clicked.. state is ', this.state.startProcessing)
+    })
+    
+    this.props.orderUpate(id, this.state)
   }
 
   handleClickCancel () {
     const id = this.props.content.id
-    const updates = {
-      id: id,
-      cancel: new Date(),
-    }
-    this.props.orderUpate(id, updates)
+    this.setState({
+      cancel: new Date()}, () => {
+        console.log('cancel clicked.. state is ', this.state.cancel)
+      
+    })
+    
+    this.props.orderUpate(id, this.state)
   }
     render(){
-
 
     return (
       <div>
