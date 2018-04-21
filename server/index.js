@@ -43,13 +43,20 @@ const createApp = () => {
 
   // session middleware with passport
   app.use(session({
-    secret: process.env.SESSION_SECRET || 'my best friend is Cody',
+    secret: process.env.SESSION_SECRET || 'I have a big secret',
     store: sessionStore,
     resave: false,
     saveUninitialized: false
-  }))
+  })
+)
+
   app.use(passport.initialize())
   app.use(passport.session())
+
+  app.use((req, res, next) => {
+    console.log("RIGHT HERE FOT SESSION DATA", req.session)
+    next();
+  })
 
   // auth and api routes
   app.use('/auth', require('./auth'))

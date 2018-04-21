@@ -40,9 +40,9 @@ export const auth = (email, password, method) =>
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
-export const logout = () =>
+export const logout = (user) =>
   dispatch =>
-    axios.post('/auth/logout')
+    axios.post('/auth/logout', user)
       .then(_ => {
         dispatch(removeUser())
         dispatch(clearCart())

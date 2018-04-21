@@ -17,6 +17,10 @@ const User = db.define('user', {
     allowNull: false,
     unique: true
   },
+  recentCart: {
+    type: Sequelize.ARRAY(Sequelize.JSON),
+    defaultValue: null,
+  },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
