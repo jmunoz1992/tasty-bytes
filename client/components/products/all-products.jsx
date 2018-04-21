@@ -24,7 +24,7 @@ export class AllProductsHome extends Component {
         {
           isAdmin ?
           <div>
-          <Link to="/admin/products/add" className="add-button" ><button>Add New Product</button></Link>
+            <Link to="/admin/products/add" className="add-button" ><button>Add New Product</button></Link>
           </div>
           :
           <div />
