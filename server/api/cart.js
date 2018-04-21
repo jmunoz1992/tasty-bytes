@@ -24,7 +24,6 @@ router.get('/', (req, res, next) => {
 
 //get current product price and inv qty for the cart
 router.post('/productInfo', (req, res, next) => {
-  console.log(req.body)
   Product.findAll({
     where: {
       id: {
@@ -76,6 +75,12 @@ router.put('/', (req, res, next) => {
     .catch(next);
   }
 });
+
+router.post('/clearCart', (req, res, next) => {
+  req.session.cart = [];
+  console.log(req.session.cart)
+  res.send(req.session.cart)
+})
 
 router.delete('/:productId', (req, res, next) => {
   req.session.cart = req.session.cart.filter(product =>

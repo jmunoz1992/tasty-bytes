@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {fetchCartPriceInv} from './cartPrice.js'
 
 const GET_CART_PRODUCTS = 'GET_CART_PRODUCTS';
 
@@ -9,6 +10,12 @@ export const getCartProducts = function (cartItems) {
   };
 };
 
+function idArrMaker(cartItems){
+    let idArr = cartItems.map(item => {
+      return (item.id)
+    })
+  return {products: idArr};
+}
 
 export function fetchCartProducts() {
   return function thunk(dispatch) {
@@ -16,6 +23,7 @@ export function fetchCartProducts() {
     .then(res => res.data)
     .then(cartItems => {
       dispatch(getCartProducts(cartItems));
+      dispatch(fetchCartPriceInv(idArrMaker(cartItems)));
     })
     .catch(err => console.error(err));
   };
@@ -39,6 +47,18 @@ export function deleteCartItem(id) {
     .then(res => res.data)
     .then(cartItems => {
       dispatch(getCartProducts(cartItems));
+    })
+    .catch(err => console.error(err));
+  };
+}
+
+export function clearCart() {
+  return function thunk(dispatch) {
+    axios.post(`/api/cart/clearCart`)
+    .then(res => res.data)
+    .then(emptyCart => {
+      console.log(emptyCart)
+      dispatch(getCartProducts(emptyCart));
     })
     .catch(err => console.error(err));
   };
