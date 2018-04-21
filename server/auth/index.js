@@ -5,7 +5,10 @@ module.exports = router
 //combining the old DB cart with the current session cart
 function combineCarts(sessionCart, dbCart) {
   if (dbCart.length === 0) return sessionCart;
-  if (sessionCart.length === 0) return dbCart;
+  if (sessionCart.length === 0) {
+    sessionCart = dbCart;
+    return dbCart;
+  }
   let found = false;
   for (let i = 0; i < dbCart.length; i++) {
     found = false;
@@ -31,8 +34,6 @@ router.post('/login', (req, res, next) => {
         res.status(401).send('Incorrect password')
       } else {
         req.login(user, err => {
-          console.log(req.session)
-          console.log("CART IN MODEL FOR THIS USER??", user.recentCart)
           user.recentCart = combineCarts(req.session.cart, user.recentCart)
           return (err ? next(err) : res.json(user))
         })
