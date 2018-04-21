@@ -1,22 +1,14 @@
 import axios from 'axios'
 import history from '../history'
 
-/**
- * ACTION TYPES
- */
 const GET_ORDERS = 'GET_ORDERS'
-// const REMOVE_ORDER = 'REMOVE_ORDER'
+const UPDATE_ORDER = 'UPDATE_ORDER'
 
-/**
- * INITIAL STATE
- */
 const defaultOrder = []
 
-/**
- * ACTION CREATORS
- */
 const getOrders = orders => ({type: GET_ORDERS, orders})
-// const removeOrder = () => ({type: REMOVE_ORDER})
+const updateOrder = order => ({type: UPDATE_ORDER, order})
+
 
 /**
  * THUNK CREATORS
@@ -29,33 +21,28 @@ export const fetchOrders = () =>
     )
       .catch(err => console.log(err))
 
-// export const auth = (email, password, method) =>
-//   dispatch =>
-//     axios.post(`/auth/${method}`, { email, password })
-//       .then(res => {
-//         dispatch(getOrders(res.data))
-//         history.push('/home')
-//       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
-//         dispatch(getOrders({error: authError}))
-//       })
-//       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+export function callOrderUpdate(id, updates) {
+  console.log('called thunk', id)
+  return function thunk(dispatch) {
+    console.log('about to axios put these updates', updates);
+    return axios.put(`/api/admin/orders/${id}`, updates)
+    .then(res => {
+      console.log('attempting promise')
+      return res.data})
+    .then(update => {
+      dispatch(fetchOrders());
+    })
+    .catch(err => console.error(err));
+  };
+}
 
-// export const logout = () =>
-//   dispatch =>
-//     axios.post('/auth/logout')
-//       .then(_ => {
-//         dispatch(removeOrder())
-//         history.push('/login')
-//       })
-//       .catch(err => console.log(err))
 
-/**
- * REDUCER
- */
 export default function (state = defaultOrder, action) {
   switch (action.type) {
     case GET_ORDERS:
       return action.orders
+    case UPDATE_ORDER:
+      return action.order
     // case REMOVE_ORDER:
     //   return defaultOrder
     default:

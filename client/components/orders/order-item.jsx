@@ -1,24 +1,24 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {ProductCardView} from '../products/product-card.jsx';
+import {ProductCardView} from '../index.js';
 import {Button, Icon} from 'react-materialize'
 import {Link} from 'react-router-dom';
+import OrderEdit from './order-edit.jsx'
+import { orderShipped } from '../../store/index.js';
 
-// import {Link} from 'react-router-dom' import {logout} from '../store'
+export class OrderItem extends Component {
+  constructor(props){
+    super(props)
+  }
 
-const OrderItem = (props) => {
-  // const OrderItem = ({ handleClick, isLoggedIn }) => { need to add photo eager
-  // loading!
-  const {id, createdAt, shipped, arrived} = props.content
+  render(){
+  const {id, createdAt, shipped, startProcessing, cancel} = this.props.content
 
-  const orderStatus = date => {
-    console.log('ionsdie shipping status')
-    var d = new Date(date);
-    console.log(d, typeof d)
-    console.log(date, typeof date)
-    console.log(new Date());
-    if (d === null) {
+  const shippingStatus = date => {
+    let d = new Date(date);
+
+    if (date === null) {
       return "Incomplete"
     }
     if (d > new Date()) {
@@ -29,63 +29,73 @@ const OrderItem = (props) => {
     }
   }
 
-  // export const ProductCardView = (props) => {   const {title, shortDescription,
-  // priceActual, image} = props.product;
+  const orderStatus = (startProcessing, cancel) => {
+    let d = new Date(startProcessing)
+    if(cancel !== null){
+      return 'Cancelled'
+    }
+    if(shippingStatus(shipped) === "Complete"){
+      return 'Completed'
+    }
+    if(startProcessing === null){
+      return 'New order'
+    }
+    if(d < new Date()){
+      return 'Order is processing'
+    }
+    if(d > new Date()){
+      return 'New order'
+    }
+
+  }
+
+    const products = this.props.products;
 
 
-  const products = props.products;
+    let itemNum = this.props.content.orderlines[0].id - 1;
+    return (
+      <div>
+        {this.props
+          .content
+          .orderlines
+          .map(orderline => {
+            return (
+                <div className="row" key={orderline.id}>
 
+                { products && products.map(product => {
+                    if(product.id === orderline.productId){
+                      return (<ProductCardView key={product.id} product={product} />)
+                    }
+                })}
 
-  let itemNum = props.content.orderlines[0].id - 1;
-  return (
-    <div>
-      {props
-        .content
-        .orderlines
-        .map(orderline => {
-          return (
-              <div className="row" key={orderline.id}>
-
-              { products && products.map(product => {
-                  if(product.id === orderline.productId){
-                    return (<ProductCardView key={product.id} product={product} />)
-                  }
-              })}
-
-              <div className="row" key={id + '-' + orderline.id}>
-                  <div className="col s2"> Order ID: {id} <br /> Item Number: {orderline.id - itemNum} <br /> Date: {createdAt}
-                  </div>
-                  <div className="col s2">
-                    Shipping status: <br /> {orderStatus(shipped)}
-                  </div>
-                  <div className="col s2"> Order management <br /> Units: {orderline.qty} <br /> Cost Per Unit: {orderline.totalPrice / orderline.qty} <br /> Total cost: {orderline.totalPrice} <br />
-                    <div>
-                      <Link to={`/orders/${id}`}>
-                        <Button waves="light">
-                          Edit Order
-                        </Button>
-                      </Link>
+                <div className="row" key={id + '-' + orderline.id}>
+                    <div className="col s2"> Order ID: {id} <br /> Item Number: {orderline.id - itemNum} <br /> Date: {createdAt}
+                    </div>
+                    <div className="col s2">
+                      Order Status: <br /> {orderStatus(startProcessing, cancel)} <br /> <br />
+                      Shipping status: <br /> {shippingStatus(shipped)}
+                    </div>
+                    <div className="col s2"> Order management <br /> Units: {orderline.qty} <br /> Cost Per Unit: {orderline.totalPrice / orderline.qty} <br /> Total cost: {orderline.totalPrice} <br />
+                      <div>
+                        <OrderEdit content={this.props.content}/>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-          )
-        })}
-    </div>
-  )
+            )
+          })}
+      </div>
+    )
 
+  }
 }
-/**
- * CONTAINER
- */
-// const mapStateToProps = state => {   return {     products: state.products,
-//   reviews: state.reviews   }; }; const mapDispatchToProps = dispatch => {
-// return {     loadProducts() {       dispatch(fetchProducts());     },   }; };
 
-export default connect(null, null)(OrderItem)
+const mapState = state => {
+  return {orders: state.orders,
+          products: state.products
+        };
+}
 
-/**
- * PROP TYPES
- */
-// Navbar.propTypes = {   handleClick: PropTypes.func.isRequired,   isLoggedIn:
-// PropTypes.bool.isRequired }
+
+export default connect(mapState, null)(OrderItem)
+

@@ -49,4 +49,5 @@ router.get('/category/:categoryId', (req, res, next) => {
   .catch(next);
 });
 
+
 module.exports = router;
