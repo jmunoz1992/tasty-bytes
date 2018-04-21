@@ -18,17 +18,17 @@ export class AllProductsHome extends Component {
       isAdmin = user.isAdmin
     }
     return (
-      <div className="center-align">
+      <div className="center-align" id="all-products">
         <h1>ALL PRODUCTS</h1>
+        <div className="center-align">
         {
           isAdmin ?
           <div>
-          <Link to="/admin/products/add" className="add-button" ><button>Add New Product</button></Link>
+            <Link to="/admin/products/add" className="add-button" ><button>Add New Product</button></Link>
           </div>
           :
           <div />
         }
-        <div className="cent er-align">
           <div className="row">
             {products && products.map(product => {
               return (
