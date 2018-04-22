@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { fetchCartProducts} from '../../store/index.js'
 import { ProductCardView } from '../index.js';
-import {fetchProducts} from '../../store/index.js'
+import { fetchProducts, deleteCartItem, addOrUpdateCart } from '../../store/index.js'
 
 // need to add prop components into ProductCardView
 
@@ -11,9 +11,17 @@ import { Table, Button } from 'react-materialize';
 
 export class ShoppingCart extends Component {
 
-  componentDidMount() {
-    this.props.loadCartProducts();
+  constructor(props){
+    super(props);
+    this.deleteClickHandler = this.deleteClickHandler.bind(this)
+  }
 
+  componentDidMount() {
+    this.props.loadCartProducts()
+  }
+
+  deleteClickHandler(evt){
+    this.props.deleteItem(+evt.target.name);
   }
 
   render() {
@@ -63,7 +71,7 @@ export class ShoppingCart extends Component {
           <tbody>
 
           {cartItems.map( item => {
-            return (<CartItem key={item.id} currentItem={item} />)
+            return (<CartItem key={item.id} currentItem={item} deleteClickHandler={this.deleteClickHandler} updateCart={this.props.updateCart} />)
           })
           }
 
@@ -106,6 +114,12 @@ const mapDispatchToProps = dispatch => {
   return {
     loadCartProducts() {
       dispatch(fetchCartProducts());
+    },
+    deleteItem(id){
+      dispatch(deleteCartItem(id));
+    },
+    updateCart(id, qty) {
+      dispatch(addOrUpdateCart(id, qty));
     },
   };
 };

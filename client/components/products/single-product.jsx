@@ -24,6 +24,7 @@ export class SingleProduct extends Component {
   }
 
   render() {
+
     let products = this.props.products;
     const productId = +this.props.match.params.id;
     let productSelected;
