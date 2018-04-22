@@ -6,11 +6,11 @@ import user from './user'
 import users from './users'
 import products from './products'
 import orders from './orders'
-import selectedProducts from './selectedProducts'
 import cartItems from './cart'
 import categories from './categories'
 import authMessage from './notAuthMessage'
 import cartPrices from './cartPrice'
+import reviews from './reviews'
 
 
 const reducer = combineReducers({
@@ -18,11 +18,11 @@ const reducer = combineReducers({
   products,
   orders,
   users,
-  selectedProducts,
   cartItems,
   categories,
   authMessage,
   cartPrices,
+  reviews,
 })
 
 
@@ -38,8 +38,8 @@ export * from './user'
 export * from './users'
 export * from './products'
 export * from './orders'
-export * from './selectedProducts'
 export * from './cart'
 export * from './categories'
 export * from './notAuthMessage'
 export * from './cartPrice'
+export * from './reviews'

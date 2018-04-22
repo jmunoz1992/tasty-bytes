@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from './product-card.jsx';
-import {fetchProducts, fetchCartProducts, addOrUpdateCart} from '../../store';
+import { fetchProducts, fetchCartProducts, addOrUpdateCart, deleteProduct } from '../../store';
 import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export class AllProductsHome extends Component {
   componentDidMount() {
@@ -11,14 +12,33 @@ export class AllProductsHome extends Component {
   }
 
   render() {
-    const {products, updateCart} = this.props;
+    const { products, updateCart, user, removeProduct } = this.props;
+    let isAdmin = false;
+    if (user) {
+      isAdmin = user.isAdmin
+    }
     return (
-      <div className="center-align">
+      <div className="center-align" id="all-products">
         <h1>ALL PRODUCTS</h1>
-        <div className="cent er-align">
+        <div className="center-align">
+        {
+          isAdmin ?
+          <div>
+            <Link to="/admin/products/add" className="add-button" ><button>Add New Product</button></Link>
+          </div>
+          :
+          <div />
+        }
           <div className="row">
             {products && products.map(product => {
-              return (<ProductCardView key={product.id} product={product} updateCart={updateCart} />);
+              return (
+                <ProductCardView
+                  key={product.id}
+                  product={product}
+                  removeProduct={removeProduct}
+                  updateCart={updateCart}
+                  user={user} />
+              );
             })}
           </div>
         </div>
@@ -30,7 +50,8 @@ export class AllProductsHome extends Component {
 const mapStateToProps = state => {
   return {
     products: state.products,
-    reviews: state.reviews
+    reviews: state.reviews,
+    user: state.user,
   };
 };
 
@@ -38,6 +59,9 @@ const mapDispatchToProps = dispatch => {
   return {
     loadProducts() {
       dispatch(fetchProducts());
+    },
+    removeProduct(prodId) {
+      dispatch(deleteProduct(prodId));
     },
     loadCart() {
       dispatch(fetchCartProducts());

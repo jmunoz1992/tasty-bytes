@@ -1,19 +1,23 @@
 import React, {Component} from 'react';
-import {fetchProducts, addOrUpdateCart} from '../../store';
+import {fetchProducts, addOrUpdateCart, fetchReviewsByProd} from '../../store';
 import { Button, NavItem, Dropdown, Tabs, Tab } from 'react-materialize';
+import { EditProduct, AllReviews, FiveStars } from '../index';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 export class SingleProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      qty: 1
+      qty: 1,
+      editFormShow: false
     }
   }
 
   componentDidMount () {
     this.props.loadProducts();
+    this.props.loadReviews(this.props.match.params.id);
   }
 
   handleChange = (evt) => {
@@ -23,15 +27,25 @@ export class SingleProduct extends Component {
     })
   }
 
+  handleEdit = () => {
+    this.setState({
+      editFormShow: !this.state.editFormShow
+    })
+  }
+
   render() {
 
-    let products = this.props.products;
+    let { products, user } = this.props;
+
     const productId = +this.props.match.params.id;
     let productSelected;
     if (products){
       productSelected = products.filter(product => product.id === productId)[0];
     }
-    console.log('product props: ', this.props)
+    let isAdmin = false;
+    if (user) {
+      isAdmin = user.isAdmin;
+    }
     return (
         <div className="center-align">
           {productSelected ?
@@ -49,6 +63,7 @@ export class SingleProduct extends Component {
                     <br />
                     <p>${productSelected.priceActual} </p>
                     <p>NUM STARS</p>
+                    <FiveStars numStars={productSelected.numStars} />
                     <p>NUM REVIEWS</p>
                     <br />
                     <div>
@@ -71,11 +86,26 @@ export class SingleProduct extends Component {
                     >ADD TO CART
                     </Button>
                     <br />
-                  </div>
-                </div>
-              </div>
+                    {
+                      isAdmin ?
+                      <Button onClick= { () => {this.setState({editFormShow: !this.state.editFormShow})} } >Edit Product</Button>
+                      :
+                      <div />
+                    }
+                    <br />
+                    </div>
+                    </div>
+                    </div>
+                            {
+                              (isAdmin && this.state.editFormShow) ?
+                              <EditProduct product={productSelected} handleEdit={this.handleEdit} />
+                              :
+                              <div />
+                            }
               <Tabs className='tab-demo z-depth-1'>
-                  <Tab title="READ REVIEWS">INSERT SOME COOL REVIEWS HERE</Tab>
+                  <Tab title="READ REVIEWS">
+                  <AllReviews product= {productSelected} />
+                  </Tab>
                   <Tab title="WRITE A REVIEW">POP UP REVIEW FORM FOR LOGGED IN USERS</Tab>
               </Tabs>
             </div>
@@ -85,11 +115,11 @@ export class SingleProduct extends Component {
   }
 }
 
-
 const mapStateToProps = state => {
   return {
     products: state.products,
-    reviews: state.reviews
+    reviews: state.reviews,
+    user: state.user,
   };
 };
 
@@ -100,6 +130,9 @@ const mapDispatchToProps = dispatch => {
     },
     updateCart(id, qty) {
       dispatch(addOrUpdateCart(id, qty));
+    },
+    loadReviews(prodId) {
+      dispatch(fetchReviewsByProd(prodId));
     },
   };
 };

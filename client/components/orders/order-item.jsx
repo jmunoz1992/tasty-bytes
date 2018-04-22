@@ -13,10 +13,10 @@ export class OrderItem extends Component {
   }
 
   render(){
-  const {id, createdAt, shipped} = this.props.content
+  const {id, createdAt, shipped, startProcessing, cancel} = this.props.content
 
-  const orderStatus = date => {
-    var d = new Date(date);
+  const shippingStatus = date => {
+    let d = new Date(date);
 
     if (date === null) {
       return "Incomplete"
@@ -27,6 +27,26 @@ export class OrderItem extends Component {
     if (d < new Date()) {
       return "Complete"
     }
+  }
+
+  const orderStatus = (startProcessing, cancel) => {
+    let d = new Date(startProcessing)
+    if(cancel !== null){
+      return 'Cancelled'
+    }
+    if(shippingStatus(shipped) === "Complete"){
+      return 'Completed'
+    }
+    if(startProcessing === null){
+      return 'New order'
+    }
+    if(d < new Date()){
+      return 'Order is processing'
+    }
+    if(d > new Date()){
+      return 'New order'
+    }
+
   }
 
     const products = this.props.products;
@@ -52,7 +72,8 @@ export class OrderItem extends Component {
                     <div className="col s2"> Order ID: {id} <br /> Item Number: {orderline.id - itemNum} <br /> Date: {createdAt}
                     </div>
                     <div className="col s2">
-                      Shipping status: <br /> {orderStatus(shipped)}
+                      Order Status: <br /> {orderStatus(startProcessing, cancel)} <br /> <br />
+                      Shipping status: <br /> {shippingStatus(shipped)}
                     </div>
                     <div className="col s2"> Order management <br /> Units: {orderline.qty} <br /> Cost Per Unit: {orderline.totalPrice / orderline.qty} <br /> Total cost: {orderline.totalPrice} <br />
                       <div>

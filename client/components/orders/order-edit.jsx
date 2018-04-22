@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {fetchOrders, orderShipped} from '../../store'
+import {fetchOrders, callOrderUpdate} from '../../store'
 import {Button, Dropdown, NavItem} from 'react-materialize'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -8,19 +8,46 @@ import { connect } from 'react-redux'
 export class OrderEdit extends Component {
   constructor(props){
     super(props)
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick () {
-    const id = this.props.content.id
-    const updates = {
-      id: id,
-      shipped: new Date()
+    this.handleClickShipped = this.handleClickShipped.bind(this)
+    this.handleClickProcess = this.handleClickProcess.bind(this)
+    this.handleClickCancel = this.handleClickCancel.bind(this)
+    this.state = {
+        id: props.content.id,
+        shipped: props.content.shipped,
+        startProcessing: props.content.startProcessing,
+        cancel: props.content.cancel
     }
-
-    this.props.markShipped(id, updates)
   }
 
+  handleClickShipped () {
+    const id = this.props.content.id
+      this.setState({
+        shipped: new Date()}, () => {
+        console.log('sjhipped clicked.. state is ', this.state.shipped)
+      })
+    this.props.orderUpate(id, this.state)
+  }
+
+  handleClickProcess () {
+    const id = this.props.content.id
+    this.setState({
+      startProcessing: new Date()}, () => {
+      console.log('processed clicked.. state is ', this.state.startProcessing)
+    })
+    
+    this.props.orderUpate(id, this.state)
+  }
+
+  handleClickCancel () {
+    const id = this.props.content.id
+    this.setState({
+      cancel: new Date()}, () => {
+        console.log('cancel clicked.. state is ', this.state.cancel)
+      
+    })
+    
+    this.props.orderUpate(id, this.state)
+  }
     render(){
 
     return (
@@ -28,8 +55,13 @@ export class OrderEdit extends Component {
       <Dropdown trigger={
           <Button>Edit me!</Button>
         }>
-        <NavItem onClick={this.handleClick}>Delete</NavItem>
-        <NavItem onClick={this.handleClick}>Mark Shipped</NavItem>
+        {this.props.content.startProcessing === null && this.props.content.cancel === null ?
+        <NavItem onClick={this.handleClickProcess}>Begin Processing</NavItem>
+        : ( this.props.content.shipped || this.props.content.cancel ? <div /> : 
+          <NavItem onClick={this.handleClickShipped}>Mark Shipped</NavItem>
+        )
+      }
+      <NavItem onClick={this.handleClickCancel}>Cancel</NavItem>
       </Dropdown>
       </div>
     )
@@ -48,8 +80,8 @@ const mapDispatch = dispatch => {
     getOrders: () => {
       dispatch(fetchOrders())
     },
-    markShipped: (id, updates) => {
-      dispatch(orderShipped(id, updates))
+    orderUpate: (id, updates) => {
+      dispatch(callOrderUpdate(id, updates))
     }
   };
 }

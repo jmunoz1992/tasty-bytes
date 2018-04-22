@@ -21,7 +21,7 @@ export const fetchOrders = () =>
     )
       .catch(err => console.log(err))
 
-export function orderShipped(id, updates) {
+export function callOrderUpdate(id, updates) {
   console.log('called thunk', id)
   return function thunk(dispatch) {
     console.log('about to axios put these updates', updates);

@@ -1,5 +1,5 @@
 const router = require('express')();
-const { Product } = require('../db/models')
+const { Product, User } = require('../db/models')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
@@ -18,8 +18,21 @@ const Op = Sequelize.Op
 // If the cart is empty, on the front-end, the user will receive a message saying
 // their cart is empty
 router.get('/', (req, res, next) => {
-  if (!req.session.cart) req.session.cart = [];
-  res.json(req.session.cart);
+  if (!req.session.cart || !req.session.cart.length) {
+    if (!req.session.passport.user) {
+      req.session.cart = [];
+      res.json(req.session.cart);
+    }
+    else {
+      User.findById(req.session.passport.user)
+      .then((user) => {
+        req.session.cart = user.recentCart;
+        res.json(req.session.cart);
+      })
+    }
+  } else {
+    res.json(req.session.cart);
+  }
 });
 
 //get current product price and inv qty for the cart
@@ -78,7 +91,6 @@ router.put('/', (req, res, next) => {
 
 router.post('/clearCart', (req, res, next) => {
   req.session.cart = [];
-  console.log(req.session.cart)
   res.send(req.session.cart)
 })
 
