@@ -57,7 +57,6 @@ export function clearCart() {
     axios.post(`/api/cart/clearCart`)
     .then(res => res.data)
     .then(emptyCart => {
-      console.log(emptyCart)
       dispatch(getCartProducts(emptyCart));
     })
     .catch(err => console.error(err));
