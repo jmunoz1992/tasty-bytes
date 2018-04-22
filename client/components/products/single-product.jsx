@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {fetchProducts, addOrUpdateCart} from '../../store';
+import {fetchProducts, addOrUpdateCart, fetchReviewsByProd} from '../../store';
 import { Button, NavItem, Dropdown, Tabs, Tab } from 'react-materialize';
-import { EditProduct} from '../index';
+import { EditProduct, AllReviews, FiveStars } from '../index';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
@@ -17,6 +17,7 @@ export class SingleProduct extends Component {
 
   componentDidMount () {
     this.props.loadProducts();
+    this.props.loadReviews(this.props.match.params.id);
   }
 
   handleChange = (evt) => {
@@ -60,6 +61,7 @@ export class SingleProduct extends Component {
                     <br />
                     <p>${productSelected.priceActual} </p>
                     <p>NUM STARS</p>
+                    <FiveStars numStars={productSelected.numStars} />
                     <p>NUM REVIEWS</p>
                     <br />
                     <div>
@@ -99,7 +101,9 @@ export class SingleProduct extends Component {
                               <div />
                             }
               <Tabs className='tab-demo z-depth-1'>
-                  <Tab title="READ REVIEWS">INSERT SOME COOL REVIEWS HERE</Tab>
+                  <Tab title="READ REVIEWS">
+                  <AllReviews product= {productSelected} />
+                  </Tab>
                   <Tab title="WRITE A REVIEW">POP UP REVIEW FORM FOR LOGGED IN USERS</Tab>
               </Tabs>
             </div>
@@ -108,7 +112,6 @@ export class SingleProduct extends Component {
     );
   }
 }
-
 
 const mapStateToProps = state => {
   return {
@@ -125,6 +128,9 @@ const mapDispatchToProps = dispatch => {
     },
     updateCart(id, qty) {
       dispatch(addOrUpdateCart(id, qty));
+    },
+    loadReviews(prodId) {
+      dispatch(fetchReviewsByProd(prodId));
     },
   };
 };

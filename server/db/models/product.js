@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const { Review } = require('./')
+
 
 const Product = db.define('product', {
   title: {
@@ -52,6 +54,21 @@ const Product = db.define('product', {
     }
   },
 } );
+
+// Product.prototype.avgRating = () => {
+//   Review.findAll({
+//     where: {
+//       productId: this.id,
+//     }
+//   })
+//   .then(reviews => {
+//     if (reviews.length === 0) return 0;
+//       let total = reviews.reduce((sum, num) => {
+//         return sum + num;
+//       })
+//       return total / reviews.length;
+//   })
+// }
 
 // still need to create virtual hook/getter method for avg ratings by pulling from Reviews model???
 
