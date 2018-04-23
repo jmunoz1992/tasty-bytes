@@ -1,34 +1,17 @@
 const router = require('express')();
 const { Product, Category, Review } = require('../db/models')
 
-function avgRating(prodId) {
-  Review.findAll({
-    where: {
-      productId: prodId,
-    }
-  })
-    .then(reviews => {
-      if (reviews.length === 0) return 0;
-      let total = reviews.reduce((sum, num) => {
-        return sum + num.numStars;
-      }, 0)
-      return total / reviews.length;
-    })
-}
 
 // find all products- main products homepage-works
 //async issue here, not sure how to fix it!!!!!!
 router.get('/', (req, res, next) => {
-  Product.findAll({ where: req.query })
+  Product.findAll({
+    include: {
+      model: Review,
+    }
+  })
     .then(products => {
-      products.forEach(product => {
-        product.numStars = avgRating(product.id);
-        console.log(product.numStars)
-      })
-      return products
-    })
-    .then(productWithRev => {
-      res.status(200).json(productWithRev);
+      return res.status(200).json(products);
     })
     .catch(next);
 });

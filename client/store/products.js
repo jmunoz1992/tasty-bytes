@@ -36,6 +36,13 @@ export function fetchProducts() {
     return axios.get('/api/products')
       .then(res => res.data)
       .then(products => {
+        products.forEach(product => {
+          let total = product.reviews.reduce((sum, review) => {
+            return sum + review.numStars
+          }, 0)
+          if (product.reviews.length === 0) product.avgRating = null;
+          else product.avgRating = total / product.reviews.length
+        })
         dispatch(gotProducts(products));
       });
   };

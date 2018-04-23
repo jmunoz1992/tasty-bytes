@@ -4,7 +4,7 @@ module.exports = router
 
 //combining the old DB cart with the current session cart
 function combineCarts(sessionCart, dbCart) {
-  if (dbCart.length === 0) return sessionCart;
+  if (!dbCart || dbCart.length === 0) return sessionCart;
   if (sessionCart.length === 0) {
     sessionCart = dbCart;
     return dbCart;

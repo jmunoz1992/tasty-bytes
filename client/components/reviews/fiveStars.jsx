@@ -8,14 +8,14 @@ export default function FiveStars (props)  {
   return (
         <Ratings
           rating={numStars}
-          widgetDimensions="40px"
-          widgetSpacings="15px"
+          widgetDimensions="30px"
+          widgetSpacings="5px"
         >
-          <Ratings.Widget widgetRatedColor="yellow" widgetSpacing="10px" widgetDimension="30px" />
-          <Ratings.Widget widgetRatedColor="yellow" widgetSpacing="10px" widgetDimension="30px" />
-          <Ratings.Widget widgetRatedColor="yellow" widgetSpacing="10px" widgetDimension="30px" />
-          <Ratings.Widget widgetRatedColor="yellow" widgetSpacing="10px" widgetDimension="30px" />
-          <Ratings.Widget widgetRatedColor="yellow" widgetSpacing="10px" widgetDimension="30px" />
+          <Ratings.Widget widgetRatedColor="yellow" />
+          <Ratings.Widget widgetRatedColor="yellow" />
+          <Ratings.Widget widgetRatedColor="yellow" />
+          <Ratings.Widget widgetRatedColor="yellow" />
+          <Ratings.Widget widgetRatedColor="yellow" />
         </Ratings>
   );
 };
