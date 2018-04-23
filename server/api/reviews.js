@@ -22,7 +22,7 @@ router.post('/', (req, res, next) => {
     numStars: req.body.numStars,
     imgUrl: req.body.imgUrl,
     productId: req.body.productId,
-    userId: req.body.userId,
+    userId: req.session.passport.id
   })
   .then(review => {
     res.status(201).json(review);
@@ -35,7 +35,7 @@ router.put('/:id', (req, res, next) => {
   Review.update(req.body, {
     where: {
       id: req.params.id,
-      userId: req.sessions.user
+      userId: req.sessions.passport.user
     },
     returning: true
   })

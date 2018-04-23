@@ -69,9 +69,8 @@ export class SingleProduct extends Component {
                     <p>CATEGORY: </p>
                     <br />
                     <p>${productSelected.priceActual} </p>
-                    <p>NUM STARS</p>
                     <FiveStars numStars={productSelected.avgRating} />
-                    <p>NUM REVIEWS</p>
+                    <p>{productSelected.reviews.length} Review(s)</p>
                     <br />
                     <div>
                       {productSelected.inventoryQty ?

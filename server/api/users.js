@@ -12,8 +12,8 @@ module.exports = router
 
 //get basic info on a user
 router.get('/:userId', (req, res, next) => {
-  if (req.session.user) {
-    User.findById(req.session.user, {
+  if (req.session.passport.user) {
+    User.findById(req.session.passport.user, {
       attributes: ['id', 'name', 'email', 'addressId', 'imgUrl'],
       include: [{ model: Address, as: 'UserAddress' }]
     })
@@ -26,8 +26,8 @@ router.get('/:userId', (req, res, next) => {
 
 //get all review posts from a specific user
 router.get('/:userId/reviews', (req, res, next) => {
-  if (req.session.user) {
-    User.findById(req.session.user, {
+  if (req.session.passport.user) {
+    User.findById(req.session.passport.user, {
       attributes: ['id', 'name', 'email'],
       include: [{ model: Review }]
     })
@@ -41,8 +41,8 @@ router.get('/:userId/reviews', (req, res, next) => {
 
 //get all addresses for a specific user
 router.get('/:userId/addresses', (req, res, next) => {
-  if (req.session.user) {
-    User.findById(req.session.user, {
+  if (req.session.passport.user) {
+    User.findById(req.session.passport.user, {
       attributes: ['id', 'name', 'email', 'addressId'],
       include: [{ model: Address, as: 'AddressOwner' }]
     })
@@ -56,8 +56,8 @@ router.get('/:userId/addresses', (req, res, next) => {
 
 //get order history including orderlines for a specific user
 router.get('/:userId/orders', (req, res, next) => {
-  if (req.session.user) {
-    User.findById(req.session.user, {
+  if (req.session.passport.user) {
+    User.findById(req.session.passport.user, {
       attributes: ['id', 'name', 'email'],
       include: [{ model: Order, include: { model: OrderLine } }]
     })
@@ -87,8 +87,8 @@ router.post('/', (req, res, next) => {
 
 // update user in database
 router.put('/:userId', (req, res, next) => {
-  if (req.session.user) {
-    User.findById(req.session.user)
+  if (req.session.passport.user) {
+    User.findById(req.session.passport.user)
       .then(user => {
         user.update({
           id: req.body.id,
@@ -118,8 +118,8 @@ router.put('/:userId', (req, res, next) => {
 // delete user from database
 router.put('/:userId/delete', (req, res, next) => {
   let userToDestroy;
-  if (req.session.user) {
-    User.findById(req.session.user)
+  if (req.session.passport.user) {
+    User.findById(req.session.passport.user)
       .then(user => {
         userToDestroy = user.name;
         user.destroy(req.body)
