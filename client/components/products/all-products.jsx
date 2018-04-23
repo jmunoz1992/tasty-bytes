@@ -20,6 +20,7 @@ export class AllProductsHome extends Component {
   }
 
   render() {
+    console.log('ENTERING ALL-PRODUCTS');
     const { products, updateCart, user, removeProduct } = this.props;
     let isAdmin = false;
     if (user) {
