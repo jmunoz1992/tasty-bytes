@@ -23,7 +23,6 @@ export class OrderEdit extends Component {
     const id = this.props.content.id
       this.setState({
         shipped: new Date()}, () => {
-        console.log('sjhipped clicked.. state is ', this.state.shipped)
       })
     this.props.orderUpate(id, this.state)
   }
@@ -32,9 +31,8 @@ export class OrderEdit extends Component {
     const id = this.props.content.id
     this.setState({
       startProcessing: new Date()}, () => {
-      console.log('processed clicked.. state is ', this.state.startProcessing)
     })
-    
+
     this.props.orderUpate(id, this.state)
   }
 
@@ -42,10 +40,9 @@ export class OrderEdit extends Component {
     const id = this.props.content.id
     this.setState({
       cancel: new Date()}, () => {
-        console.log('cancel clicked.. state is ', this.state.cancel)
-      
+
     })
-    
+
     this.props.orderUpate(id, this.state)
   }
     render(){
@@ -57,7 +54,7 @@ export class OrderEdit extends Component {
         }>
         {this.props.content.startProcessing === null && this.props.content.cancel === null ?
         <NavItem onClick={this.handleClickProcess}>Begin Processing</NavItem>
-        : ( this.props.content.shipped || this.props.content.cancel ? <div /> : 
+        : ( this.props.content.shipped || this.props.content.cancel ? <div /> :
           <NavItem onClick={this.handleClickShipped}>Mark Shipped</NavItem>
         )
       }

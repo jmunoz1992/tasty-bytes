@@ -35,7 +35,6 @@ export class AllCategories extends Component {
   }
 
   render() {
-    console.log(this.props.authMessage)
     const { categories, removeCategory, authMessage } = this.props;
     const { category } = this.state
     return (
