@@ -23,7 +23,12 @@ const Order = db.define('order', {
   cancel: {
    type: Sequelize.DATE,
    allowNull: true,
-}
+},
+  email: {
+    type: Sequelize.STRING,
+    unique: false,
+    allowNull: true,
+},
 
 })
 

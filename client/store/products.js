@@ -54,7 +54,7 @@ export function addProduct(product, history) {
       .then(res => res.data)
       .then(createdProduct => {
         dispatch(newProduct(createdProduct));
-        history.push('/products')
+        history.push('/')
       });
   };
 }

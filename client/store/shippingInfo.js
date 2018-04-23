@@ -23,7 +23,9 @@ export default function reducer(state = [], action){
     // case GET_SHIPPING_INFO:
     //   return action.shippingInfo;
     case ADD_SHIPPING_INFO:
-      return action.shippingInfo;
+
+      return action.shippingInfo
+
     default:
       return state;
   }

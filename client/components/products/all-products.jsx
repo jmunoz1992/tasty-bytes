@@ -5,9 +5,32 @@ import { fetchProducts, fetchCartProducts, addOrUpdateCart, deleteProduct } from
 import { withRouter, Link } from 'react-router-dom'
 
 export class AllProductsHome extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: ''
+    }
+  }
+
   componentDidMount() {
     this.props.loadProducts();
     this.props.loadCart();
+  }
+
+  handleChange = (event) => {
+    const value = event.target.value;
+    this.setState({
+      search: value
+    })
+  }
+
+  filterProducts = (products) => {
+    let search = this.state.search
+    var regex = new RegExp( search, 'gi' );
+    return products.filter(product => {
+      return product.title.match(regex)
+    })
   }
 
   render() {
@@ -16,20 +39,29 @@ export class AllProductsHome extends Component {
     if (user) {
       isAdmin = user.isAdmin
     }
+    let filtered = this.filterProducts(products);
     return (
       <div className="center-align" id="all-products">
         <h1>ALL PRODUCTS</h1>
+        <div className="inputGroup">
+          <label htmlFor="title"><h5>Search Products: </h5></label>
+          <input
+            required
+            onChange={(evt) => this.handleChange(evt, 'title')}
+            name="title"
+            value={this.state.search} />
+        </div>
         <div className="center-align">
-        {
-          isAdmin ?
-          <div>
-            <Link to="/admin/products/add" className="add-button" ><button>Add New Product</button></Link>
-          </div>
-          :
-          null
-        }
+          {
+            isAdmin ?
+              <div>
+                <Link to="/admin/products/add" className="add-button" ><button>Add New Product</button></Link>
+              </div>
+              :
+              null
+          }
           <div className="row">
-            {products && products.map(product => {
+            {filtered && filtered.map(product => {
               return (
                 <ProductCardView
                   key={product.id}

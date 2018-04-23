@@ -2,12 +2,13 @@ import axios from 'axios'
 
 const GET_ORDERS = 'GET_ORDERS'
 const UPDATE_ORDER = 'UPDATE_ORDER'
+const CREATE_ORDER = 'CREATE_ORDER'
 
 const defaultOrder = []
 
 const getOrders = orders => ({type: GET_ORDERS, orders})
 const updateOrder = order => ({type: UPDATE_ORDER, order})
-
+const createOrder = order => ({type: CREATE_ORDER, order})
 
 /**
  * THUNK CREATORS
@@ -35,12 +36,24 @@ export function callOrderUpdate(id, updates) {
   };
 }
 
+export function createNewOrder(data){
+  console.log('about to create with ', data)
+    return function thunk(dispatch){
+      return axios.post(`/api/admin/orders`, data)
+      .then(res => {
+        return res.data})
+        //may want to call update on this and fetch somethinbg
+      .catch(err => console.error(err));
+      }
+}
 
 export default function (state = defaultOrder, action) {
   switch (action.type) {
     case GET_ORDERS:
       return action.orders
     case UPDATE_ORDER:
+      return action.order
+    case CREATE_ORDER:
       return action.order
     // case REMOVE_ORDER:
     //   return defaultOrder
