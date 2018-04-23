@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchCartProducts} from '../../store/index.js'
 import { ProductCardView } from '../index.js';
 import {fetchProducts} from '../../store/index.js'
+import { createNewOrder } from '../../store/index.js'
 
 // need to add prop components into ProductCardView
 
@@ -10,12 +11,27 @@ import { CartItem } from './cartItem.jsx';
 import { Table, Button } from 'react-materialize';
 
 export class ShoppingCart extends Component {
+  constructor(props){
+    super(props);
+    this.submitClickHandler = this.submitClickHandler.bind(this);
+  }
 
   componentDidMount() {
     this.props.loadCartProducts();
 
   }
-
+  
+  submitClickHandler = () => {
+    const {user} = this.props
+    console.log('we were clicked!')
+    console.log(this.props, ' the props are')
+    const orderToAdd = {
+      userId: user.id
+    }
+    console.log(" LETS DEBUG")
+    console.log("create order anbd typeof ", typeof createNewOrder, createNewOrder)
+    this.props.newOrderMade(orderToAdd);
+  }
   render() {
 
     const { cartItems, cartPrices } = this.props;
@@ -80,7 +96,7 @@ export class ShoppingCart extends Component {
         </table>
 
       <Button waves='light' style={{marginRight: '15px'}}>Go back to shopping</Button>
-      <Button waves='light' style={{marginLeft: '15px'}}>Check Out</Button>
+      <Button waves='light' style={{marginLeft: '15px'}} onClick={this.submitClickHandler}>Check Out</Button>
 
           </div>
 
@@ -98,7 +114,8 @@ export class ShoppingCart extends Component {
 const mapStateToProps = state => {
   return {
     cartItems: state.cartItems,
-    cartPrices: state.cartPrices
+    cartPrices: state.cartPrices,
+    user: state.user
   };
 };
 
@@ -107,6 +124,9 @@ const mapDispatchToProps = dispatch => {
     loadCartProducts() {
       dispatch(fetchCartProducts());
     },
+    newOrderMade(data) {
+      dispatch(createNewOrder(data));
+    }
   };
 };
 

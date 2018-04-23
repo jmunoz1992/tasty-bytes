@@ -17,6 +17,7 @@ router.get('/', (req, res, next) => {
 
 //POST a new order.
 router.post('/', (req, res, next) => {
+  console.log('we"re in here and our req.body is ', req.body)
   Order.create({
     id: req.body.id,
     orderlines: {
