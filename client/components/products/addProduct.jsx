@@ -18,7 +18,9 @@ export class AddProduct extends Component {
         image: '',
         pdtWt: 0,
         priceActual: 0
-      }
+      },
+      errors: [],
+      dirty: false
     }
   }
 
@@ -32,14 +34,31 @@ export class AddProduct extends Component {
     productInfo[field] = value;
 
     this.setState({
+      dirty: true,
       product: productInfo
-    })
+    }, this.validate)
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
     let product = this.state.product
     this.props.createProduct(product)
+  }
+
+  validate = () => {
+    let errors = [];
+    let product = this.state.product
+    if (this.state.dirty) {
+      if (+product.inventoryQty < 0) errors.push('Inventory Qty cannot be less than zero');
+      if (+product.pdtWt <= 0) errors.push('Product Weight must be greater than zero');
+      if (+product.priceActual <= 0) errors.push('Product Price must be greater than zero');
+      if (!product.title.length) errors.push('Product Name is required');
+      if (!product.shortDescription.length) errors.push('Short Description is required');
+      if (!product.fullDescription.length) errors.push('Full Description is required');
+    }
+    this.setState({
+      errors: errors
+    })
   }
 
   render() {
@@ -49,14 +68,27 @@ export class AddProduct extends Component {
     if (user) {
       isAdmin = user.isAdmin
     }
+    let disableSubmit = (this.state.errors && this.state.errors.length) ? true : false;
     return (
       <div className="center-align">
         {
           isAdmin ?
             <div>
               <h2>Add New Product</h2>
+              <div className="errorMessage">
+            {
+              this.state.errors.length ?
+              <h5>{this.state.errors.join(`, `)}</h5>
+              :
+              <div />
+            }
+            </div>
               <form className="addProd" onSubmit={(event) => { this.handleSubmit(event) }} >
-                <Button onClick={this.handleSubmit} >Add Product</Button>
+                <Button
+                onClick={this.handleSubmit}
+                disabled={disableSubmit}
+                >Add Product
+                </Button>
                 <section>
                   <div className="inputGroup">
                     <label htmlFor="title"><h5>Product Name: </h5></label>

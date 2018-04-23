@@ -48,3 +48,10 @@ form {
   transform: translateY(15px)
 
 }
+
+.errorMessage {
+  color: red;
+  background-color: beige;
+  border: 1px solid black;
+  border-radius: 5px;
+}
