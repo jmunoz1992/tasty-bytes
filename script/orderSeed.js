@@ -27,6 +27,7 @@ async function seed () {
       userId: 1,
       shipAddressId: 1,
       billAddressId: 1,
+      email: '1@gmail.com',
 
     }),
     Order.create({
@@ -37,6 +38,8 @@ async function seed () {
       userId: 2,
       shipAddressId: 4,
       billAddressId: 4,
+      email: '2@gmail.com',
+      
     }),
     Order.create({
       cancel: null,
@@ -46,6 +49,8 @@ async function seed () {
       userId: 3,
       shipAddressId: 3,
       billAddressId: 3,
+      email: '3@gmail.com',
+      
     }),
     Order.create({
       cancel: null,
@@ -55,6 +60,8 @@ async function seed () {
       userId: 4,
       shipAddressId: 4,
       billAddressId: 4,
+      email: '4@gmail.com',
+      
     }),
     Order.create({
       cancel: null,
@@ -64,6 +71,8 @@ async function seed () {
       userId: 5,
       shipAddressId: 7,
       billAddressId: 8,
+      email: '5@gmail.com',
+      
     }),
     Order.create({
       cancel: null,
@@ -73,6 +82,8 @@ async function seed () {
       userId: 1,
       shipAddressId: 9,
       billAddressId: 1,
+      email: '6@gmail.com',
+      
     })
   ]);
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
