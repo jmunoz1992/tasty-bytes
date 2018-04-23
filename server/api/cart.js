@@ -20,8 +20,7 @@ const Op = Sequelize.Op
 router.get('/', (req, res, next) => {
   console.log('req session ', req.session)
   if (!req.session.cart || !req.session.cart.length) {
-    if (!req.session.passport) {
-      console.log('in cart.js line 23 ')
+    if (!req.session.passport || !req.session.passport.user) {
       req.session.cart = [];
       res.json(req.session.cart);
     }
