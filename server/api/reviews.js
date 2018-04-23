@@ -27,7 +27,8 @@ router.post('/', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
   Review.update(req.body, {
     where: {
-      id: req.params.id
+      id: req.params.id,
+      userId: req.sessions.user
     },
     returning: true
   })
