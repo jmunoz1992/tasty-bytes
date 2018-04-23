@@ -92,31 +92,62 @@ export class AddProduct extends Component {
                 <section>
                   <div className="inputGroup">
                     <label htmlFor="title"><h5>Product Name: </h5></label>
-                    <input required onChange={(evt) => this.handleChange(evt, 'title')} name="title" value={product.title} />
+                    <input
+                      required
+                      onChange={(evt) => this.handleChange(evt, 'title')}
+                      name="title"
+                      value={product.title} />
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="shortDesc"><h5>Product Short Description: </h5></label>
-                    <textarea onChange={(evt) => this.handleChange(evt, 'shortDescription')} name="shortDescription" value={product.shortDescription} />
+                    <textarea
+                      onChange={(evt) => this.handleChange(evt, 'shortDescription')}
+                      name="shortDescription"
+                      value={product.shortDescription} />
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="fullDesc"><h5>Product Full Description: </h5></label>
-                    <textarea onChange={(evt) => this.handleChange(evt, 'fullDescription')} name="fullDescription" value={product.fullDescription} />
+                    <textarea
+                      onChange={(evt) => this.handleChange(evt, 'fullDescription')}
+                      name="fullDescription"
+                      value={product.fullDescription} />
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="inventory"><h5>Product Inventory: </h5></label>
-                    <input type="number" min="0" required onChange={(evt) => this.handleChange(evt, 'inventoryQty')} name="inventoryQty" value={product.inventoryQty} />
+                    <input
+                      type="number"
+                      min="0"
+                      required
+                      onChange={(evt) => this.handleChange(evt, 'inventoryQty')}
+                      name="inventoryQty"
+                      value={product.inventoryQty} />
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="weight"><h5>Product Weight: </h5></label>
-                    <input required type="number" min="0" onChange={(evt) => this.handleChange(evt, 'pdtWt')} name="pdtWt" value={product.pdtWt} />
+                    <input
+                      required
+                      type="number"
+                      min="0"
+                      onChange={(evt) => this.handleChange(evt, 'pdtWt')}
+                      name="pdtWt"
+                      value={product.pdtWt} />
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="image"><h5>Product Image: </h5></label>
-                    <input onChange={(evt) => this.handleChange(evt, 'image')} name="image" value={product.image} />
+                    <input
+                      onChange={(evt) => this.handleChange(evt, 'image')}
+                      name="image"
+                      value={product.image} />
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="price"><h5>Product Price: </h5></label>
-                    <input type="number" min="0" required onChange={(evt) => this.handleChange(evt, 'priceActual')} name="priceActual" value={product.priceActual} />
+                    <input
+                      type="number"
+                      min="0"
+                      required
+                      onChange={(evt) => this.handleChange(evt, 'priceActual')}
+                      name="priceActual"
+                      value={product.priceActual} />
                   </div>
                 </section>
               </form>

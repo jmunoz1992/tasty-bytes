@@ -30,13 +30,13 @@ export class CartItem extends Component {
 
   handleQty(evt){
     evt.preventDefault();
-    this.props.updateCart(this.props.currentItem.id, evt.target.value)
+    this.props.updateCart(this.props.currentItem.id, Number(evt.target.value))
   }
 
   handleSubmit(evt){
     evt.preventDefault();
     if (this.state.dirty){
-    this.props.updateCart(this.props.currentItem.id, this.state.qty)
+    this.props.updateCart(this.props.currentItem.id, Number(this.state.qty))
     }
   }
 
