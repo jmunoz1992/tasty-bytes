@@ -5,8 +5,6 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 export const AdminSort = (props) => {
-
-    console.log('the props are ', props)
     return (
         <div>
         <Dropdown trigger={

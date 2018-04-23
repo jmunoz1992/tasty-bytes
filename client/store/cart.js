@@ -12,10 +12,10 @@ export const getCartProducts = function (cartItems) {
 
 function idArrMaker(cartItems){
   if (cartItems) {
-      let idArr = cartItems.map(item => {
-        return (item.id)
-      })
-    return {products: idArr};
+    let idArr = cartItems.map(item => {
+      return (item.id)
+    })
+  return {products: idArr};
   }
 }
 

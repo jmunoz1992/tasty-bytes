@@ -11,7 +11,13 @@ router.get('/', (req, res, next) => {
     }
   })
     .then(products => {
-      return res.status(200).json(products);
+      products.forEach(product => {
+        product.numStars = avgRating(product.id);
+      })
+      return products
+    })
+    .then(productWithRev => {
+      res.status(200).json(productWithRev);
     })
     .catch(next);
 });

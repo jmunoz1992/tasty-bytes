@@ -85,7 +85,7 @@ describe('Review routes', () => {
       })
     })
 
-    it('Post /api/reviews/:id', () => {
+    xit('Put /api/reviews/:id', () => {
       return request(app)
         .put('/api/reviews/1')
         .send({
@@ -101,7 +101,7 @@ describe('Review routes', () => {
         })
     })
 
-    it('saves updates to the DB', function () {
+    xit('saves updates to the DB', function () {
 
       return request(app)
       .put('/api/reviews/1')

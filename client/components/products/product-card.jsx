@@ -8,7 +8,6 @@ export const ProductCardView = (props) => {
   if (props.user) {
     isAdmin = props.user.isAdmin
   }
-  console.log('getting into product card view')
   return (
     <div className="col s12 m6 center-align">
       <div className="card blue-grey darken-1 center-align">

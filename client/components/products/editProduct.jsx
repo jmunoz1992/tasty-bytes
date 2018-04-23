@@ -33,7 +33,7 @@ export class EditProduct extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     let product = this.state.product
-    this.props.handleEdit()
+    this.props.handleEdit(event)
     this.props.editProduct(product)
   }
 
@@ -83,6 +83,9 @@ export class EditProduct extends Component {
                   </div>
                 </section>
               </form>
+              <button onClick= {(event) => { this.props.handleEdit(event) }}>
+              [X] Close Form
+              </button>
             </div>
             :
             <h2>You must be an Admin to edit products</h2>

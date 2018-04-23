@@ -6,19 +6,16 @@ import { withRouter, Link } from 'react-router-dom'
 
 export class AllProductsHome extends Component {
   componentDidMount() {
-    console.log('getting into comp did mount ')
     this.props.loadProducts();
     this.props.loadCart();
   }
 
   render() {
-    console.log('ENTERING ALL-PRODUCTS');
     const { products, updateCart, user, removeProduct } = this.props;
     let isAdmin = false;
     if (user) {
       isAdmin = user.isAdmin
     }
-    console.log('these are the products ', products);
     return (
       <div className="center-align" id="all-products">
         <h1>ALL PRODUCTS</h1>

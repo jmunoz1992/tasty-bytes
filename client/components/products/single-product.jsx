@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {fetchProducts, addOrUpdateCart, fetchReviewsByProd} from '../../store';
+import React, { Component } from 'react';
+import { fetchProducts, addOrUpdateCart, fetchReviewsByProd } from '../../store';
 import { Button, NavItem, Dropdown, Tabs, Tab } from 'react-materialize';
 import { EditProduct, AllReviews, FiveStars, NewReview } from '../index';
 import { withRouter } from 'react-router-dom'
@@ -15,9 +15,22 @@ export class SingleProduct extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadProducts();
     this.props.loadReviews(this.props.match.params.id);
+  }
+
+  handleEdit= (evt) => {
+    let productId = this.props.match.params.id
+    if (!this.state.editFormShow) {
+      this.props.history.push(`/products/${productId}/edit`)
+    } else {
+      this.props.history.push(`/products/${productId}`)
+    }
+    evt.preventDefault();
+    this.setState({
+      editFormShow: !this.state.editFormShow
+    })
   }
 
   handleChange = (evt) => {
@@ -27,19 +40,13 @@ export class SingleProduct extends Component {
     })
   }
 
-  handleEdit = () => {
-    this.setState({
-      editFormShow: !this.state.editFormShow
-    })
-  }
-
   render() {
 
     let { products, user } = this.props;
 
     const productId = +this.props.match.params.id;
     let productSelected;
-    if (products){
+    if (products) {
       productSelected = products.filter(product => product.id === productId)[0];
     }
     let isAdmin = false;
@@ -47,9 +54,9 @@ export class SingleProduct extends Component {
       isAdmin = user.isAdmin;
     }
     return (
-        <div className="center-align">
-          {productSelected ?
-            <div className="row center-align">
+      <div className="center-align">
+        {productSelected ?
+          <div className="row center-align">
             <div className="col s3 m3 center-align" />
             <div className="col s6 m6 center-align">
                 <div className="card blue-grey darken-1 center-align">
@@ -74,21 +81,22 @@ export class SingleProduct extends Component {
                     </div>
                     <label>QTY</label>
                     <input
+
                     onChange={this.handleChange}
                     type="number"
-                    name= "qty"
+                    name="qty"
                     step="1"
                     min="0"
                     max={productSelected.inventoryQty}
-                    defaultValue= {this.state.qty} />
-                    <Button
-                    onClick= {() => {this.props.updateCart(productSelected.id, this.state.qty)}}
-                    >ADD TO CART
+                    defaultValue={this.state.qty} />
+                  <Button
+                    onClick={() => { this.props.updateCart(productSelected.id, this.state.qty) }}
+                  >ADD TO CART
                     </Button>
-                    <br />
-                    {
-                      isAdmin ?
-                      <Button onClick= { () => {this.setState({editFormShow: !this.state.editFormShow})} } >Edit Product</Button>
+                  <br />
+                  {
+                    isAdmin ?
+                      <Button onClick={this.handleEdit} >Edit Product</Button>
                       :
                       <div />
                     }
@@ -111,8 +119,21 @@ export class SingleProduct extends Component {
                   </Tab>
               </Tabs>
             </div>
-            : null}
-        </div>
+            {
+              (isAdmin && this.state.editFormShow) ?
+                <EditProduct product={productSelected} handleEdit={this.handleEdit} />
+                :
+                <div />
+            }
+            <Tabs className='tab-demo z-depth-1'>
+              <Tab title="READ REVIEWS">
+                <AllReviews product={productSelected} />
+              </Tab>
+              <Tab title="WRITE A REVIEW">POP UP REVIEW FORM FOR LOGGED IN USERS</Tab>
+            </Tabs>
+          </div>
+          : null}
+      </div>
     );
   }
 }
