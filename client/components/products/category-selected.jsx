@@ -29,11 +29,13 @@ export class CategorySelected extends Component {
   }
 
   filterProducts = (products) => {
-    let search = this.state.search
-    var regex = new RegExp( search, 'gi' );
-    return products.filter(product => {
-      return product.title.match(regex)
-    })
+    if (products && products.length) {
+      let search = this.state.search
+      var regex = new RegExp( search, 'gi' );
+      return products.filter(product => {
+        return product.title.match(regex)
+      })
+    }
   }
 
   render() {
@@ -42,9 +44,16 @@ export class CategorySelected extends Component {
     if (user) {
       isAdmin = user.isAdmin
     }
-    let categoryId = this.props.match.params.id;
-    console.log('category id in here is ', categoryId);
-    let filtered = this.filterProducts(products);
+    let categoryId = +this.props.match.params.id;
+    let selectedProducts = categories.filter(category => category.id === categoryId)[0];
+    let categoryName = '';
+    let filtered = [];
+    if (selectedProducts) {
+      filtered = this.filterProducts(selectedProducts.products);
+      categoryName = selectedProducts.name;
+    } else {
+      filtered = this.filterProducts(products);
+    }
     return (
       <div id="all-products">
         {(categories) ? (
@@ -80,7 +89,7 @@ export class CategorySelected extends Component {
             value={this.state.search} />
         </div>
         <div className="center-align">
-          <h1>ALL PRODUCTS IN PRODUCT SELECTED</h1>
+          <h1>{categoryName} products</h1>
           {
             isAdmin ?
               <div>
