@@ -51,7 +51,6 @@ export class OrderItem extends Component {
 
     const products = this.props.products;
 
-    console.log('props are: ', this.props)
     let itemNum = this.props.content.orderlines[0].id - 1;
     return (
       <div>

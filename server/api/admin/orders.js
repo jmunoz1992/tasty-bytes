@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   if (req.body[0][1] !== null) {
     Order.create({
-      userId: req.body[0][1], email: 'z1@zeke.zeke' //hard coded. import with ricky
+      userId: req.body[0][1], email: req.body[2][1]
     }).then((orderCreated) => {
       req
         .body[1][1]
@@ -32,7 +32,7 @@ router.post('/', (req, res, next) => {
   } else {
     Order
       .create({
-      userId: null, email: 'z2@zeke.zeke' //hard coded. import with ricky
+      userId: null, email: req.body[2][1]
     }).then((orderCreated) => {
       req
         .body[1][1]

@@ -33,38 +33,11 @@ export class ShoppingCart extends Component {
       .deleteItem(+ evt.target.name);
   }
 
-  submitClickHandler = () => {
-    const {user} = this.props
-    console.log('we were clicked!')
-    console.log(this.props, ' the props are')
-    //create orderline
-    let orderline = [];
-    for (let i = 0; i < this.props.cartItems.length; i++) {
-      console.log('in the foreach');
-      orderline.push({productId: this.props.cartItems[i].id, priceCents: this.props.cartPrices[i].priceCents, qty: this.props.cartPrices[i].inventoryQty})
-    }
-    console.log('user is ', this.props.user)
-    let userId = 'userId'
-    let orderlines = 'orderlines'
-    console.log('orderline array is ', orderline)
-    if (user.id) {
-      let orderToAdd = new Map();
-      orderToAdd.set(userId, user.id)
-      orderToAdd.set(orderlines, {orderlines: orderline})
-
-      this
-        .props
-        .newOrderMade(orderToAdd);
-    } else {
-      let orderToAdd = new Map();
-      orderToAdd.set(userId, null)
-      orderToAdd.set(orderlines, {orderlines: orderline})
-      console.log("made it here, check out map: ", orderToAdd)
-      this
-        .props
-        .newOrderMade(orderToAdd);
-    }
+  submitClickHandler(){
+    this.props.history.push('/checkout')
   }
+
+
   render() {
 
     const {cartItems, cartPrices} = this.props;
