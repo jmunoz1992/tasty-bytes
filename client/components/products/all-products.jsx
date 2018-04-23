@@ -6,8 +6,17 @@ import { withRouter, Link } from 'react-router-dom'
 
 export class AllProductsHome extends Component {
   componentDidMount() {
+    console.log('getting into comp did mount ')
     this.props.loadProducts();
     this.props.loadCart();
+  }
+
+  componentWillRecieveProps(nextProps) {
+    console.log('getting into comp will recieve props ')
+    if (!nextProps.products.length) {
+      nextProps.loadProducts();
+      nextProps.loadCart();
+    }
   }
 
   render() {
