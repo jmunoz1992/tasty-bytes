@@ -6,6 +6,7 @@ import { clearCart, getCartProducts } from './index'
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
+const SET_CURRENT_USER = 'SET_CURRENT_USER';
 const REMOVE_USER = 'REMOVE_USER'
 
 /**
@@ -17,6 +18,7 @@ const defaultUser = {}
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
+const setCurrentUser  = user => ({ type: SET_CURRENT_USER, user });
 const removeUser = () => ({type: REMOVE_USER})
 
 /**
@@ -42,14 +44,27 @@ export const auth = (email, password, username, name, method) => {
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
     }
 
+export const login = (credentials, history) => dispatch => {
+  axios.put('/auth/local/login', credentials)
+    .then(res => setUserAndRedirect(res.data, history, dispatch))
+    .catch(err => console.error(`Logging in with ${credentials.email} and ${credentials.password} was unsuccesful`, err));
+};
+
+
+export const signup = (credentials, history) => dispatch => {
+  axios.post('/auth/local/signup', credentials)
+    .then(res => setUserAndRedirect(res.data, history, dispatch))
+    .catch(err => console.error(`Signing up with ${credentials.email} and ${credentials.password} was unsuccesful`, err));
+};
+
 export const logout = (user) =>
   dispatch =>
     axios.post('/auth/logout', user)
       .then(_ => {
         dispatch(removeUser())
         dispatch(clearCart())
-        history.push('/login')
       })
+      .then(() => history.push('/login'))
       .catch(err => console.log(err))
 
 /**
@@ -59,9 +74,18 @@ export default function (state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user
+    case SET_CURRENT_USER:
+      return action.user;
     case REMOVE_USER:
-      return defaultUser
+        return defaultUser
     default:
       return state
   }
+}
+
+/* ------------      HELPER FUNCTIONS     ------------------ */
+
+function setUserAndRedirect (user, history, dispatch) {
+  dispatch(setCurrentUser(user))
+  history.push(`/`);
 }

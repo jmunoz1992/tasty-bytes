@@ -18,6 +18,6 @@ export default function FiveStars (props)  {
           <Ratings.Widget widgetRatedColor="yellow" />
         </Ratings>
   );
-};
+}
 
 
