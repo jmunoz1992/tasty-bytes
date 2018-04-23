@@ -11,6 +11,7 @@ import categories from './categories'
 import authMessage from './notAuthMessage'
 import cartPrices from './cartPrice'
 import reviews from './reviews'
+import shippingInfo from './shippingInfo'
 
 
 const reducer = combineReducers({
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   authMessage,
   cartPrices,
   reviews,
+  shippingInfo,
 })
 
 
@@ -43,3 +45,4 @@ export * from './categories'
 export * from './notAuthMessage'
 export * from './cartPrice'
 export * from './reviews'
+export * from './shippingInfo'
