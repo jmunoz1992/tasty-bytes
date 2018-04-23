@@ -1,48 +1,52 @@
 const router = require('express')();
-const { Order, OrderLine } = require('../../db/models');
-
+const {Order, OrderLine} = require('../../db/models');
 
 // GET all orders.
 router.get('/', (req, res, next) => {
-  Order.findAll({
+  Order
+    .findAll({
     include: {
       model: OrderLine
     }
   })
     .then(orders => {
-      res.status(200).json(orders);
+      res
+        .status(200)
+        .json(orders);
     })
     .catch(next)
 })
 
-//POST a new order.
 router.post('/', (req, res, next) => {
-  console.log('we"re in here and our req.body is ', req.body)
-  Order.create({
-    id: req.body.id,
-    orderlines: {
-      id: req.body.orderlines.id,
-      qty: req.body.orderlines.qty,
-      priceCents: req.body.orderlines.price * 100,
-      productId: req.body.orderlines.productId,
-      orderId: req.body.orderlines.orderId,
-    }
-  }, {
-    include: {
-      model: OrderLine,
-      as: 'orderlines'
-    }
-  })
-  .then(order => {
-    res.status(201).json(order)
-  })
-  .catch(next);
-});
+  if (req.body[0][1] !== null) {
+    Order.create({
+      userId: req.body[0][1], email: 'z1@zeke.zeke' //hard coded. import with ricky
+    }).then((orderCreated) => {
+      req
+        .body[1][1]
+        .orderlines
+        .forEach((orderline) => {
+          OrderLine.create({orderId: orderCreated.dataValues.id, qty: orderline.qty, priceCents: orderline.priceCents, productId: orderline.productId})
+        })
+    })
+  } else {
+    Order
+      .create({
+      userId: null, email: 'z2@zeke.zeke' //hard coded. import with ricky
+    }).then((orderCreated) => {
+      req
+        .body[1][1]
+        .orderlines
+        .forEach((orderline) => {
+          OrderLine.create({orderId: orderCreated.dataValues.id, qty: orderline.qty, priceCents: orderline.priceCents, productId: orderline.productId})
+        })
+    })
+  }
+})
 
-
-//DELETE an order by ID.
 router.delete('/:id', (req, res, next) => {
-  Order.destroy({
+  Order
+    .destroy({
     where: {
       id: req.params.id
     }
@@ -53,16 +57,17 @@ router.delete('/:id', (req, res, next) => {
     .catch(next)
 })
 
-
 router.put('/:orderId', (req, res, next) => {
-  Order.findById(req.params.orderId)
+  Order
+    .findById(req.params.orderId)
     .then(order => {
-      order.update(req.body)
+      order
+        .update(req.body)
         .then(updatedOrder => {
           const orderData = {
-              id: updatedOrder.id,
-              shipped: updatedOrder.shipped,
-              arrived: updatedOrder.arrived,
+            id: updatedOrder.id,
+            shipped: updatedOrder.shipped,
+            arrived: updatedOrder.arrived
           }
           res.json(orderData)
         })
@@ -70,8 +75,4 @@ router.put('/:orderId', (req, res, next) => {
     .catch(next);
 });
 
-
-
 module.exports = router;
-
-

@@ -16,34 +16,34 @@ export class OrderItem extends Component {
   const {id, createdAt, shipped, startProcessing, cancel} = this.props.content
 
   const shippingStatus = date => {
-    let d = new Date(date);
+    let curDate = new Date(date);
 
     if (date === null) {
-      return "Incomplete"
+      return 'Incomplete'
     }
-    if (d > new Date()) {
-      return "Incomplete"
+    if (curDate > new Date()) {
+      return 'Incomplete'
     }
-    if (d < new Date()) {
-      return "Complete"
+    if (curDate < new Date()) {
+      return 'Complete'
     }
   }
 
-  const orderStatus = (startProcessing, cancel) => {
-    let d = new Date(startProcessing)
-    if(cancel !== null){
+  const orderStatus = (_startProcessing, _cancel) => {
+    let d = new Date(_startProcessing)
+    if (_cancel !== null){
       return 'Cancelled'
     }
-    if(shippingStatus(shipped) === "Complete"){
+    if (shippingStatus(shipped) === "Complete"){
       return 'Completed'
     }
-    if(startProcessing === null){
+    if (_startProcessing === null){
       return 'New order'
     }
-    if(d < new Date()){
+    if (d < new Date()){
       return 'Order is processing'
     }
-    if(d > new Date()){
+    if (d > new Date()){
       return 'New order'
     }
 
@@ -51,7 +51,7 @@ export class OrderItem extends Component {
 
     const products = this.props.products;
 
-
+    console.log('props are: ', this.props)
     let itemNum = this.props.content.orderlines[0].id - 1;
     return (
       <div>

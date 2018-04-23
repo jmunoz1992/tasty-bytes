@@ -38,8 +38,9 @@ export function callOrderUpdate(id, updates) {
 }
 
 export function createNewOrder(data){
+  console.log('about to create with ', data)
     return function thunk(dispatch){
-      return axios.put(`/api/admin/orders`, data)
+      return axios.post(`/api/admin/orders`, data)
       .then(res => {
         return res.data})
         //may want to call update on this and fetch somethinbg
