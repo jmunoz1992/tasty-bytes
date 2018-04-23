@@ -8,7 +8,10 @@ export {default as FiveStars} from './reviews/fiveStars.jsx'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
 export {default as AllUsers} from './all-users.jsx'
+
 export {default as ShoppingCart} from './shoppingCart/shoppingCart.jsx'
+export {default as Checkout} from './checkout/checkout.jsx'
+export {default as OrderPreview} from './checkout/orderPreview.jsx'
 
 export {default as AllProductsHome} from './products/all-products.jsx'
 export {ProductCardView} from './products/product-card.jsx'
