@@ -10,11 +10,6 @@ export class AllProductsHome extends Component {
     this.props.loadCart();
   }
 
-  componentWillMount() {
-    this.props.loadProducts();
-    this.props.loadCart();
-  }
-
   render() {
     const { products, updateCart, user, removeProduct } = this.props;
     let isAdmin = false;
