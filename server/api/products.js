@@ -11,16 +11,12 @@ router.get('/', (req, res, next) => {
     }
   })
     .then(products => {
-      products.forEach(product => {
-        product.numStars = avgRating(product.id);
-      })
-      return products
-    })
-    .then(productWithRev => {
-      res.status(200).json(productWithRev);
+      return res.status(200).json(products);
     })
     .catch(next);
 });
+
+
 
 // find specific product by id - when 'See Details' is clicked-works
 router.get('/:id', (req, res, next) => {
