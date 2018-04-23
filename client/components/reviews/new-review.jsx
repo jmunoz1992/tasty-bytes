@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { newReview } from '../../store';
+import { addReview } from '../../store';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { Button } from 'react-materialize';
 
-export function NewReview (props) {
+export class NewReview extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       review: {
+        productId: this.props.product.id,
+        userId: this.props.user.id,
         title: '',
         content: '',
         imgUrl: '',
         numStars: 0,
       }
     }
-  }
-
-  componentDidMount() {
-    // this.props.loadProducts();
   }
 
   handleChange = (event, field) => {
@@ -53,20 +52,41 @@ export function NewReview (props) {
                 <section>
                   <div className="inputGroup">
                     <label htmlFor="title"><h5>Review Title: </h5></label>
-                    <input required onChange={(evt) => this.handleChange(evt, 'title')} name="title" value={review.title} />
+                    <input
+                      required
+                      onChange={(evt) => this.handleChange(evt, 'title')}
+                      name="title"
+                      value={review.title}
+                    />
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="content"><h5>Review Content: </h5></label>
-                    <textarea onChange={(evt) => this.handleChange(evt, 'content')} name="content" value={review.content} />
+                    <textarea
+                      required
+                      onChange={(evt) => this.handleChange(evt, 'content')}
+                      name="content"
+                      value={review.content}
+                    />
                   </div>
 
                   <div className="inputGroup">
                     <label htmlFor="numStars"><h5>Number of Stars:</h5></label>
-                    <input required type="number" min="0" onChange={(evt) => this.handleChange(evt, 'numStars')} name="numStars" value={review.numStars} />
+                    <input
+                      required
+                      type="number"
+                      min="0"
+                      min="5"
+                      onChange={(evt) => this.handleChange(evt, 'numStars')}
+                      name="numStars"
+                      value={review.numStars}
+                    />
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="imgUrl"><h5>Product Image: </h5></label>
-                    <input onChange={(evt) => this.handleChange(evt, 'imgUrl')} name="imgUrl" value={review.imgUrl} />
+                    <input
+                      onChange={(evt) => this.handleChange(evt, 'imgUrl')}
+                      name="imgUrl"
+                      value={review.imgUrl} />
                   </div>
                 </section>
               </form>
@@ -78,6 +98,7 @@ export function NewReview (props) {
       </div>
     );
   }
+}
 
 const mapStateToProps = state => {
   return {
@@ -89,12 +110,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     createReview(review) {
-      dispatch(newReview(review));
+      dispatch(addReview(review));
     },
   };
 };
 
 export default withRouter(connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(NewReview));

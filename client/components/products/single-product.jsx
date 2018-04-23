@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {fetchProducts, addOrUpdateCart, fetchReviewsByProd} from '../../store';
 import { Button, NavItem, Dropdown, Tabs, Tab } from 'react-materialize';
-import { EditProduct, AllReviews, FiveStars } from '../index';
+import { EditProduct, AllReviews, FiveStars, NewReview } from '../index';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
@@ -106,7 +106,9 @@ export class SingleProduct extends Component {
                   <Tab title="READ REVIEWS">
                   <AllReviews product= {productSelected} />
                   </Tab>
-                  <Tab title="WRITE A REVIEW">POP UP REVIEW FORM FOR LOGGED IN USERS</Tab>
+                  <Tab title="WRITE A REVIEW">POP UP REVIEW FORM FOR LOGGED IN USERS
+                  <NewReview product= {productSelected} />
+                  </Tab>
               </Tabs>
             </div>
             : null}

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {fetchProducts} from '../store'
 
 const GET_REVIEWS = 'GET_REVIEWS';
 const NEW_REVIEW = 'NEW_REVIEW';
@@ -44,6 +45,7 @@ export function addReview(review) {
     .then(res => res.data)
     .then(createdReview => {
       dispatch(newReview(createdReview));
+      dispatch(fetchProducts())
     });
   };
 }
