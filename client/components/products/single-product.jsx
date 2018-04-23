@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { fetchProducts, addOrUpdateCart, fetchReviewsByProd } from '../../store';
 import { Button, NavItem, Dropdown, Tabs, Tab } from 'react-materialize';
-import { EditProduct, AllReviews, FiveStars } from '../index';
+import { EditProduct, AllReviews, FiveStars, NewReview } from '../index';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
@@ -59,28 +59,29 @@ export class SingleProduct extends Component {
           <div className="row center-align">
             <div className="col s3 m3 center-align" />
             <div className="col s6 m6 center-align">
-              <div className="card blue-grey darken-1 center-align">
-                <div className="card-content white-text center-align">
-                  <span className="card-title">{productSelected.title}</span>
-                  <img src={productSelected.image} alt="Chocolate" height="100" width="100" />
-                  <br />
-                  <p>FULL DESCRIPTION: {productSelected.fullDescription} </p>
-                  <br />
-                  <p>CATEGORY: </p>
-                  <br />
-                  <p>${productSelected.priceActual} </p>
-                  <p>NUM STARS</p>
-                  <FiveStars numStars={productSelected.numStars} />
-                  <p>NUM REVIEWS</p>
-                  <br />
-                  <div>
-                    {productSelected.inventoryQty ?
-                      <p>{productSelected.inventoryQty} currently in stock</p> :
-                      <p>NOT IN STOCK</p>
-                    }
-                  </div>
-                  <label>QTY</label>
-                  <input
+                <div className="card blue-grey darken-1 center-align">
+                  <div className="card-content white-text center-align">
+                    <span className="card-title">{productSelected.title}</span>
+                    <img src={productSelected.image} alt="Chocolate" height="100" width="100" />
+                    <br />
+                    <p>FULL DESCRIPTION: {productSelected.fullDescription} </p>
+                    <br />
+                    <p>CATEGORY: </p>
+                    <br />
+                    <p>${productSelected.priceActual} </p>
+                    <p>NUM STARS</p>
+                    <FiveStars numStars={productSelected.avgRating} />
+                    <p>NUM REVIEWS</p>
+                    <br />
+                    <div>
+                      {productSelected.inventoryQty ?
+                        <p>{productSelected.inventoryQty} currently in stock</p> :
+                        <p>NOT IN STOCK</p>
+                      }
+                    </div>
+                    <label>QTY</label>
+                    <input
+
                     onChange={this.handleChange}
                     type="number"
                     name="qty"
@@ -98,10 +99,25 @@ export class SingleProduct extends Component {
                       <Button onClick={this.handleEdit} >Edit Product</Button>
                       :
                       <div />
-                  }
-                  <br />
-                </div>
-              </div>
+                    }
+                    <br />
+                    </div>
+                    </div>
+                    </div>
+                            {
+                              (isAdmin && this.state.editFormShow) ?
+                              <EditProduct product={productSelected} handleEdit={this.handleEdit} />
+                              :
+                              <div />
+                            }
+              <Tabs className='tab-demo z-depth-1'>
+                  <Tab title="READ REVIEWS">
+                  <AllReviews product= {productSelected} />
+                  </Tab>
+                  <Tab title="WRITE A REVIEW">POP UP REVIEW FORM FOR LOGGED IN USERS
+                  <NewReview product= {productSelected} />
+                  </Tab>
+              </Tabs>
             </div>
             {
               (isAdmin && this.state.editFormShow) ?
