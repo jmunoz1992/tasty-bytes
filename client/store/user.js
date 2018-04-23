@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../history'
 import { clearCart, getCartProducts } from './index'
 
 /**
@@ -17,9 +16,19 @@ const defaultUser = {}
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
-const setCurrentUser  = user => ({ type: SET_CURRENT_USER, user });
-const removeUser = () => ({type: REMOVE_USER})
+const getUser = user => ({
+  type: GET_USER,
+  user
+})
+
+const setCurrentUser  = user => ({
+  type: SET_CURRENT_USER,
+  user
+});
+
+const removeUser = () => ({
+  type: REMOVE_USER
+})
 
 /**
  * THUNK CREATORS

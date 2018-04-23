@@ -56,10 +56,8 @@ const Navbar = ({ isLoggedIn, user, cartItems, handleClick }) => {
                   )}
               </li>
               <li><NavItem href="/cart"><i className="material-icons left">shopping_cart</i>
-              {cartItems ? cartItems.length ?
-                `${cartItems.length} item(s)` :
-                null
-              : null
+              {cartItems && cartItems.length ?
+                `${cartItems.length} item(s)` : null
               }</NavItem></li>
             </ul>
           </div>

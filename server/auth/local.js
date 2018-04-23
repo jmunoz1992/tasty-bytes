@@ -50,10 +50,9 @@ router.delete('/logUserOut', (req, res, next) => {
   req.logout();
   /* Below is from when we just had sessions and no passport */
   // req.session.destroy(); // destroys entire session
-  /* Below are alternatives to the above
+  /* Below are alternatives to the above */
   delete req.session.userId; // deletes one item on session
   req.session.userId = null;
-  */
   res.sendStatus(204);
 });
 
