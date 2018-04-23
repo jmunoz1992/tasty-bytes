@@ -6,12 +6,12 @@ import { withRouter, Link } from 'react-router-dom'
 import { Dropdown, Button } from 'react-materialize';
 
 
-export class AllProductsHome extends Component {
+export class CategorySelected extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      search: ''
+      search: '',
     }
   }
 
@@ -42,6 +42,8 @@ export class AllProductsHome extends Component {
     if (user) {
       isAdmin = user.isAdmin
     }
+    let categoryId = this.props.match.params.id;
+    console.log('category id in here is ', categoryId);
     let filtered = this.filterProducts(products);
     return (
       <div id="all-products">
@@ -57,6 +59,7 @@ export class AllProductsHome extends Component {
                 <div key={category.id}>
                   <Link
                     to={`/categories/${category.id}`}
+                    onClick={() => this.handleClick(category.name)}
                     style={{color: '#26a69a'}}
                   >{category.name}
                   </Link>
@@ -77,7 +80,7 @@ export class AllProductsHome extends Component {
             value={this.state.search} />
         </div>
         <div className="center-align">
-          <h1>ALL PRODUCTS</h1>
+          <h1>ALL PRODUCTS IN PRODUCT SELECTED</h1>
           {
             isAdmin ?
               <div>
@@ -136,4 +139,4 @@ const mapDispatchToProps = dispatch => {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(AllProductsHome));
+)(CategorySelected));

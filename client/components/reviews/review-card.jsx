@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import { FiveStars } from '../index'
 
 export const ReviewCardView = (props) => {
-  const { title, content, numStars, imgUrl, id } = props.review;
+  const { title, content, numStars, imgUrl } = props.review;
   let isAdmin = false;
   if (props.user) {
     isAdmin = props.user.isAdmin
