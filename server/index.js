@@ -8,7 +8,6 @@ const passport = require('passport')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const db = require('./db')
 const sessionStore = new SequelizeStore({db})
-const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
 module.exports = app
@@ -22,6 +21,9 @@ module.exports = app
  * Node process on process.env
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
+
+const PORT = process.env.PORT
+const SESSION_SECRET = process.env.SESSION_SECRET
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
@@ -43,7 +45,7 @@ const createApp = () => {
 
   // session middleware with passport
   app.use(session({
-    secret: process.env.SESSION_SECRET || 'I have a big secret',
+    secret: SESSION_SECRET,
     store: sessionStore,
     resave: false,
     saveUninitialized: false
@@ -53,8 +55,21 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+// checks the counter of each session
+  app.use(function (req, res, next) {
+    if (!req.session.counter) req.session.counter = 0;
+    console.log('counter', ++req.session.counter); // increment THEN log
+    next(); // needed to continue through express middleware
+  });
+
+  // checks if req.session has been initialized
+  app.use(function (req, res, next) {
+    console.log('SESSION USER: ', req.user && req.user.id);
+    next();
+  });
+
   // app.use((req, res, next) => {
-  //   console.log("RIGHT HERE FOT SESSION DATA", req.session)
+  //   console.log("RIGHT HERE FOR SESSION DATA", req.session)
   //   next();
   // })
 
@@ -65,6 +80,7 @@ const createApp = () => {
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
+  // app.use(express.static(path.join(__dirname, '../../node_modules')))
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {

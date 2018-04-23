@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from './product-card.jsx';
 import { fetchProducts, fetchCartProducts, addOrUpdateCart, deleteProduct } from '../../store';
-import { withRouter } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 export class AllProductsHome extends Component {
   componentDidMount() {
+    this.props.loadProducts();
+    this.props.loadCart();
+  }
+
+  componentWillMount() {
     this.props.loadProducts();
     this.props.loadCart();
   }
@@ -17,6 +21,7 @@ export class AllProductsHome extends Component {
     if (user) {
       isAdmin = user.isAdmin
     }
+    console.log('these are the products ', products);
     return (
       <div className="center-align" id="all-products">
         <h1>ALL PRODUCTS</h1>
@@ -27,7 +32,7 @@ export class AllProductsHome extends Component {
             <Link to="/admin/products/add" className="add-button" ><button>Add New Product</button></Link>
           </div>
           :
-          <div />
+          null
         }
           <div className="row">
             {products && products.map(product => {
