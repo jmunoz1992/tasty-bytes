@@ -14,7 +14,8 @@ export function fetchReviewsByProd(productId) {
   return function thunk(dispatch) {
     axios.get(`/api/products/${productId}/reviews`)
     .then(res => res.data)
-    .then(reviews => {
+    .then(productInfo => {
+      let reviews = productInfo.reviews
       dispatch(gotReviews(reviews));
     });
   };

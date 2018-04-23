@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from '../index.js';
-import {fetchProducts} from '../../store/index.js'
+// import { addOrUpdateCart } from '../../store/index.js'
 // need to add prop components into ProductCardView
 
 import { cartItem } from './cartItem.jsx';
@@ -9,25 +9,49 @@ import { Table, Input } from 'react-materialize';
 
 export class CartItem extends Component {
 
+  constructor(props){
+    super(props);
+    this.state = {
+      qty: 0,
+      dirty: false
+    }
+    this.handleQty = this.handleQty.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.onChange = this.onChange.bind(this)
+  }
+
   componentDidMount() {
     // this.props.loadProducts();
   }
 
+  onChange(evt){
+    this.setState({qty: evt.target.value, dirty: true})
+  }
 
+  handleQty(evt){
+    evt.preventDefault();
+    this.props.updateCart(this.props.currentItem.id, evt.target.value)
+  }
+
+  handleSubmit(evt){
+    evt.preventDefault();
+    if (this.state.dirty){
+    this.props.updateCart(this.props.currentItem.id, this.state.qty)
+    }
+  }
 
   render() {
 
-    console.log(this.props)
-    const { currentItem } = this.props;
+    const { currentItem, deleteClickHandler, handleQtyChange } = this.props;
     return (
       <tr>
       <td><img width="125" src={currentItem.image} /></td>
             <td>{currentItem.title}</td>
 
             <td>
-            <form>
+            <form onSubmit={this.handleSubmit}>
 
-              <input type="text" defaultValue={currentItem.qty} />
+              <input type="text" name={currentItem.id.toString()} defaultValue={currentItem.qty} onBlur={this.handleQty} onChange={this.onChange} />
 
           </form>
 
@@ -35,12 +59,12 @@ export class CartItem extends Component {
             </td>
             <td>{currentItem.currentPrice}</td>
               {(currentItem.currentPrice) ? (
-            <td>{currentItem.currentPrice * currentItem.qty}</td>
+            <td>{Number(Math.round(currentItem.currentPrice * currentItem.qty * 100) / 100).toFixed(2)}</td>
             ) :
              null
             }
             <td>
-            <Input name='group1' type='checkbox' value='red' label='Delete' />
+            <Input name={currentItem.id.toString()} type='checkbox' value='red' label='Delete' onClick={deleteClickHandler} />
             </td>
 
 
@@ -59,8 +83,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // loadProducts() {
-    //   dispatch(fetchProducts());
+    // updateCart(id, qty) {
+    //   dispatch(addOrUpdateCart(id, qty));
     // },
   };
 };
