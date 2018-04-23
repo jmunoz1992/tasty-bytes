@@ -6,7 +6,8 @@
 export {default as Navbar} from './navbar'
 export {default as FiveStars} from './reviews/fiveStars.jsx'
 export {default as UserHome} from './user-home'
-export {Login, Signup} from './auth-form'
+export {default as Login} from './login.jsx'
+export {default as Signup} from './signup.jsx'
 export {default as AllUsers} from './all-users.jsx'
 export {default as ShoppingCart} from './shoppingCart/shoppingCart.jsx'
 
