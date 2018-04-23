@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
@@ -6,7 +6,17 @@ import { logout } from '../store/user'
 
 import { NavItem, Dropdown, Navbar as NavBar } from 'react-materialize';
 
-const Navbar = ({ isLoggedIn, user, cartItems, handleClick }) => {
+export class Navbar extends Component {
+
+  constructor(props){
+    super(props)
+
+  }
+
+  render(){
+
+  const { isLoggedIn, user, cartItems, handleClick } = this.props
+
   return (
       <div>
         <nav>
@@ -21,10 +31,10 @@ const Navbar = ({ isLoggedIn, user, cartItems, handleClick }) => {
                     }
                     options={{ belowOrigin: true, hover: true }}
                   >
-                    <NavItem href="/admin/users">Users</NavItem>
-                    <NavItem href="/admin/orders">Orders</NavItem>
-                    <NavItem href="/products">Products</NavItem>
-                    <NavItem href="/admin/categories">Product Categories</NavItem>
+                    <Link to={'/admin/users'} style={{color: '#26a69a'}}>Users</Link>
+                    <Link to={'/admin/orders'} style={{color: '#26a69a'}}>Orders</Link>
+                    <Link to={'/products'} style={{color: '#26a69a'}}>Products</Link>
+                    <Link to={'/admin/categories'} style={{color: '#26a69a'}}>Product Categories</Link>
                   </Dropdown>
                 ) :
                   null
@@ -38,9 +48,9 @@ const Navbar = ({ isLoggedIn, user, cartItems, handleClick }) => {
                       }
                       options={{ belowOrigin: true, hover: true }}
                     >
-                      <NavItem>My Account</NavItem>
-                      <NavItem>My Orders</NavItem>
-                      <NavItem onClick={(evt) => handleClick(evt, user)}>Logout</NavItem>
+                      <Link to={'#'} style={{color: '#26a69a'}}>My Account</Link>
+                      <Link to={'#'} style={{color: '#26a69a'}}>My Orders</Link>
+                      <Link to={'#'} onClick={(evt) => handleClick(evt, user)} style={{color: '#26a69a'}}>Logout</Link>
                     </Dropdown>
                 ) : (
                     <Dropdown
@@ -49,20 +59,21 @@ const Navbar = ({ isLoggedIn, user, cartItems, handleClick }) => {
                       }
                       options={{ belowOrigin: true, hover: true }}
                     >
-                      <NavItem href="/login">Login</NavItem>
-                      <NavItem href="/signup">Signup</NavItem>
+                      <Link to={'/login'} style={{color: '#26a69a'}}>Login</Link>
+                      <Link to={'/signup'} style={{color: '#26a69a'}}>Signup</Link>
                     </Dropdown>
                   )}
               </li>
-              <li><NavItem href="/cart"><i className="material-icons left">shopping_cart</i>
+              <li><Link to={'/cart'}><i className="material-icons left">shopping_cart</i>
               {cartItems && cartItems.length ?
                 `${cartItems.length} item(s)` : null
-              }</NavItem></li>
+              }</Link></li>
             </ul>
           </div>
         </nav>
       </div>
     )
+  }
 }
 
 /**
