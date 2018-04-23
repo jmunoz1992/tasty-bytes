@@ -23,7 +23,6 @@ router.get('/', (req, res, next) => {
     .then(products => {
       products.forEach(product => {
         product.numStars = avgRating(product.id);
-        console.log(product.numStars)
       })
       return products
     })

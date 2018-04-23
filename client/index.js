@@ -4,7 +4,6 @@ import {Provider} from 'react-redux'
 import { BrowserRouter } from 'react-router-dom';
 import store from './store'
 import App from './app'
-import history from './history'
 
 // establishes socket connection
 import './socket'

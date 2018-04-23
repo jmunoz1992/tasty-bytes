@@ -7,7 +7,6 @@ import { logout } from '../store/user'
 import { NavItem, Dropdown, Navbar as NavBar } from 'react-materialize';
 
 const Navbar = ({ isLoggedIn, user, cartItems, handleClick }) => {
-  console.log('user in navbar ', user);
   return (
       <div>
         <nav>
