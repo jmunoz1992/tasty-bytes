@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const GET_REVIEWS = 'GET_REVIEWS';
+const NEW_REVIEW = 'NEW_REVIEW';
 
 export const gotReviews = function (reviews) {
   return {
@@ -9,6 +10,12 @@ export const gotReviews = function (reviews) {
   };
 };
 
+export const newReview = function (review) {
+  return {
+    type: NEW_REVIEW,
+    review
+  };
+};
 
 export function fetchReviewsByProd(productId) {
   return function thunk(dispatch) {
@@ -31,10 +38,22 @@ export function fetchReviewsByUser(userId) {
   };
 }
 
+export function addReview(review) {
+  return function thunk(dispatch) {
+    axios.post(`/api/reviews`, review)
+    .then(res => res.data)
+    .then(createdReview => {
+      dispatch(newReview(createdReview));
+    });
+  };
+}
+
 export default function reducer(state = [], action) {
   switch (action.type) {
     case GET_REVIEWS:
       return  action.reviews;
+    case NEW_REVIEW:
+      return [...state, action.review];
     default:
       return state;
   }
