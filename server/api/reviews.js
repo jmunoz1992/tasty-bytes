@@ -16,7 +16,14 @@ router.get('/:id', (req, res, next) => {
 
 //create new review.  Make sure in react/redux we submit the review info with the userId and productId
 router.post('/', (req, res, next) => {
-  Review.create(req.body)
+  Review.create({
+    title: req.body.title,
+    content: req.body.content,
+    numStars: req.body.numStars,
+    imgUrl: req.body.imgUrl,
+    productId: req.body.productId,
+    userId: req.body.userId,
+  })
   .then(review => {
     res.status(201).json(review);
   })
@@ -27,7 +34,8 @@ router.post('/', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
   Review.update(req.body, {
     where: {
-      id: req.params.id
+      id: req.params.id,
+      userId: req.sessions.user
     },
     returning: true
   })

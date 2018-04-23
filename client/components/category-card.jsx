@@ -11,7 +11,7 @@ export const CategoryCardView = (props) => {
         </div>
         <div className="card-action">
           <button onClick={(event) => props.removeCategory(event, id)}>Delete Category</button>
-          <a href="#"><button>Edit Category</button></a>
+          {/*<a href="#"><button>Edit Category</button></a>*/}
         </div>
       </div>
     </div>

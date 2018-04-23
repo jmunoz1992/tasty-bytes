@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import { FiveStars } from '../index';
 
 export const ProductCardView = (props) => {
-  const { title, shortDescription, priceActual, image, id } = props.product;
+  const { title, shortDescription, priceActual, image, id, avgRating, reviews } = props.product;
   let isAdmin = false;
   if (props.user) {
     isAdmin = props.user.isAdmin
   }
-  console.log('getting into product card view')
   return (
     <div className="col s12 m6 center-align">
       <div className="card blue-grey darken-1 center-align">
@@ -17,8 +17,15 @@ export const ProductCardView = (props) => {
           <p id="shortDescrip">{shortDescription} </p>
           <br />
           <p id="priceActual">${priceActual} </p>
-          <p>NUM STARS</p>
-          <p>NUM REVIEWS</p>
+          {
+            avgRating ?
+            <div>
+            <FiveStars numStars={avgRating} />
+            <p>{reviews.length} Review(s)</p>
+            </div>
+            :
+            <p>No Reviews for this Product</p>
+          }
         </div>
         <div>
           <Link to={`/products/${id}`}>See Details</Link>

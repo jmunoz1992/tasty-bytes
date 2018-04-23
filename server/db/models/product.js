@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const { Review } = require('./')
+const Review = require('./review.js')
 
 
 const Product = db.define('product', {
@@ -34,7 +34,7 @@ const Product = db.define('product', {
   },
   // weight of the product itself. not including the packinging
   pdtWt: {
-    type:Sequelize.INTEGER,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   priceCents: {
@@ -43,33 +43,17 @@ const Product = db.define('product', {
   },
   priceActual: {
     type: Sequelize.VIRTUAL,
-    get () {
+    get() {
       return (this.getDataValue('priceCents') / 100).toFixed(2);
     }
   },
   unitCost: {
     type: Sequelize.VIRTUAL,
-    get () {
+    get() {
       return Math.round(this.getDataValue('priceCents') / 100 / this.getDataValue('pdtWt') * 100) / 100;
     }
   },
-} );
+});
 
-// Product.prototype.avgRating = () => {
-//   Review.findAll({
-//     where: {
-//       productId: this.id,
-//     }
-//   })
-//   .then(reviews => {
-//     if (reviews.length === 0) return 0;
-//       let total = reviews.reduce((sum, num) => {
-//         return sum + num;
-//       })
-//       return total / reviews.length;
-//   })
-// }
-
-// still need to create virtual hook/getter method for avg ratings by pulling from Reviews model???
 
 module.exports = Product;
