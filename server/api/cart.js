@@ -19,14 +19,16 @@ const Op = Sequelize.Op
 // their cart is empty
 router.get('/', (req, res, next) => {
   if (!req.session.cart || !req.session.cart.length) {
-    if (!req.session.passport) {
+    if (!req.session.passport || !req.session.passport.user) {
       req.session.cart = [];
       res.json(req.session.cart);
     }
     else {
       User.findById(req.session.passport.user)
       .then((user) => {
-        req.session.cart = user.recentCart;
+        if (user) {
+          req.session.cart = user.recentCart;
+        }
         res.json(req.session.cart);
       })
     }

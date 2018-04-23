@@ -64,6 +64,7 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/logout', (req, res) => {
+  console.log('session before ', req.session);
   User.findById(req.session.passport.user)
     .then(user => {
       user.update({
@@ -71,7 +72,12 @@ router.post('/logout', (req, res) => {
       })
         .then(() => {
           req.logout()
-          req.session.destroy()
+          // req.session.destroy()
+          delete req.session.userId; // deletes one item on session
+          req.session.userId = null;
+          delete req.session.cart; // deletes one item on session
+          req.session.cart = [];
+          console.log('session after ', req.session);
           res.redirect('/')
         })
     })
@@ -81,4 +87,5 @@ router.get('/me', (req, res) => {
   res.json(req.user)
 })
 
+router.use('/local', require('./local'));
 router.use('/google', require('./google'))

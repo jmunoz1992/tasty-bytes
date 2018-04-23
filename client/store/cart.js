@@ -11,10 +11,12 @@ export const getCartProducts = function (cartItems) {
 };
 
 function idArrMaker(cartItems){
+  if (cartItems) {
     let idArr = cartItems.map(item => {
       return (item.id)
     })
   return {products: idArr};
+  }
 }
 
 export function fetchCartProducts() {
@@ -22,8 +24,10 @@ export function fetchCartProducts() {
     axios.get(`/api/cart`)
     .then(res => res.data)
     .then(cartItems => {
-      dispatch(getCartProducts(cartItems));
-      dispatch(fetchCartPriceInv(idArrMaker(cartItems)));
+      if (cartItems) {
+        dispatch(getCartProducts(cartItems));
+        dispatch(fetchCartPriceInv(idArrMaker(cartItems)));
+      }
     })
     .catch(err => console.error(err));
   };

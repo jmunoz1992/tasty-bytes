@@ -2,7 +2,7 @@ const passport = require('passport')
 const router = require('express').Router()
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const {User} = require('../db/models')
-module.exports = router
+require('../../secrets')
 
 /**
  * For OAuth keys and other secrets, your Node process will search
@@ -19,38 +19,43 @@ module.exports = router
  */
 
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
-
   console.log('Google client ID / secret not found. Skipping Google OAuth.')
-
 } else {
+  passport.use(
+    new GoogleStrategy({
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_CALLBACK
+    },
+    // Google will send back the token and profile
+    function (token, refreshToken, profile, done) {
+      console.log('profile ', profile);
+      const info = {
+        name: profile.displayName,
+        email: profile.emails[0].value,
+        username: profile.displayName,
+        password: 'default password',
+      };
+      User.findOrCreate({
+        where: {
+          googleId: profile.id
+        },
+        defaults: info
+      })
+      .then(([currentUser]) => done(null, currentUser));
+    })
+  );
 
-  const googleConfig = {
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK
-  }
+  // Google authentication and login
+  router.get('/', passport.authenticate('google', { scope: 'email' }));
 
-  const strategy = new GoogleStrategy(googleConfig, (token, refreshToken, profile, done) => {
-    const googleId = profile.id
-    const name = profile.displayName
-    const email = profile.emails[0].value
-
-    User.find({where: {googleId}})
-      .then(foundUser => (foundUser
-        ? done(null, foundUser)
-        : User.create({name, email, googleId})
-          .then(createdUser => done(null, createdUser))
-      ))
-      .catch(done)
-  })
-
-  passport.use(strategy)
-
-  router.get('/', passport.authenticate('google', {scope: 'email'}))
-
-  router.get('/callback', passport.authenticate('google', {
-    successRedirect: '/home',
-    failureRedirect: '/login'
-  }))
-
+  // handle the callback after Google has authenticated the user
+  router.get('/verify',
+    passport.authenticate('google', {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    })
+  );
 }
+
+module.exports = router;
