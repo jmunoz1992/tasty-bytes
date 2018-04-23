@@ -23,7 +23,7 @@ export class OrderView extends Component {
       .props
       .getOrders();
 
-      
+
     }
   handleCategory(cat, orders){
 
@@ -79,16 +79,16 @@ export class OrderView extends Component {
       filteredOrders: orders
     })
   }
-  
+
   render() {
     let orders = this.props.orders ? this.props.orders : [];
-    const products = this.props.products ? this.props.products : [];    
-    
+    const products = this.props.products ? this.props.products : [];
+
     return (
       <div>
         <div>
        { orders.length
-        ? 
+        ?
         (<AdminSort handleCatSelect={this.handleCategory} orders={orders} />)
         :
         (<div />)
@@ -115,9 +115,17 @@ export class OrderView extends Component {
  * CONTAINER
  */
 const mapState = state => {
-  return {orders: state.orders,
+  let filteredOrders = state.orders;
+  if (!state.user) filteredOrders = [];
+  else if (!state.user.isAdmin) {
+    filteredOrders = state.orders.filter(order => {
+      return order.userId === state.user.id
+    })
+  }
+  return {orders: filteredOrders,
           products: state.products,
-          categories: state.categories
+          categories: state.categories,
+          user: state.user
         };
 }
 

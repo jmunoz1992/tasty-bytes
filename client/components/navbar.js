@@ -32,7 +32,7 @@ export class Navbar extends Component {
                     options={{ belowOrigin: true, hover: true }}
                   >
                     <Link to={'/admin/users'} style={{color: '#26a69a'}}>Users</Link>
-                    <Link to={'/admin/orders'} style={{color: '#26a69a'}}>Orders</Link>
+                    <Link to={'/orders'} style={{color: '#26a69a'}}>Orders</Link>
                     <Link to={'/products'} style={{color: '#26a69a'}}>Products</Link>
                     <Link to={'/admin/categories'} style={{color: '#26a69a'}}>Product Categories</Link>
                   </Dropdown>
@@ -49,7 +49,7 @@ export class Navbar extends Component {
                       options={{ belowOrigin: true, hover: true }}
                     >
                       <Link to={'#'} style={{color: '#26a69a'}}>My Account</Link>
-                      <Link to={'#'} style={{color: '#26a69a'}}>My Orders</Link>
+                      <Link to={'/orders'} style={{color: '#26a69a'}}>My Orders</Link>
                       <Link to={'#'} onClick={(evt) => handleClick(evt, user)} style={{color: '#26a69a'}}>Logout</Link>
                     </Dropdown>
                 ) : (
