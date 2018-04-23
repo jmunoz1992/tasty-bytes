@@ -11,14 +11,6 @@ export class AllProductsHome extends Component {
     this.props.loadCart();
   }
 
-  componentWillRecieveProps(nextProps) {
-    console.log('getting into comp will recieve props ')
-    if (!nextProps.products.length) {
-      nextProps.loadProducts();
-      nextProps.loadCart();
-    }
-  }
-
   render() {
     console.log('ENTERING ALL-PRODUCTS');
     const { products, updateCart, user, removeProduct } = this.props;
