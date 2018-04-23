@@ -125,12 +125,6 @@ export class SingleProduct extends Component {
                 :
                 <div />
             }
-            <Tabs className='tab-demo z-depth-1'>
-              <Tab title="READ REVIEWS">
-                <AllReviews product={productSelected} />
-              </Tab>
-              <Tab title="WRITE A REVIEW">POP UP REVIEW FORM FOR LOGGED IN USERS</Tab>
-            </Tabs>
             </div>
           : null}
       </div>
