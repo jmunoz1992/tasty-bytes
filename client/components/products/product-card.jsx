@@ -7,12 +7,13 @@ export const ProductCardView = (props) => {
   if (props.user) {
     isAdmin = props.user.isAdmin
   }
+  console.log('getting into product card view')
   return (
     <div className="col s12 m6 center-align">
       <div className="card blue-grey darken-1 center-align">
         <div className="card-content white-text center-align">
-          <span className="card-title" id="title">{title}</span>
-          <img src={image} alt="Chocolate" height="100" width="100" />
+          <Link to={`/products/${id}`}><span className="card-title" id="title">{title}</span></Link>
+          <Link to={`/products/${id}`}><img src={image} alt="Chocolate" height="100" width="100" /></Link>
           <p id="shortDescrip">{shortDescription} </p>
           <br />
           <p id="priceActual">${priceActual} </p>
@@ -27,7 +28,7 @@ export const ProductCardView = (props) => {
           {
             isAdmin ?
               <div>
-                <Link to={'#'} onClick= { () => props.removeProduct(id) }>Delete Product</Link>
+                <Link to={'#'} onClick={() => props.removeProduct(id)}>Delete Product</Link>
               </div>
               :
               <div />

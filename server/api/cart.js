@@ -18,19 +18,24 @@ const Op = Sequelize.Op
 // If the cart is empty, on the front-end, the user will receive a message saying
 // their cart is empty
 router.get('/', (req, res, next) => {
+  console.log('req session ', req.session)
   if (!req.session.cart || !req.session.cart.length) {
-    if (!req.session.passport.user) {
+    if (!req.session.passport || !req.session.passport.user) {
       req.session.cart = [];
       res.json(req.session.cart);
     }
     else {
+      console.log('in cart.js line 27 ')
       User.findById(req.session.passport.user)
       .then((user) => {
-        req.session.cart = user.recentCart;
+        if (user) {
+          req.session.cart = user.recentCart;
+        }
         res.json(req.session.cart);
       })
     }
   } else {
+    console.log('here in line 36 cart.js')
     res.json(req.session.cart);
   }
 });
