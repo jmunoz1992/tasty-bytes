@@ -79,8 +79,7 @@ export class SingleProduct extends Component {
                       }
                     </div>
                     <label>QTY</label>
-                    <input
-
+                    <input id="order-qty"
                     onChange={this.handleChange}
                     type="number"
                     name="qty"
@@ -88,6 +87,7 @@ export class SingleProduct extends Component {
                     min="0"
                     max={productSelected.inventoryQty}
                     defaultValue={this.state.qty} />
+                    <br/>
                   <Button
                     onClick={() => { this.props.updateCart(productSelected.id, this.state.qty) }}
                   >ADD TO CART
