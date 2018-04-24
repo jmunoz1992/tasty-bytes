@@ -15,8 +15,9 @@ const createOrder = order => ({type: CREATE_ORDER, order})
  */
 export const fetchOrders = () =>
   dispatch =>
-    axios.get('/api/admin/orders')
+    axios.get('/api/orders')
       .then(res => {
+        console.log('about to disptach fetch')
         dispatch(getOrders(res.data))}
     )
       .catch(err => console.log(err))
@@ -24,7 +25,7 @@ export const fetchOrders = () =>
 export function callOrderUpdate(id, updates, history) {
 
   return function thunk(dispatch) {
-    return axios.put(`/api/admin/orders/${id}`, updates)
+    return axios.put(`/api/orders/${id}`, updates)
     .then(res => {
       return res.data})
     .then(update => {

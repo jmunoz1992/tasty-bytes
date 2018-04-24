@@ -128,6 +128,7 @@ export class OrderView extends Component {
  */
 const mapState = state => {
   let filteredOrders = state.orders;
+  console.log('here before the bug....state.orders is ,', state.orders)
   if (!state.user) 
     filteredOrders = [];
   else if (!state.user.isAdmin) {

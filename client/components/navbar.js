@@ -35,7 +35,7 @@ export class Navbar extends Component {
       <div>
         <nav>
           <div className="brown nav-wrapper">
-            <Link to={'/'} style={{'font-size': '25px', color: '#cfb56a'}}>Home</Link>
+            <Link to={'/'} style={{'fontSize': '25px', color: '#cfb56a'}}>Home</Link>
             <ul id="nav-mobile" className="center-align right hide-on-med-and-down">
               <li>
                 {(user && user.isAdmin) ? (
