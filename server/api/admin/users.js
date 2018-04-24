@@ -19,36 +19,7 @@ router.get('/:userId', (req, res, next) => {
     .catch(next)
 })
 
-//get all review posts from a specific user
-router.get('/:userId/reviews', (req, res, next) => {
-  User.findById(req.params.userId, {
-    attributes: ['id', 'name', 'email'],
-    include: [{ model: Review }]
-  })
-    .then(user => res.json(user))
-    .catch(next)
-})
 
-
-//get all addresses for a specific user
-router.get('/:userId/addresses', (req, res, next) => {
-  User.findById(req.params.userId, {
-    attributes: ['id', 'name', 'email', 'addressId'],
-    include: [{ model: Address, as: 'AddressOwner' }]
-  })
-    .then(user => res.json(user))
-    .catch(next)
-})
-
-//get order history including orderlines for a specific user
-router.get('/:userId/orders', (req, res, next) => {
-  User.findById(req.params.userId, {
-    attributes: ['id', 'name', 'email'],
-    include: [{ model: Order, include: { model: OrderLine } }]
-  })
-    .then(user => res.json(user))
-    .catch(next)
-})
 
 //add new user
 router.post('/', (req, res, next) => {

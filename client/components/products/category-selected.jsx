@@ -6,12 +6,12 @@ import { withRouter, Link } from 'react-router-dom'
 import { Dropdown, Button } from 'react-materialize';
 
 
-export class AllProductsHome extends Component {
+export class CategorySelected extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      search: ''
+      search: '',
     }
   }
 
@@ -29,11 +29,13 @@ export class AllProductsHome extends Component {
   }
 
   filterProducts = (products) => {
-    let search = this.state.search
-    var regex = new RegExp( search, 'gi' );
-    return products.filter(product => {
-      return product.title.match(regex)
-    })
+    if (products && products.length) {
+      let search = this.state.search
+      var regex = new RegExp( search, 'gi' );
+      return products.filter(product => {
+        return product.title.match(regex)
+      })
+    }
   }
 
   render() {
@@ -42,7 +44,16 @@ export class AllProductsHome extends Component {
     if (user) {
       isAdmin = user.isAdmin
     }
-    let filtered = this.filterProducts(products);
+    let categoryId = +this.props.match.params.id;
+    let selectedProducts = categories.filter(category => category.id === categoryId)[0];
+    let categoryName = '';
+    let filtered = [];
+    if (selectedProducts) {
+      filtered = this.filterProducts(selectedProducts.products);
+      categoryName = selectedProducts.name;
+    } else {
+      filtered = this.filterProducts(products);
+    }
     return (
       <div id="all-products">
         {(categories) ? (
@@ -57,6 +68,7 @@ export class AllProductsHome extends Component {
                 <div key={category.id}>
                   <Link
                     to={`/categories/${category.id}`}
+                    onClick={() => this.handleClick(category.name)}
                     style={{color: '#26a69a'}}
                   >{category.name}
                   </Link>
@@ -77,7 +89,7 @@ export class AllProductsHome extends Component {
             value={this.state.search} />
         </div>
         <div className="center-align">
-          <h1>ALL PRODUCTS</h1>
+          <h1>{categoryName} products</h1>
           {
             isAdmin ?
               <div>
@@ -136,4 +148,4 @@ const mapDispatchToProps = dispatch => {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(AllProductsHome));
+)(CategorySelected));

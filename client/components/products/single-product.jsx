@@ -69,9 +69,8 @@ export class SingleProduct extends Component {
                     <p>CATEGORY: </p>
                     <br />
                     <p>${productSelected.priceActual} </p>
-                    <p>NUM STARS</p>
                     <FiveStars numStars={productSelected.avgRating} />
-                    <p>NUM REVIEWS</p>
+                    <p>{productSelected.reviews.length} Review(s)</p>
                     <br />
                     <div>
                       {productSelected.inventoryQty ?
@@ -125,12 +124,6 @@ export class SingleProduct extends Component {
                 :
                 <div />
             }
-            <Tabs className='tab-demo z-depth-1'>
-              <Tab title="READ REVIEWS">
-                <AllReviews product={productSelected} />
-              </Tab>
-              <Tab title="WRITE A REVIEW">POP UP REVIEW FORM FOR LOGGED IN USERS</Tab>
-            </Tabs>
             </div>
           : null}
       </div>

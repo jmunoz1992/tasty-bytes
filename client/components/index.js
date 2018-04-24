@@ -25,6 +25,7 @@ export {default as AddProduct} from './products/addProduct.jsx'
 export {default as EditProduct} from './products/editProduct.jsx'
 export {default as AllCategories} from './all-categories.jsx'
 export {default as CategoryCardView} from './category-card.jsx'
+export {default as CategorySelected} from './products/category-selected.jsx'
 
 export {default as OrderDetail} from './orders/order-detail.jsx'
 export {default as OrderView} from './orders/order-view.jsx'
