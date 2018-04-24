@@ -53,7 +53,6 @@ export class OrderPreview extends Component {
     }
     else if (evt.target.name === 'submit') {
       const {user} = this.props
-      console.log('the props are ', this.props)
       let orderline = [];
       for (let i = 0; i < this.props.cartItems.length; i++) {
         orderline.push({productId: this.props.cartItems[i].id, priceCents: this.props.cartPrices[i].priceCents, qty: this.props.cartItems[i].qty})
@@ -65,7 +64,6 @@ export class OrderPreview extends Component {
         let orderToAdd = new Map();
         orderToAdd.set(userId, user.id)
         orderToAdd.set(orderlines, {orderlines: orderline})
-        console.log(this.props.shippingInfo.email)
         orderToAdd.set(email, this.props.shippingInfo.email)
         this
           .props
@@ -75,7 +73,6 @@ export class OrderPreview extends Component {
         let orderToAdd = new Map();
         orderToAdd.set(userId, null)
         orderToAdd.set(orderlines, {orderlines: orderline})
-        console.log(this.props.shippingInfo.email)
         orderToAdd.set(email, this.props.shippingInfo.email)
         this
           .props

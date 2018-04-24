@@ -22,13 +22,10 @@ export const fetchOrders = () =>
       .catch(err => console.log(err))
 
 export function callOrderUpdate(id, updates, history) {
-  // console.log('history :', history)
-  // console.log('called thunk', id)
+
   return function thunk(dispatch) {
-    // console.log('about to axios put these updates', updates);
     return axios.put(`/api/admin/orders/${id}`, updates)
     .then(res => {
-      // console.log('attempting promise')
       return res.data})
     .then(update => {
       dispatch(fetchOrders());
@@ -39,7 +36,6 @@ export function callOrderUpdate(id, updates, history) {
 }
 
 export function createNewOrder(data){
-  // console.log('about to create with ', data)
     return function thunk(dispatch){
       return axios.post(`/api/admin/orders`, data)
       .then(res => {
@@ -57,8 +53,6 @@ export default function (state = defaultOrder, action) {
       return action.order
     case CREATE_ORDER:
       return action.order
-    // case REMOVE_ORDER:
-    //   return defaultOrder
     default:
       return state
   }
