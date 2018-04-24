@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchProducts, addOrUpdateCart, fetchReviewsByProd } from '../../store';
+import { fetchProducts, addToCart, fetchReviewsByProd } from '../../store';
 import { Button, NavItem, Dropdown, Tabs, Tab } from 'react-materialize';
 import { EditProduct, AllReviews, FiveStars, NewReview } from '../index';
 import { withRouter } from 'react-router-dom'
@@ -139,7 +139,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchProducts());
     },
     updateCart(id, qty) {
-      dispatch(addOrUpdateCart(id, qty));
+      dispatch(addToCart(id, qty));
     },
     loadReviews(prodId) {
       dispatch(fetchReviewsByProd(prodId));
