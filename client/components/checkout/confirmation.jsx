@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {ProductCardView} from '../index.js';
-import { fetchProducts, fetchCartProducts, deleteCartItem, addShippingInfo, addOrUpdateCart, createNewOrder, clearCart } from '../../store/index.js'
+import { fetchCartProducts, createNewOrder, clearCart, sendConformationEmail } from '../../store/index.js'
 
 // need to add prop components into ProductCardView
 
@@ -17,6 +17,9 @@ export class Confirmation extends Component {
 
   componentDidMount() {
     this.props.clearShoppingCart()
+    if (this.props.shippingInfo.email){
+      this.props.sendEmail(this.props.shippingInfo.email);
+    }
   }
 
   submitClickHandler(){
@@ -32,7 +35,7 @@ export class Confirmation extends Component {
       className="responsive-img"
       src="/../../../images/thankyouForShopping.gif" />
       <br />
-      <h5> A email will be send to you soon</h5>
+      <h5> An email will be sent to you soon! </h5>
       <p>{this.props.shippingInfo.email}</p>
       <br />
       <Button
@@ -56,8 +59,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadCartProducts() {
-      dispatch(fetchCartProducts());
+    sendEmail(email) {
+      dispatch(sendConformationEmail(email));
     },
     newOrderMade(data) {
       dispatch(createNewOrder(data));

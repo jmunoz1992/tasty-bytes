@@ -10,6 +10,7 @@ const db = require('./db')
 const sessionStore = new SequelizeStore({db})
 const app = express()
 const socketio = require('socket.io')
+const exphbs  = require('express-handlebars');
 module.exports = app
 
 /**
@@ -35,6 +36,10 @@ passport.deserializeUser((id, done) =>
 const createApp = () => {
   // logging middleware
   app.use(morgan('dev'))
+
+  //View engine setup
+  app.engine('handlebars', exphbs());
+  app.set('view engine', 'handlebars');
 
   // body parsing middleware
   app.use(bodyParser.json())

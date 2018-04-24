@@ -17,6 +17,7 @@ import {
   SingleProduct,
   Checkout,
   OrderPreview,
+  Confirmation,
   CategorySelected
 }
   from './components'
