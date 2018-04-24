@@ -15,7 +15,7 @@ export class AllProductsHome extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.loadProducts();
     this.props.loadCart();
     this.props.loadCategories();
@@ -55,7 +55,6 @@ export class AllProductsHome extends Component {
     return (
       <div id="center-align all-products">
         <div className="inputGroup" style={{'alignItems': 'flex-start'}}>
-          {(categories) ? (
             <Dropdown
               trigger={
                 <Button style={{'backgroundColor': '#000000', 'color': '#ffffff'}}>CATEGORIES</Button>
@@ -75,9 +74,6 @@ export class AllProductsHome extends Component {
                 );
               })}
             </Dropdown>
-          ) :
-            null
-          }
           <input
             required
             onChange={(evt) => this.handleChange(evt, 'title')}

@@ -1,16 +1,6 @@
 const router = require('express').Router()
-const { Category, Product} = require('../../db/models')
+const { Category } = require('../../db/models')
 module.exports = router
-
-router.get('/', (req, res, next) => {
-  Category.findAll({
-    include: {
-      model: Product
-    }
-  })
-    .then(categories => res.json(categories))
-    .catch(next)
-})
 
 //add new user
 router.post('/', (req, res, next) => {
