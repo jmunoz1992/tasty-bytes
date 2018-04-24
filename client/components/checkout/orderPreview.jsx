@@ -111,7 +111,7 @@ export class OrderPreview extends Component {
 
         <h3>Order Preview</h3>
         <br />
-        <table >
+        <table className="container">
           <thead>
             <tr>
               <th data-field="pic"></th>
@@ -143,7 +143,7 @@ export class OrderPreview extends Component {
         <div style={{maxWidth: '600px'}} className="container left-align">
         <ul className="collection with-header">
         <li className="collection-header"><h5>shippingInfo: </h5></li>
-        <li className="collection-item">Name: {this.props.shippingInfo.firstName} {this.props.shippingInfo.lastName}</li>
+        <li className="collection-item">Name: {this.props.shippingInfo.name}</li>
         <li className="collection-item">Address: {this.props.shippingInfo.address}</li>
         {this.props.shippingInfo.address2 ?
           <li className="collection-item">
@@ -164,7 +164,10 @@ export class OrderPreview extends Component {
           name="back"
           waves="light"
           style={{
-          marginRight: '15px'
+          marginRight: '15px',
+          backgroundColor: '#000000',
+          color: '#ffffff',
+          borderRadius: '10px'
         }}
           onClick={this.clickHandler}>
           Go back to shopping
@@ -175,7 +178,10 @@ export class OrderPreview extends Component {
           waves="light"
           style={{
           marginRight: '15px',
-          marginLeft: '15px'
+          marginLeft: '15px',
+          backgroundColor: '#000000',
+          color: '#ffffff',
+          borderRadius: '10px'
         }}
           onClick={this.clickHandler}>
           Edit Cart
@@ -186,7 +192,10 @@ export class OrderPreview extends Component {
           waves="light"
           style={{
           marginRight: '15px',
-          marginLeft: '15px'
+          marginLeft: '15px',
+          backgroundColor: '#000000',
+          color: '#ffffff',
+          borderRadius: '10px'
         }}
           onClick={this.clickHandler}>
           Edit Shipping Info
@@ -196,7 +205,10 @@ export class OrderPreview extends Component {
           name="submit"
           waves="light"
           style={{
-          marginLeft: '15px'
+          marginLeft: '15px',
+          backgroundColor: '#000000',
+          color: '#ffffff',
+          borderRadius: '10px'
         }}
           onClick={this.clickHandler}>
           Submit Order

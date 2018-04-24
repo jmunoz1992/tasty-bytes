@@ -73,7 +73,7 @@ export class ShoppingCart extends Component {
     if (cartItems.length) {
 
       return (
-        <div className="center-align">
+        <div className="center-align container">
 
           <h3>Your Shopping Cart</h3>
           <br />
@@ -114,7 +114,10 @@ export class ShoppingCart extends Component {
           name="Delete"
           waves="light"
           style={{
-            marginRight: '15px'
+            marginRight: '15px',
+            backgroundColor: '#000000',
+            color: '#ffffff',
+            borderRadius: '10px'
           }}
           onClick={this.submitClickHandler}>Delete Cart</Button>
 
@@ -123,7 +126,10 @@ export class ShoppingCart extends Component {
             waves="light"
             style={{
               marginLeft: '15px',
-              marginRight: '15px'
+              marginRight: '15px',
+              backgroundColor: '#000000',
+              color: '#ffffff',
+              borderRadius: '10px'
           }}
           onClick={this.submitClickHandler}>Go back to shopping</Button>
 
@@ -131,7 +137,10 @@ export class ShoppingCart extends Component {
             name="Checkout"
             waves="light"
             style={{
-            marginLeft: '15px'
+            marginLeft: '15px',
+            backgroundColor: '#000000',
+            color: '#ffffff',
+            borderRadius: '10px'
           }}
             onClick={this.submitClickHandler}>Check Out</Button>
 
