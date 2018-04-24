@@ -17,7 +17,6 @@ export const fetchOrders = () =>
   dispatch =>
     axios.get('/api/orders')
       .then(res => {
-        console.log('about to disptach fetch')
         dispatch(getOrders(res.data))}
     )
       .catch(err => console.log(err))
@@ -30,7 +29,6 @@ export function callOrderUpdate(id, updates, history) {
       return res.data})
     .then(update => {
       dispatch(fetchOrders());
-      // history.push('/orders/all');
     })
     .catch(err => console.error(err));
   };
