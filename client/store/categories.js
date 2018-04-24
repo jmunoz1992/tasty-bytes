@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getMessage } from './index'
+import { getMessage, newErrorMessage } from './index'
 
 const GET_CATEGORIES = 'GET_CATEGORIES'
 const NEW_CATEGORY = 'NEW_CATEGORY'
@@ -32,7 +32,17 @@ export const addCategory = (category) => {
     return axios.post('/api/admin/categories', category)
         .then(res => res.data)
         .then(createdCategory => {
+          console.log(createdCategory)
+          if (typeof createdCategory === 'string') {
+            console.log(createdCategory)
+            let message = createdCategory
+            if (message.indexOf("name must be unique") > -1) {
+              message = "Category name must be unique; please enter a different category name"
+            }
+            dispatch(newErrorMessage(message))
+          } else {
             dispatch(newCategory(createdCategory))
+          }
         })
         .catch(error => console.log(error))
   }
