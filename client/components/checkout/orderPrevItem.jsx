@@ -16,7 +16,6 @@ export class OrderPrevItem extends Component {
 
   render() {
 
-    console.log(this.props)
     const { currentItem } = this.props;
     return (
       <tr>

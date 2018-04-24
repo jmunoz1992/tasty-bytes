@@ -26,29 +26,18 @@ export class OrderView extends Component {
       .props
       .getOrders();
 
-      console.log('here our this is ,', this);
-      // this.setState({
-      //   reallyToRun: this.props.toRun
-      // })
-      // if (this.props.location.pathname === '/orders/all'){
-      //   console.log('we in')
-      //   this.handleCategory(5, this.props)
-      // }
     }
 
   changeCat(num){
-    console.log('changing num: ', num)
     this.setState({
       category: num
     })
   }
   handleCategory(cat, orders = []){
 
-    // console.log('firing handle cat', orders.length)
     let newFilteredOrders = [];
     if (cat === 1) {
     newFilteredOrders = orders.filter(order => {
-      console.log('outer')
       if (order.cancel === null && order.startProcessing === null){
         return order
       }

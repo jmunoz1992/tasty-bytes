@@ -55,7 +55,7 @@ export function addProduct(product, history) {
       .then(res => res.data)
       .then(createdProduct => {
         if (typeof createdProduct === 'string') {
-          console.log(createdProduct)
+          // console.log(createdProduct)
           let message = createdProduct
           if (message.indexOf("title must be unique") > -1) {
             message = "Product name must be unique; please enter a different product name"

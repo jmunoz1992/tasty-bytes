@@ -11,7 +11,6 @@ const ADD_SHIPPING_INFO = 'ADD_SHIPPING_INFO';
 //   };
 
 export const addShippingInfo = function(shippingInfo){
-  console.log(shippingInfo)
   return {
     type: ADD_SHIPPING_INFO,
     shippingInfo

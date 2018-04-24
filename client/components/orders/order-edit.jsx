@@ -57,7 +57,6 @@ export class OrderEdit extends Component {
       orderMessage = 'canceled';
     }
  
-    console.log(orderMessage, 'order messgae')
     return (
       <div>
         <Dropdown trigger={<Button> Edit me ! </Button> } >
@@ -79,11 +78,8 @@ const mapState = state => {
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-  // console.log('ownprops are : ', ownProps)
   return {
-    // getOrders: () => {
-    //   dispatch(fetchOrders())
-    // },
+
     orderUpdate: (id, updates) => {
       dispatch(callOrderUpdate(id, updates, ownProps.history))
     }
