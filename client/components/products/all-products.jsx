@@ -52,7 +52,6 @@ export class AllProductsHome extends Component {
     });
 
     let filtered = this.filterProducts(products);
-    console.log('categories here ', this.props.categories);
     return (
       <div id="center-align all-products">
         <div className="inputGroup" style={{'alignItems': 'flex-start'}}>
