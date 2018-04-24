@@ -38,6 +38,7 @@ export function createNewOrder(data){
     return function thunk(dispatch){
       return axios.post(`/api/orders`, data)
       .then(res => {
+        console.log('here is the res.data ', res.data)
         return res.data})
         //may want to call update on this and fetch somethinbg
       .catch(err => console.error(err));

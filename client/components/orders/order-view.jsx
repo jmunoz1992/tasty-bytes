@@ -19,8 +19,15 @@ export class OrderView extends Component {
     this.changeCat = this
       .changeCat
       .bind(this)
-    this.state = {
-      category: this.props.match.params.category
+    if (this.props.match.params.category){
+      this.state = {
+        category: this.props.match.params.category
+      }
+    }
+    else {
+      this.state = {
+        category: 'all'
+      }
     }
 
   }
