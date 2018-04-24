@@ -40,7 +40,7 @@ export function fetchReviewsByUser(userId) {
 }
 
 export function addReview(review) {
-\  return function thunk(dispatch) {
+  return function thunk(dispatch) {
     axios.post(`/api/reviews`, review)
     .then(res => res.data)
     .then(createdReview => {
