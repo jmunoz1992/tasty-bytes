@@ -35,7 +35,6 @@ export const addCategory = (category) => {
     return axios.post('/api/admin/categories', category)
         .then(res => res.data)
         .then(createdCategory => {
-          console.log(createdCategory)
             dispatch(newCategory(createdCategory))
         })
         .catch(error => {
