@@ -34,9 +34,9 @@ export class Navbar extends Component {
   return (
       <div>
         <nav>
-          <div className="nav-wrapper">
-            <Link to={'/'}>TASTY BYTES</Link>
-            <ul id="nav-mobile" className="right hide-on-med-and-down">
+          <div className="brown nav-wrapper">
+            <Link to={'/'} style={{'font-size': '25px', color: '#cfb56a'}}>Home</Link>
+            <ul id="nav-mobile" className="center-align right hide-on-med-and-down">
               <li>
                 {(user && user.isAdmin) ? (
                   <Dropdown
@@ -62,8 +62,9 @@ export class Navbar extends Component {
                       }
                       options={{ belowOrigin: true, hover: true }}
                     >
-                      <Link to={'#'} style={{color: '#26a69a'}}>My Account</Link>
+                      <Link to={'/home'} style={{color: '#26a69a'}}>My Account</Link>
                       <Link to={'/orders'} style={{color: '#26a69a'}}>My Orders</Link>
+                      <Link to={'/users/reviews'} style={{color: '#26a69a'}}>My Reviews</Link>
                       <Link to={'#'} onClick={(evt) => handleClick(evt, user)} style={{color: '#26a69a'}}>Logout</Link>
                     </Dropdown>
                 ) : (

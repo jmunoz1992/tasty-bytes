@@ -28,10 +28,9 @@ router.get('/:userId', (req, res, next) => {
 router.get('/:userId/reviews', (req, res, next) => {
   if (req.session.passport.user) {
     User.findById(req.session.passport.user, {
-      attributes: ['id', 'name', 'email'],
       include: [{ model: Review }]
     })
-      .then(user => res.json(user))
+      .then(user => res.json(user.reviews))
       .catch(next)
   } else {
     res.send('Unauthenticated Access Attempt- you must be logged in to get user data');

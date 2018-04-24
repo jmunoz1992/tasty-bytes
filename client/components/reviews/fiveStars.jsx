@@ -10,6 +10,7 @@ export default function FiveStars (props)  {
           rating={numStars}
           widgetDimensions="30px"
           widgetSpacings="5px"
+          widgetRatedColor="yellow"
         >
           <Ratings.Widget widgetRatedColor="yellow" />
           <Ratings.Widget widgetRatedColor="yellow" />

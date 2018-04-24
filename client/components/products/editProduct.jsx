@@ -12,12 +12,31 @@ export class EditProduct extends Component {
     super(props);
     this.state = {
       product: this.props.product,
-      prodName: this.props.product.title.slice(0)
+      prodName: this.props.product.title.slice(0),
+      errors: [],
+      dirty: false
     }
   }
 
   componentDidMount() {
     this.props.loadProducts();
+  }
+
+  validate = () => {
+    let errors = [];
+    let product = this.state.product
+    console.log(typeof +this.state.product.inventoryQty)
+    if (this.state.dirty) {
+      if (+product.inventoryQty < 0) errors.push('Inventory Qty cannot be less than zero');
+      if (+product.pdtWt <= 0) errors.push('Product Weight must be greater than zero');
+      if (+product.priceActual <= 0) errors.push('Product Price must be greater than zero');
+      if (!product.title.length) errors.push('Product Name is required');
+      if (!product.shortDescription.length) errors.push('Short Description is required');
+      if (!product.fullDescription.length) errors.push('Full Description is required');
+    }
+    this.setState({
+      errors: errors
+    })
   }
 
   handleChange = (event, field) => {
@@ -26,8 +45,9 @@ export class EditProduct extends Component {
     productInfo[field] = value;
 
     this.setState({
+      dirty: true,
       product: productInfo
-    })
+    }, this.validate)
   }
 
   handleSubmit = (event) => {
@@ -40,6 +60,7 @@ export class EditProduct extends Component {
   render() {
     const product = this.state.product;
     const user = this.props.user;
+    let disableSubmit = ((this.state.errors && this.state.errors.length) || !this.state.dirty) ? true : false;
     let isAdmin = false;
     if (user) {
       isAdmin = user.isAdmin
@@ -50,8 +71,20 @@ export class EditProduct extends Component {
           isAdmin ?
             <div>
               <h2>Editing: {this.state.prodName}</h2>
+              <div className="errorMessage">
+            {
+              this.state.errors.length ?
+              <h5>{this.state.errors.join(`, `)}</h5>
+              :
+              <div />
+            }
+            </div>
               <form className="addProd" onSubmit={(event) => { this.handleSubmit(event) }} >
-                <Button onClick={this.handleSubmit} >Update Product</Button>
+                <Button
+                onClick={this.handleSubmit}
+                disabled={disableSubmit}
+                >Update Product
+                </Button>
                 <section>
                   <div className="inputGroup">
                     <label htmlFor="title"><h5>Product Name: </h5></label>
@@ -99,7 +132,8 @@ export class EditProduct extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    products: state.products
+    products: state.products,
+    errorMessage: state.errorMessage
   };
 };
 

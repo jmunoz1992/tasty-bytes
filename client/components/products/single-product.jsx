@@ -113,17 +113,11 @@ export class SingleProduct extends Component {
                   <Tab title="READ REVIEWS">
                   <AllReviews product= {productSelected} />
                   </Tab>
-                  <Tab title="WRITE A REVIEW">POP UP REVIEW FORM FOR LOGGED IN USERS
+                  <Tab title="WRITE A REVIEW">
                   <NewReview product= {productSelected} />
                   </Tab>
               </Tabs>
 
-            {
-              (isAdmin && this.state.editFormShow) ?
-                <EditProduct product={productSelected} handleEdit={this.handleEdit} />
-                :
-                <div />
-            }
             </div>
           : null}
       </div>

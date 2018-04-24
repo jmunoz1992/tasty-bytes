@@ -1,23 +1,40 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import {Login, Signup, UserHome, AllProductsHome, EditProduct, AddProduct, OrderView, AllUsers, AllCategories, ShoppingCart, SingleProduct, Checkout, OrderPreview, Confirmation, CategorySelected} from './components'
+import {
+  Login,
+  Signup,
+  UserHome,
+  AllProductsHome,
+  AddProduct,
+  OrderView,
+  UserReviews,
+  AllUsers,
+  AllCategories,
+  ShoppingCart,
+  SingleProduct,
+  Checkout,
+  OrderPreview,
+  CategorySelected,
+  Confirmation
+}
+  from './components'
 
 
 
-import {me, fetchCartProducts, fetchProducts} from './store'
+import { me, fetchCartProducts, fetchProducts } from './store'
 
 class Routes extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData();
     this.props.loadMe();
   }
 
 
-  render () {
-    const {isLoggedIn} = this.props
+  render() {
+    const { isLoggedIn } = this.props
     return (
       <Switch>
         {
@@ -34,6 +51,7 @@ class Routes extends Component {
               <Route exact path="/products/:id/edit" render={() => <SingleProduct edit={true} /> } />
               <Route exact path="/products/:id" component={SingleProduct} />
               <Route path="/admin/categories" component={AllCategories} />
+              <Route path="/users/reviews" component={UserReviews} />
               <Route path="/cart" component={ShoppingCart} />
               <Route path="/checkout" component={Checkout} />
               <Route path="/orderPreview" component={OrderPreview} />
@@ -69,7 +87,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadInitialData() {
       // dispatch(fetchOrders());
       dispatch(fetchCartProducts());
       dispatch(fetchProducts())

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchProducts, addProduct } from '../../store';
+import { fetchProducts, addProduct, newErrorMessage } from '../../store';
+import { ErrorMessage } from '../index';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { Button } from 'react-materialize';
@@ -68,13 +69,22 @@ export class AddProduct extends Component {
     if (user) {
       isAdmin = user.isAdmin
     }
-    let disableSubmit = (this.state.errors && this.state.errors.length) ? true : false;
+    let disableSubmit = ((this.state.errors && this.state.errors.length) || !this.state.dirty) ? true : false;
     return (
       <div className="center-align">
         {
           isAdmin ?
             <div>
               <h2>Add New Product</h2>
+              {
+                this.props.errorMessage.length ?
+                <ErrorMessage
+                errorMessage={this.props.errorMessage}
+                clearError={this.props.clearError}
+                />
+                :
+                <div />
+              }
               <div className="errorMessage">
             {
               this.state.errors.length ?
@@ -164,7 +174,8 @@ export class AddProduct extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    products: state.products
+    products: state.products,
+    errorMessage: state.errorMessage
   };
 };
 
@@ -175,6 +186,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     createProduct(product) {
       dispatch(addProduct(product, ownProps.history))
+    },
+    clearError() {
+      dispatch(newErrorMessage(''))
     }
   };
 };
