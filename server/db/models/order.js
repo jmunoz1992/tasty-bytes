@@ -16,10 +16,6 @@ const Order = db.define('order', {
     type: Sequelize.DATE,
     allowNull: true,
   },
-  arrived: {
-    type: Sequelize.DATE,
-    allowNull: true,
- },
   cancel: {
    type: Sequelize.DATE,
    allowNull: true,
