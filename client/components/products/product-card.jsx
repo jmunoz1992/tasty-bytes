@@ -5,6 +5,7 @@ import { Button } from 'react-materialize';
 
 export const ProductCardView = (props) => {
   const { title, shortDescription, priceActual, image, id, avgRating, reviews } = props.product;
+  console.log('props products ', props.products);
   let isAdmin = false;
   if (props.user) {
     isAdmin = props.user.isAdmin
@@ -31,7 +32,7 @@ export const ProductCardView = (props) => {
         <div>
         <Button waves='light' node='a' href={`/products/${id}`} style={{'background-color': '#000000', 'color': '#ffffff'}}>See Details</Button>
           &nbsp; &nbsp; &nbsp;
-          <Button waves='light' node='a' href={`/products/${id}`} style={{'background-color': '#000000', 'color': '#ffffff'}} onClick={() => { props.updateCart(id) }}>Add to Cart</Button>
+          <Button waves='light' node='a' style={{'background-color': '#000000', 'color': '#ffffff'}} onClick={() => { props.updateCart(id) }}>Add to Cart</Button>
           <br />
           {
             isAdmin ?

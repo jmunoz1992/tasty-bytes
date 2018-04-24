@@ -16,6 +16,19 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+// find specific product via categories menu
+router.get('/category/:categoryId', (req, res, next) => {
+  Category.findById(req.params.categoryId, {
+    include: {
+      model: Product,
+    }
+  })
+    .then(product => {
+      res.status(200).json(product);
+    })
+    .catch(next);
+});
+
 
 
 // find specific product by id - when 'See Details' is clicked-works

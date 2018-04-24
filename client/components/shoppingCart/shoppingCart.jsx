@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchCartProducts} from '../../store/index.js'
 import {ProductCardView} from '../index.js';
-import {fetchProducts, deleteCartItem, addOrUpdateCart, createNewOrder, clearCart} from '../../store/index.js'
+import {fetchProducts, deleteCartItem, updateQuantity, createNewOrder, clearCart} from '../../store/index.js'
 
 // need to add prop components into ProductCardView
 
@@ -164,7 +164,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(deleteCartItem(id));
     },
     updateCart(id, qty) {
-      dispatch(addOrUpdateCart(id, qty));
+      dispatch(updateQuantity(id, qty));
     },
     newOrderMade(data) {
       dispatch(createNewOrder(data));

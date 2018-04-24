@@ -32,6 +32,25 @@ export const newProduct = function (product) {
   };
 };
 
+
+export const fetchProductsByCategoryId = (id) => {
+  return function thunk(dispatch) {
+    return axios.get(`/api/products/category/${id}`)
+      .then(res => res.data)
+      .then(productsByCategory => {
+          productsByCategory.forEach(product => {
+            let total = product.reviews.reduce((sum, review) => {
+              return sum + review.numStars
+            }, 0)
+            if (product.reviews.length === 0) product.avgRating = null;
+            else product.avgRating = total / product.reviews.length
+          })
+          dispatch(gotProducts(productsByCategory))
+        })
+        .catch(error => console.log(error))
+  }
+}
+
 export function fetchProducts() {
   return function thunk(dispatch) {
     return axios.get('/api/products')

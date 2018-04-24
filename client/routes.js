@@ -22,9 +22,7 @@ import {
 }
   from './components'
 
-
-
-import { me, fetchCartProducts, fetchProducts } from './store'
+import { me, fetchCartProducts, fetchProducts, fetchCategories } from './store'
 
 class Routes extends Component {
   componentDidMount() {
@@ -87,6 +85,7 @@ const mapDispatch = (dispatch) => {
       // dispatch(fetchOrders());
       dispatch(fetchCartProducts());
       dispatch(fetchProducts())
+      dispatch(fetchCategories());
     },
     loadMe() {
       dispatch(me());

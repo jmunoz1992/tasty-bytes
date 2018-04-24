@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from './product-card.jsx';
-import { fetchProducts, fetchCartProducts, addOrUpdateCart, deleteProduct, fetchCategories } from '../../store';
+import { fetchProductsByCategoryId, fetchCartProducts, addToCart, deleteProduct, fetchCategories } from '../../store';
 import { withRouter, Link } from 'react-router-dom'
 import { Dropdown, Button } from 'react-materialize';
 
@@ -16,7 +16,7 @@ export class CategorySelected extends Component {
   }
 
   componentDidMount() {
-    this.props.loadProducts();
+    this.props.loadProductsByCategory(+this.props.match.params.id);
     this.props.loadCart();
     this.props.loadCategories();
   }
@@ -44,16 +44,40 @@ export class CategorySelected extends Component {
     if (user) {
       isAdmin = user.isAdmin
     }
+
     let categoryId = +this.props.match.params.id;
-    let selectedProducts = categories.filter(category => category.id === categoryId)[0];
     let categoryName = '';
-    let filtered = [];
-    if (selectedProducts) {
-      filtered = this.filterProducts(selectedProducts.products);
-      categoryName = selectedProducts.name;
-    } else {
-      filtered = this.filterProducts(products);
+
+    // get selected category
+    const categorySelected = categories.filter(category => category.id === categoryId)[0];
+    console.log('categorySelected ', categorySelected);
+    console.log('products ', products);
+
+    const selectedProducts = [];
+    if(categorySelected) {
+      const categorySelectedProducts = categorySelected.products;
+      categoryName = categorySelected.name;
+      for (let i = 0; i < products.length; i++) {
+        const productId = products[i].id;
+        for (let j = 0; j < categorySelectedProducts.length; j++) {
+          if (categorySelectedProducts[j].id === productId) {
+            selectedProducts.push(products[i]);
+            break;
+          }
+        }
+      }
     }
+
+    console.log('selected products ', selectedProducts);
+
+    categories.sort(function compare(a, b) {
+      if (a.name < b.name)
+        return -1;
+      if (a.name > b.name)
+        return 1;
+      return 0;
+    });
+
     return (
       <div id="center-align all-products">
         <div className="inputGroup" style={{'align-items': 'flex-start'}}>
@@ -91,7 +115,7 @@ export class CategorySelected extends Component {
               style={{'font-size': '3rem'}}>search</i>
         </div>
         <div className="center-align">
-          <h1 style={{'font-family': 'Georgia, serif'}}>{categoryName} products</h1>
+          <h1 style={{'font-family': 'Georgia, serif'}}>{categoryName} Products</h1>
           {
             isAdmin ?
               <div>
@@ -101,7 +125,7 @@ export class CategorySelected extends Component {
               null
           }
           <div className="row">
-            {filtered && filtered.map(product => {
+            {selectedProducts && selectedProducts.map(product => {
               return (
                 <ProductCardView
                   key={product.id}
@@ -113,7 +137,7 @@ export class CategorySelected extends Component {
             })}
           </div>
         </div>
-      </div>
+          </div>
     );
   }
 }
@@ -129,8 +153,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadProducts() {
-      dispatch(fetchProducts());
+    loadProductsByCategory(id) {
+      dispatch(fetchProductsByCategoryId(id));
     },
     removeProduct(prodId) {
       dispatch(deleteProduct(prodId));
@@ -139,7 +163,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchCartProducts());
     },
     updateCart(id, qty) {
-      dispatch(addOrUpdateCart(id, qty));
+      dispatch(addToCart(id, qty));
     },
     loadCategories() {
       dispatch(fetchCategories());
