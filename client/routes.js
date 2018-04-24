@@ -17,7 +17,6 @@ import {
   SingleProduct,
   Checkout,
   OrderPreview,
-  conformationEmail,
   Confirmation,
   CategorySelected
 

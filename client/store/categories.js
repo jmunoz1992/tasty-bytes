@@ -16,12 +16,15 @@ const newCategory = category => ({
 
 export const fetchCategories = () => {
   return dispatch => {
-    return axios.get('/api/admin/categories')
+    return axios.get('/api/categories')
         .then(res => res.data)
         .then(categories => {
+          console.log('categories in store ', categories);
           if (typeof categories === 'string') {
-            dispatch(getMessage(categories))
-          } else dispatch(getCategories(categories))
+            return dispatch(getMessage(categories))
+          } else {
+            return dispatch(getCategories(categories))
+          }
         })
         .catch(error => console.log(error))
   }
