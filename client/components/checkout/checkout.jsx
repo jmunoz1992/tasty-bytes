@@ -77,7 +77,8 @@ export class Checkout extends Component {
       <form className="col s12" onSubmit={this.submitHandler} >
         <div className="row">
           <div className="input-field col s6">
-            <input id="first_name" type="text" className="validate" autoComplete="first_name" onChange={this.textChangeHandler} />
+            <input id="first_name" type="text" className="validate" autoComplete="first_name"
+             onChange={this.textChangeHandler} />
             <label htmlFor="first_name">First Name</label>
           </div>
           <div className="input-field col s6">
