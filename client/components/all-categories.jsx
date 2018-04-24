@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CategoryCardView } from './category-card.jsx';
-import { fetchCategories, addCategory, deleteCategory } from '../store/index.js'
+import { ErrorMessage } from './index';
+import { fetchCategories, addCategory, deleteCategory, newErrorMessage } from '../store/index.js'
 
 
 export class AllCategories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: {}
+      category: {},
+      errors: [],
+      dirty: false,
     }
   }
 
@@ -24,8 +27,9 @@ export class AllCategories extends Component {
       description: description ? value : newCategory.description
     }
     this.setState({
-      category: categoryInfo
-    })
+      category: categoryInfo,
+      dirty: true,
+    }, this.validate)
   }
 
   handleSubmit = (event) => {
@@ -34,9 +38,21 @@ export class AllCategories extends Component {
     this.props.createCategory(category)
   }
 
+  validate = () => {
+    let errors = [];
+    let category = this.state.category
+    if (this.state.dirty) {
+      if (!category.name.length) errors.push('Category name is required');
+    }
+    this.setState({
+      errors: errors
+    })
+  }
+
   render() {
     const { categories, removeCategory, authMessage } = this.props;
     const { category } = this.state
+    let disableSubmit = ((this.state.errors && this.state.errors.length) || !this.state.dirty) ? true : false;
     return (
       <div className="center-align">
         {
@@ -48,9 +64,26 @@ export class AllCategories extends Component {
               <div>
                 <form onSubmit={(event) => { this.handleSubmit(event) }} >
                   <h4>Add a New Category</h4>
+                  {
+                    this.props.errorMessage.length ?
+                    <ErrorMessage
+                    errorMessage={this.props.errorMessage}
+                    clearError={this.props.clearError}
+                    />
+                    :
+                    <div />
+                  }
+                  <div className="errorMessage">
+                    {
+                      this.state.errors.length ?
+                        <h5>{this.state.errors.join(`, `)}</h5>
+                        :
+                        <div />
+                    }
+                  </div>
                   Category Name: <input required onChange={(evt) => this.handleChange(evt, 'name', null)} name="name" value={category.name} />
                   Category Description: <textarea onChange={(evt) => this.handleChange(evt, null, 'description')} name="description" value={category.description} />
-                  <button>Add Category</button>
+                  <button disabled={disableSubmit}>Add Category</button>
                 </form>
               </div>
               <div className="center-align">
@@ -74,7 +107,8 @@ const mapStateToProps = state => {
   return {
     categories: state.categories,
     user: state.user,
-    authMessage: state.authMessage
+    authMessage: state.authMessage,
+    errorMessage: state.errorMessage
   };
 };
 
@@ -90,6 +124,9 @@ const mapDispatchToProps = dispatch => {
       event.preventDefault()
       dispatch(deleteCategory(categoryId));
     },
+    clearError() {
+      dispatch(newErrorMessage(''))
+    }
   };
 };
 

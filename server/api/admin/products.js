@@ -8,10 +8,10 @@ router.post('/', (req, res, next) => {
     title: req.body.title,
     shortDescription: req.body.shortDescription,
     fullDescription: req.body.fullDescription,
-    inventoryQty: req.body.inventoryQty,
+    inventoryQty: +req.body.inventoryQty,
     image: req.body.image,
-    pdtWt: req.body.pdtWt,
-    priceCents: req.body.priceActual * 100
+    pdtWt: +req.body.pdtWt,
+    priceCents: +req.body.priceActual * 100
   })
     .then(product => {
       res.status(201).json(product);
@@ -25,10 +25,10 @@ router.put('/:id', (req, res, next) => {
     title: req.body.title,
     shortDescription: req.body.shortDescription,
     fullDescription: req.body.fullDescription,
-    inventoryQty: req.body.inventoryQty,
+    inventoryQty: +req.body.inventoryQty,
     image: req.body.image,
-    pdtWt: req.body.pdtWt,
-    priceCents: req.body.priceActual * 100
+    pdtWt: +req.body.pdtWt,
+    priceCents: +req.body.priceActual * 100
   }, {
     where: {
       id: req.params.id

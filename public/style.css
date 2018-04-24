@@ -36,17 +36,17 @@ form {
   text-align: center;
 }
 
-.in-front {
+.in-front, .pop-up {
   z-index: 3;
   width: 80%;
   border: 1px solid  black;
   margin: auto auto;
+  padding-bottom: 10px;
   position: absolute;
   background: beige;
   left: 0;
   right: 0;
   transform: translateY(15px)
-
 }
 
 .errorMessage {
@@ -61,4 +61,13 @@ form {
   border-radius: 5px;
   width: 60%;
   margin: 10px auto;
+}
+
+.pop-up {
+  z-index: 4;
+  color: rgb(121, 0, 0);
+}
+
+button:disabled {
+  color: grey;
 }
