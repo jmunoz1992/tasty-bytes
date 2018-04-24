@@ -11,7 +11,7 @@ export class SingleProduct extends Component {
     super(props);
     this.state = {
       qty: 1,
-      editFormShow: false
+      editFormShow: this.props.edit || false
     }
   }
 
@@ -41,7 +41,7 @@ export class SingleProduct extends Component {
   }
 
   render() {
-
+    console.log(this.props, "props are")
     let { products, user } = this.props;
 
     const productId = +this.props.match.params.id;

@@ -35,7 +35,7 @@ router.put('/:id', (req, res, next) => {
   Review.update(req.body, {
     where: {
       id: req.params.id,
-      userId: req.sessions.user
+      userId: req.session.passport.user
     },
     returning: true
   })

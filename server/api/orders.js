@@ -4,6 +4,7 @@ const { Order, OrderLine } = require('../db/models');
 
 // GET particular order.
 router.get('/:id', (req, res, next) => {
+
   Order.findOne({
     where: {
       id: req.params.id

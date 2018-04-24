@@ -102,7 +102,12 @@ export class OrderView extends Component {
             </div>
           : <div>
             {this.state.filteredOrders.map((order) => {
-              return (<OrderItem content={order} products={products} key={order.id} />)
+              return (<OrderItem
+                content={order}
+                products={products}
+                key={order.id}
+                handleCategory={this.handleCategory}
+                />)
             })}
           </div>
 }
