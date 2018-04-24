@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { login as loginFromReducer} from '../store/user';
+import { ErrorMessage } from './index';
+import { newErrorMessage } from '../store/index'
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -14,6 +16,15 @@ class Login extends React.Component {
     const { message } = this.props;
     return (
       <div className="signin-container">
+      {
+        this.props.errorMessage.length ?
+        <ErrorMessage
+        errorMessage={this.props.errorMessage}
+        clearError={this.props.clearError}
+        />
+        :
+        <div />
+      }
         <div className="buffer local">
           <form onSubmit={this.onLoginSubmit}>
             <div className="form-group">
@@ -68,9 +79,17 @@ class Login extends React.Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = () => ({ message: 'Log in' });
+const mapState = (state) => ({
+   message: 'Log in',
+   errorMessage: state.errorMessage
+  });
 const mapDispatch = (dispatch, ownProps) => ({
-  login: credentials => dispatch(loginFromReducer(credentials, ownProps.history))
+  login: credentials => {
+    dispatch(loginFromReducer(credentials, ownProps.history))
+  },
+    clearError() {
+      dispatch(newErrorMessage(''))
+    }
 });
 
 export default connect(mapState, mapDispatch)(Login);

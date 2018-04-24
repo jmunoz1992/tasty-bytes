@@ -105,9 +105,14 @@ const createApp = () => {
 
   // error handling endware
   app.use((err, req, res, next) => {
-    // console.error(err.stack)
-    let message = err.errors ? err.errors.map(error => error.message).join(".  ") : null;
-    res.send( message || 'Internal server error.')
+    console.error(err)
+    if (err.errors) {
+      let message = err.errors.map(error => error.message).join(".  ")
+      res.status(500).send( message || 'Internal server error.')
+    }
+    else {
+      res.status(500).send( err || 'Internal server error.')
+    }
   })
 }
 

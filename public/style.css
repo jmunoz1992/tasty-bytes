@@ -66,6 +66,7 @@ form {
 .pop-up {
   z-index: 4;
   color: rgb(121, 0, 0);
+  padding: 10px;
 }
 
 button:disabled {
