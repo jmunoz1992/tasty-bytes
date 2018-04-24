@@ -14,6 +14,7 @@ export {default as ShoppingCart} from './shoppingCart/shoppingCart.jsx'
 export {default as Checkout} from './checkout/checkout.jsx'
 export {default as OrderPreview} from './checkout/orderPreview.jsx'
 export {default as Confirmation} from './checkout/confirmation.jsx'
+export {ErrorMessage} from './error-message.jsx'
 
 export {default as AllProductsHome} from './products/all-products.jsx'
 export {ProductCardView} from './products/product-card.jsx'

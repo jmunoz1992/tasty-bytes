@@ -6,6 +6,7 @@ const Review = require('./review.js')
 const Product = db.define('product', {
   title: {
     type: Sequelize.STRING,
+    unique: true,
     allowNull: false
   },
   shortDescription: {

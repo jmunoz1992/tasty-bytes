@@ -7,9 +7,9 @@ import {OrderItem} from '../.'
 
 export class OrderView extends Component {
   componentDidMount() {
-    this
-      .props
-      .getOrders()
+    // this
+    //   .props
+    //   .getOrders()
   }
   render() {
     const ordersAll = this.props.orders ? this.props.orders : [];

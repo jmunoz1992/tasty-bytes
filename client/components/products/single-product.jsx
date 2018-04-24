@@ -11,7 +11,7 @@ export class SingleProduct extends Component {
     super(props);
     this.state = {
       qty: 1,
-      editFormShow: false
+      editFormShow: this.props.edit || false
     }
   }
 
@@ -41,7 +41,7 @@ export class SingleProduct extends Component {
   }
 
   render() {
-
+    console.log(this.props, "props are")
     let { products, user } = this.props;
 
     const productId = +this.props.match.params.id;
@@ -113,17 +113,11 @@ export class SingleProduct extends Component {
                   <Tab title="READ REVIEWS">
                   <AllReviews product= {productSelected} />
                   </Tab>
-                  <Tab title="WRITE A REVIEW">POP UP REVIEW FORM FOR LOGGED IN USERS
+                  <Tab title="WRITE A REVIEW">
                   <NewReview product= {productSelected} />
                   </Tab>
               </Tabs>
 
-            {
-              (isAdmin && this.state.editFormShow) ?
-                <EditProduct product={productSelected} handleEdit={this.handleEdit} />
-                :
-                <div />
-            }
             </div>
           : null}
       </div>

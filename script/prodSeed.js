@@ -22,7 +22,7 @@ async function seed () {
 
   const products = await Promise.all([
     Product.create({
-      title: 'chocolate strawberries',
+      title: 'Chocolate Strawberries',
       shortDescription: 'tasty strawberries covered in chocolate',
       fullDescription: 'show your love with some delicious strawberries glazed with the most decadent chocolate in the world',
       inventoryQty: 1000,
@@ -31,7 +31,7 @@ async function seed () {
       image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
     }),
     Product.create({
-      title: 'chocolate truffles',
+      title: 'Chocolate Truffles',
       shortDescription: 'rich chocolate truffles',
       fullDescription: 'dazzle your loved one with the best chocolate truffles',
       inventoryQty: 500,
@@ -40,7 +40,7 @@ async function seed () {
       image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
     }),
     Product.create({
-      title: 'sour gummies',
+      title: 'Sour Gummies',
       shortDescription: 'real sour gummies',
       fullDescription: 'pucker up these gummies are the most sour your taste buds have ever come across',
       inventoryQty: 200,
@@ -49,7 +49,7 @@ async function seed () {
       image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
     }),
     Product.create({
-      title: 'luscious lollipops',
+      title: 'Luscious Lollipops',
       shortDescription: 'lollies that you keep lickin',
       fullDescription: 'the most luscious lollipops youve ever licked, lick it up',
       inventoryQty: 700,
@@ -58,7 +58,7 @@ async function seed () {
       image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
     }),
     Product.create({
-      title: 'ice cream',
+      title: 'Ice Cream',
       shortDescription: 'the most velvety creamy ice cream',
       fullDescription: 'this ice icream is what dreams are made of, you cant get enough of it',
       inventoryQty: 100,
