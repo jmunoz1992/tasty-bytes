@@ -29,12 +29,12 @@ export const ProductCardView = (props) => {
               <p>No Reviews for this Product</p>
           }
         </div>
-        <div>
+        <div className="card-btns">
           <Link to={`/products/${id}`}>
             <Button
               waves='light'
               node='a'
-              style={{ 'background-color': '#000000', 'color': '#ffffff' }}
+              style={{ 'backgroundColor': '#000000', 'color': '#ffffff' }}
             >See Details
           </Button>
           </Link>
@@ -43,7 +43,7 @@ export const ProductCardView = (props) => {
           <Button
             waves='light'
             node='a'
-            style={{ 'background-color': '#000000', 'color': '#ffffff' }}
+            style={{ 'backgroundColor': '#000000', 'color': '#ffffff' }}
             onClick={(evt) => {
               evt.preventDefault()
               props.updateCart(id)

@@ -79,3 +79,25 @@ form {
 button:disabled {
   color: grey;
 }
+
+/* .btn {
+  margin: 5px;
+} */
+
+.card-btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#order-qty {
+  width: 60px;
+  align-self: center;
+  text-align: center;
+  font-size: 12px;
+}
+
+input[type=number]
+{
+    transform: scale(1.25);
+}
