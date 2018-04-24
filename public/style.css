@@ -94,7 +94,6 @@ button:disabled {
   width: 60px;
   align-self: center;
   text-align: center;
-  font-size: 12px;
 }
 
 input[type=number]

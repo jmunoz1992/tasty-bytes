@@ -15,6 +15,9 @@ function isAdmin (req, res, next) {
   if (req.user && req.user.isAdmin === true) {
     next();
   }
+  if (req.session.passport.user && req.session.passport.user.isAdmin === true) {
+    next();
+  }
   else {
     console.log('Unauthenticated Access Attempt- you must be an Admin to access this information')
     res.send('Unauthenticated Access Attempt- you must be an Admin to access this information');
