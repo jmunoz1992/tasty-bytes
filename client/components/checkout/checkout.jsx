@@ -16,8 +16,7 @@ export class Checkout extends Component {
     super(props);
 
     this.state = {
-      firstName: '',
-      lastName: '',
+      name: '',
       address: '',
       address2: '',
       city: '',
@@ -36,11 +35,8 @@ export class Checkout extends Component {
   }
 
   textChangeHandler(evt){
-    if (evt.target.id === 'first_name'){
-      this.setState({firstName: evt.target.value});
-    }
-    else if (evt.target.id === 'last_name'){
-      this.setState({lastName: evt.target.value});
+    if (evt.target.id === 'name'){
+      this.setState({name: evt.target.value});
     }
     else if (evt.target.id === 'address'){
       this.setState({address: evt.target.value});
@@ -69,21 +65,22 @@ export class Checkout extends Component {
   }
 
   render() {
+    let user = this.props.user;
 
     return (
-
-
       <div className="row">
       <form className="col s12" onSubmit={this.submitHandler} >
         <div className="row">
           <div className="input-field col s6">
-            <input id="first_name" type="text" className="validate" autoComplete="first_name"
-             onChange={this.textChangeHandler} />
-            <label htmlFor="first_name">First Name</label>
-          </div>
-          <div className="input-field col s6">
-            <input id="last_name" type="text" className="validate" autoComplete="last_name" onChange={this.textChangeHandler} />
-            <label htmlFor="last_name">Last Name</label>
+            <input
+            id="name"
+            type="text"
+            defaultValue={ (user && user.name) ? user.name : ''}
+            className="validate"
+            autoComplete="name"
+            onChange={this.textChangeHandler} />
+            <label htmlFor="name">Full Name</label>
+
           </div>
         </div>
         <div className="row">
@@ -115,8 +112,13 @@ export class Checkout extends Component {
         </div>
         <div className="row">
           <div className="input-field col s12">
-            <input id="email" type="email" className="validate"
-            autoComplete="email" onChange={this.textChangeHandler} />
+            <input
+            id="email"
+            type="email"
+            className="validate"
+            defaultValue={ user ? user.email : ''}
+            autoComplete="email"
+            onChange={this.textChangeHandler} />
             <label htmlFor="email">Email</label>
           </div>
         </div>
@@ -133,7 +135,8 @@ export class Checkout extends Component {
 const mapStateToProps = state => {
   return {
     cartItems: state.cartItems,
-    cartPrices: state.cartPrices
+    cartPrices: state.cartPrices,
+    user: state.user,
   };
 };
 

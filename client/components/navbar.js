@@ -62,8 +62,9 @@ export class Navbar extends Component {
                       }
                       options={{ belowOrigin: true, hover: true }}
                     >
-                      <Link to={'#'} style={{color: '#26a69a'}}>My Account</Link>
+                      <Link to={'/home'} style={{color: '#26a69a'}}>My Account</Link>
                       <Link to={'/orders'} style={{color: '#26a69a'}}>My Orders</Link>
+                      <Link to={'/users/reviews'} style={{color: '#26a69a'}}>My Reviews</Link>
                       <Link to={'#'} onClick={(evt) => handleClick(evt, user)} style={{color: '#26a69a'}}>Logout</Link>
                     </Dropdown>
                 ) : (
