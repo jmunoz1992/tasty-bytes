@@ -55,3 +55,10 @@ form {
   border: 1px solid black;
   border-radius: 5px;
 }
+
+.review-item {
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 60%;
+  margin: 10px auto;
+}
