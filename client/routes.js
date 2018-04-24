@@ -43,11 +43,11 @@ class Routes extends Component {
           isLoggedIn &&
             <Switch>
               <Route exact path="/orders" component={OrderView} />
-              <Route exact path="/orders/all" component ={OrderView} />
-              <Route exact path="/orders/new" component={OrderView} />
-              <Route exact path="/orders/processing" component={OrderView} />
-              <Route exact path="/orders/completed" component={OrderView} />
-              <Route exact path="/orders/canceled" component={OrderView} />
+              <Route exact path="/orders/all" render={() => <OrderView  initialCat={5} /> } />
+              <Route exact path="/orders/new" render={() => <OrderView  initialCat={1} /> } />
+              <Route exact path="/orders/processing" render={() => <OrderView  initialCat={2} /> } />
+              <Route exact path="/orders/completed" render={() => <OrderView  initialCat={4} /> } />
+              <Route exact path="/orders/canceled" render={() => <OrderView  initialCat={3} /> } />
               <Route exact path="/admin/users" component={AllUsers} />
               <Route exact path="/admin/products/add" component={AddProduct} />
               <Route exact path="/products/:id/edit" render={() => <SingleProduct edit={true} /> } />
