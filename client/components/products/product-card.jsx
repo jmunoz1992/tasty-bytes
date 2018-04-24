@@ -13,25 +13,41 @@ export const ProductCardView = (props) => {
     <div className="col s6 m4 center-align">
       <div className="card brown darken-1 center-align">
         <div className="card-content white-text center-align">
-          <Link to={`/products/${id}`}><span className="card-title" id="title" style={{color: '#cfb56a'}}>{title}</span></Link>
+          <Link to={`/products/${id}`}><span className="card-title" id="title" style={{ color: '#cfb56a' }}>{title}</span></Link>
           <Link to={`/products/${id}`}><img src={image} alt="Chocolate" height="200" width="200" /></Link>
           <p id="shortDescrip">{shortDescription} </p>
           <br />
           <p id="priceActual">${priceActual} </p>
           {
             avgRating ?
-            <div>
-              <FiveStars numStars={avgRating} />
-              <p>{reviews.length} Review(s)</p>
-            </div>
-            :
-            <p>No Reviews for this Product</p>
+              <div>
+                <FiveStars numStars={avgRating} />
+                <p>{reviews.length} Review(s)</p>
+              </div>
+              :
+              <p>No Reviews for this Product</p>
           }
         </div>
         <div>
-        <Button waves='light' node='a' href={`/products/${id}`} style={{'background-color': '#000000', 'color': '#ffffff'}}>See Details</Button>
+          <Link to={`/products/${id}`}>
+            <Button
+              waves='light'
+              node='a'
+              style={{ 'background-color': '#000000', 'color': '#ffffff' }}
+            >See Details
+          </Button>
+          </Link>
           &nbsp; &nbsp; &nbsp;
-          <Button waves='light' node='a' href={`/products/${id}`} style={{'background-color': '#000000', 'color': '#ffffff'}} onClick={() => { props.updateCart(id) }}>Add to Cart</Button>
+          <Button
+            waves='light'
+            node='a'
+            style={{ 'background-color': '#000000', 'color': '#ffffff' }}
+            onClick={(evt) => {
+              evt.preventDefault()
+              props.updateCart(id)
+            }}
+          >Add to Cart
+            </Button>
           <br />
           {
             isAdmin ?
@@ -42,8 +58,8 @@ export const ProductCardView = (props) => {
               <div />
           }
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 
