@@ -16,6 +16,7 @@ export class OrderView extends Component {
 
     this.state = {
       filteredOrders: [],
+      inititalCat: 5,
     }
   }
   componentDidMount() {
@@ -23,7 +24,8 @@ export class OrderView extends Component {
       .props
       .getOrders();
 
-
+      console.log('here our this is ,', this);
+    
     }
   handleCategory(cat, orders){
 
@@ -41,6 +43,7 @@ export class OrderView extends Component {
         return false;
       }
     })
+    this.props.history.push('/orders/newOrders')      
     }
     else if (cat === 2) {
       orders = orders.filter(order => {
@@ -51,6 +54,7 @@ export class OrderView extends Component {
           return false;
         }
       })
+      this.props.history.push('/orders/processing')
     }
     else if (cat === 3) {
       orders = orders.filter(order => {
@@ -61,6 +65,7 @@ export class OrderView extends Component {
           return false;
         }
       })
+      this.props.history.push('/orders/canceled')
     }
     else if (cat === 4) {
       orders = orders.filter(order => {
@@ -71,9 +76,12 @@ export class OrderView extends Component {
           return false;
         }
       })
+      this.props.history.push('/orders/completed')
+      
     }
     else if (cat === 5) {
     orders = this.props.orders;
+    this.props.history.push('/orders/all')      
     }
     this.setState({
       filteredOrders: orders
@@ -81,8 +89,13 @@ export class OrderView extends Component {
   }
 
   render() {
+    // console.log('start of our redner, the this is : ', this)
     let orders = this.props.orders ? this.props.orders : [];
     const products = this.props.products ? this.props.products : [];
+    // this.handleCategory (this.state.inititalCat, orders)
+    // this.setState({
+    //   inititalCat: 10 //arbitrarily high number
+    // })
 
     return (
       <div>
@@ -94,7 +107,7 @@ export class OrderView extends Component {
         (<div />)
         }
         </div>
-        {!this.state.filteredOrders.length
+        {!this.state.filteredOrders
           ? <div>
               <p>
                 There are no orders, select category
