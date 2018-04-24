@@ -10,15 +10,15 @@ export const AdminSort = (props) => {
         <Dropdown trigger={
           <Button>Order Categories</Button>
         }>
-        <NavItem onClick = { () => props.handleCatSelect(1, props.orders)}>New Orders</NavItem>
+        <NavItem onClick = { () => props.handleCatSelect(1)}>New Orders</NavItem>
         <NavItem divider />
-        <NavItem onClick = { () => props.handleCatSelect(2, props.orders)}>Processing</NavItem>
+        <NavItem onClick = { () => props.handleCatSelect(2)}>Processing</NavItem>
         <NavItem divider />
-        <NavItem onClick = { () => props.handleCatSelect(3, props.orders)}>Canceled</NavItem>
+        <NavItem onClick = { () => props.handleCatSelect(3)}>Canceled</NavItem>
         <NavItem divider />
-        <NavItem onClick = { () => props.handleCatSelect(4, props.orders)}>Completed</NavItem>
+        <NavItem onClick = { () => props.handleCatSelect(4)}>Completed</NavItem>
         <NavItem divider />
-        <NavItem onClick = { () => props.handleCatSelect(5, props.orders)}>All Categories</NavItem>
+        <NavItem onClick = { () => props.handleCatSelect(5)}>All Categories</NavItem>
       </Dropdown>
         </div>
       )

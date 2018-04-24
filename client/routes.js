@@ -39,21 +39,25 @@ class Routes extends Component {
       <Switch>
         {
           isLoggedIn &&
-          <Switch>
-            <Route exact path="/orders" component={OrderView} />
-            <Route exact path="/admin/users" component={AllUsers} />
-            <Route exact path="/admin/products/add" component={AddProduct} />
-            <Route exact path="/products/:id/edit" component={SingleProduct} />
-            <Route exact path="/products/:id" component={SingleProduct} />
-            <Route path="/admin/categories" component={AllCategories} />
-            <Route path="/users/reviews" component={UserReviews} />
-            <Route path="/cart" component={ShoppingCart} />
-            <Route path="/checkout" component={Checkout} />
-            <Route path="/orderPreview" component={OrderPreview} />
-            <Route path="/home" component={UserHome} />
-            <Route exact path="/" component={AllProductsHome} />
-          </Switch>
-
+            <Switch>
+              <Route exact path="/orders" component={OrderView} />
+              <Route exact path="/orders/all" component ={OrderView} />
+              <Route exact path="/orders/new" component={OrderView} />
+              <Route exact path="/orders/processing" component={OrderView} />
+              <Route exact path="/orders/completed" component={OrderView} />
+              <Route exact path="/orders/canceled" component={OrderView} />
+              <Route exact path="/admin/users" component={AllUsers} />
+              <Route exact path="/admin/products/add" component={AddProduct} />
+              <Route exact path="/products/:id/edit" render={() => <SingleProduct edit={true} /> } />
+              <Route exact path="/products/:id" component={SingleProduct} />
+              <Route path="/admin/categories" component={AllCategories} />
+              <Route path="/users/reviews" component={UserReviews} />
+              <Route path="/cart" component={ShoppingCart} />
+              <Route path="/checkout" component={Checkout} />
+              <Route path="/orderPreview" component={OrderPreview} />
+              <Route path="/confirmation" component={Confirmation} />
+              <Route exact path="/" component={AllProductsHome} />
+            </Switch>
         }
         <Route exact path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
