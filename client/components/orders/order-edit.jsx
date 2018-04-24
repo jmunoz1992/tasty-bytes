@@ -11,6 +11,7 @@ export class OrderEdit extends Component {
     this.handleClickShipped = this.handleClickShipped.bind(this)
     this.handleClickProcess = this.handleClickProcess.bind(this)
     this.handleClickCancel = this.handleClickCancel.bind(this)
+    
     this.state = {
         id: props.content.id,
         shipped: props.content.shipped,
@@ -23,27 +24,28 @@ export class OrderEdit extends Component {
     const id = this.props.content.id
       this.setState({
         shipped: new Date()}, () => {
+          this.props.orderUpate(id, this.state)
+
       })
-    this.props.orderUpate(id, this.state)
   }
 
   handleClickProcess () {
     const id = this.props.content.id
     this.setState({
       startProcessing: new Date()}, () => {
-    })
+        this.props.orderUpate(id, this.state)
+      }
+  )
 
-    this.props.orderUpate(id, this.state)
   }
 
   handleClickCancel () {
     const id = this.props.content.id
     this.setState({
       cancel: new Date()}, () => {
-
+        this.props.orderUpate(id, this.state)
     })
 
-    this.props.orderUpate(id, this.state)
   }
     render(){
 
@@ -72,15 +74,16 @@ const mapState = state => {
         };
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, ownProps) => {
+  console.log('ownprops are : ', ownProps)
   return {
     getOrders: () => {
       dispatch(fetchOrders())
     },
     orderUpate: (id, updates) => {
-      dispatch(callOrderUpdate(id, updates))
+      dispatch(callOrderUpdate(id, updates, ownProps.history))
     }
   };
 }
 
-export default connect(mapState, mapDispatch)(OrderEdit);
+export default withRouter(connect(mapState, mapDispatch)(OrderEdit));

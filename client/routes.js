@@ -26,7 +26,11 @@ class Routes extends Component {
               <Route exact path="/orders" component={OrderView} />
               <Route exact path="/admin/users" component={AllUsers} />
               <Route exact path="/admin/products/add" component={AddProduct} />
+<<<<<<< HEAD
               <Route exact path="/products/:id/edit" component={SingleProduct} />
+=======
+              <Route exact path="/products/:id/edit" render={() => <SingleProduct edit={true} /> } />
+>>>>>>> 46c74c70fca2cb39f9feb52969c23d9fd53a90b1
               <Route exact path="/products/:id" component={SingleProduct} />
               <Route path="/admin/categories" component={AllCategories} />
               <Route path="/cart" component={ShoppingCart} />
