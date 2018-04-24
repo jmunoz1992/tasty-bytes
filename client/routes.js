@@ -39,6 +39,7 @@ class Routes extends Component {
         {
           isLoggedIn &&
             <Switch>
+              <Route path="/orders/" component={OrderView} />
               <Route path="/orders/:category" component={OrderView} />
 
               <Route exact path="/admin/users" component={AllUsers} />
