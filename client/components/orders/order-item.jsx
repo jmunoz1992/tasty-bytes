@@ -77,19 +77,12 @@ export class OrderItem extends Component {
                     </div>
                     <div className="col s2"> Order management <br /> Units: {orderline.qty} <br /> Cost Per Unit: {orderline.totalPrice / orderline.qty} <br /> Total cost: {orderline.totalPrice} <br />
                       <div>
-<<<<<<< HEAD
-                        <OrderEdit
-                        content={this.props.content}
-                        products={this.props.products}
-                        />
-=======
                       {
                         this.props.user.isAdmin ?
                         <OrderEdit content={this.props.content} />
                         :
                         <div />
                       }
->>>>>>> 4bf570eefc529d3fd15580c1e4f46b72d0caa326
                       </div>
                     </div>
                   </div>

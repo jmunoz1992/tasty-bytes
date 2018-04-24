@@ -7,36 +7,6 @@ import { connect } from 'react-redux'
 export class OrderEdit extends Component {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    this.handleClickShipped = this.handleClickShipped.bind(this)
-    this.handleClickProcess = this.handleClickProcess.bind(this)
-    this.handleClickCancel = this.handleClickCancel.bind(this)
-    
-    this.state = {
-        id: props.content.id,
-        shipped: props.content.shipped,
-        startProcessing: props.content.startProcessing,
-        cancel: props.content.cancel
-    }
-  }
-
-  handleClickShipped () {
-    const id = this.props.content.id
-      this.setState({
-        shipped: new Date()}, () => {
-          this.props.orderUpate(id, this.state)
-
-      })
-  }
-
-  handleClickProcess () {
-    const id = this.props.content.id
-    this.setState({
-      startProcessing: new Date()}, () => {
-        this.props.orderUpate(id, this.state)
-      }
-  )
-=======
     // this.handleClickShipped = this
     //   .handleClickShipped
     //   .bind(this)
@@ -63,23 +33,15 @@ export class OrderEdit extends Component {
         .props
         .orderUpdate(id, {shipped: new Date()})
     }
->>>>>>> 4bf570eefc529d3fd15580c1e4f46b72d0caa326
 
   }
 
   handleClickCancel() {
     const id = this.props.content.id
-<<<<<<< HEAD
-    this.setState({
-      cancel: new Date()}, () => {
-        this.props.orderUpate(id, this.state)
-    })
-=======
 
     this
       .props
       .orderUpdate(id, {cancel: new Date()})
->>>>>>> 4bf570eefc529d3fd15580c1e4f46b72d0caa326
 
   }
   render() {
@@ -117,21 +79,12 @@ const mapState = state => {
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-<<<<<<< HEAD
-  console.log('ownprops are : ', ownProps)
-  return {
-    getOrders: () => {
-      dispatch(fetchOrders())
-    },
-    orderUpate: (id, updates) => {
-=======
   // console.log('ownprops are : ', ownProps)
   return {
     // getOrders: () => {
     //   dispatch(fetchOrders())
     // },
     orderUpdate: (id, updates) => {
->>>>>>> 4bf570eefc529d3fd15580c1e4f46b72d0caa326
       dispatch(callOrderUpdate(id, updates, ownProps.history))
     }
   };

@@ -28,10 +28,6 @@ router.get('/:userId', (req, res, next) => {
 router.get('/:userId/reviews', (req, res, next) => {
   if (req.session.passport.user) {
     User.findById(req.session.passport.user, {
-<<<<<<< HEAD
-      attributes: ['id', 'name', 'email'],
-=======
->>>>>>> 4bf570eefc529d3fd15580c1e4f46b72d0caa326
       include: [{ model: Review }]
     })
       .then(user => res.json(user.reviews))

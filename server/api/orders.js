@@ -2,24 +2,6 @@ const router = require('express')();
 const { Order, OrderLine } = require('../db/models');
 
 
-<<<<<<< HEAD
-// GET particular order.
-router.get('/:id', (req, res, next) => {
-
-  Order.findOne({
-    where: {
-      id: req.params.id
-    },
-    include: {
-      model: OrderLine
-    }
-  })
-  .then(order => {
-    res.status(200).json(order)
-  })
-  .catch(next)
-})
-=======
 // // GET particular order.
 // router.get('/:id', (req, res, next) => {
 //   Order.findOne({
@@ -35,7 +17,6 @@ router.get('/:id', (req, res, next) => {
 //   })
 //   .catch(next)
 // })
->>>>>>> 4bf570eefc529d3fd15580c1e4f46b72d0caa326
 
 //POST a new order.
 router.post('/', (req, res, next) => {

@@ -120,11 +120,7 @@ export class OrderView extends Component {
               </p>
             </div>
           : <div>
-<<<<<<< HEAD
-            {this.state.filteredOrders.map((order) => {
-=======
             {orders.map((order) => {
->>>>>>> 4bf570eefc529d3fd15580c1e4f46b72d0caa326
               return (<OrderItem
                 content={order}
                 products={products}
