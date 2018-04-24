@@ -44,40 +44,43 @@ export class AllProductsHome extends Component {
     }
     let filtered = this.filterProducts(products);
     return (
-      <div id="all-products">
-        {(categories) ? (
-          <Dropdown
-            trigger={
-              <Button>CATEGORIES</Button>
-            }
-            options={{ belowOrigin: true, hover: true }}
-          >
-            {categories && categories.map(category => {
-              return (
-                <div key={category.id}>
-                  <Link
-                    to={`/categories/${category.id}`}
-                    style={{color: '#26a69a'}}
-                  >{category.name}
-                  </Link>
-                  <br />
-                </div>
-              );
-            })}
-          </Dropdown>
-        ) :
-          null
-        }
-        <div className="center-align inputGroup">
-          <label htmlFor="title"><h5>Search Products: </h5></label>
+      <div id="center-align all-products">
+        <div className="inputGroup" style={{'align-items': 'flex-start'}}>
+          {(categories) ? (
+            <Dropdown
+              trigger={
+                <Button style={{'background-color': '#000000', 'color': '#ffffff'}}>CATEGORIES</Button>
+              }
+              options={{ belowOrigin: true, hover: true }}
+            >
+              {categories && categories.map(category => {
+                return (
+                  <div key={category.id}>
+                    <Link
+                      to={`/categories/${category.id}`}
+                      style={{color: '#cfb56a'}}
+                    >{category.name}
+                    </Link>
+                    <br />
+                  </div>
+                );
+              })}
+            </Dropdown>
+          ) :
+            null
+          }
           <input
             required
             onChange={(evt) => this.handleChange(evt, 'title')}
             name="title"
+            style={{'width': '1000', 'text-align': 'center', 'margin-left': '20px', 'padding': '0px', 'font-size': '25px'}}
+            placeholder="SEARCH PRODUCTS"
             value={this.state.search} />
+            <i className="material-icons"
+              style={{'font-size': '3rem'}}>search</i>
         </div>
         <div className="center-align">
-          <h1>ALL PRODUCTS</h1>
+          <h1 style={{'font-family': 'Georgia, serif'}}>ALL PRODUCTS</h1>
           {
             isAdmin ?
               <div>
