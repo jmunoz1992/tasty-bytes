@@ -17,8 +17,10 @@ import {
   SingleProduct,
   Checkout,
   OrderPreview,
-  CategorySelected,
-  Confirmation
+  conformationEmail,
+  Confirmation,
+  CategorySelected
+
 }
   from './components'
 

@@ -29,6 +29,7 @@ export class OrderView extends Component {
       .props
       .getOrders();
 
+
     if(this.props.initialCat){
       this.changeCat(this.props.initialCat)
     }
@@ -42,7 +43,6 @@ export class OrderView extends Component {
 
 
 
-    // console.log('firing handle cat', orders.length)
     let newFilteredOrders = [];
     if (cat === 1) {
       newFilteredOrders = orders.filter(order => {

@@ -41,7 +41,7 @@ export class SingleProduct extends Component {
   }
 
   render() {
-    console.log(this.props, "props are")
+    // console.log(this.props, "props are")
     let { products, user } = this.props;
 
     const productId = +this.props.match.params.id;

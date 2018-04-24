@@ -25,7 +25,7 @@ export class EditProduct extends Component {
   validate = () => {
     let errors = [];
     let product = this.state.product
-    console.log(typeof +this.state.product.inventoryQty)
+    // console.log(typeof +this.state.product.inventoryQty)
     if (this.state.dirty) {
       if (+product.inventoryQty < 0) errors.push('Inventory Qty cannot be less than zero');
       if (+product.pdtWt <= 0) errors.push('Product Weight must be greater than zero');

@@ -48,4 +48,6 @@ export * from './notAuthMessage'
 export * from './cartPrice'
 export * from './reviews'
 export * from './shippingInfo'
+export * from './email'
 export * from './pop-up'
+
