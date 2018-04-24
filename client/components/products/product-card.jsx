@@ -20,8 +20,8 @@ export const ProductCardView = (props) => {
           {
             avgRating ?
             <div>
-            <FiveStars numStars={avgRating} />
-            <p>{reviews.length} Review(s)</p>
+              <FiveStars numStars={avgRating} />
+              <p>{reviews.length} Review(s)</p>
             </div>
             :
             <p>No Reviews for this Product</p>

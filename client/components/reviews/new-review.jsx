@@ -75,7 +75,7 @@ export class NewReview extends Component {
                       required
                       type="number"
                       min="0"
-                      min="5"
+                      max="5"
                       onChange={(evt) => this.handleChange(evt, 'numStars')}
                       name="numStars"
                       value={review.numStars}
