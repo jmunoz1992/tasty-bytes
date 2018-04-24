@@ -22,7 +22,7 @@ router.post('/', (req, res, next) => {
     numStars: req.body.numStars,
     imgUrl: req.body.imgUrl,
     productId: req.body.productId,
-    userId: req.body.userId,
+    userId: req.session.passport.user
   })
   .then(review => {
     res.status(201).json(review);

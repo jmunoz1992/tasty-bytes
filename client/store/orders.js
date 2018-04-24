@@ -22,24 +22,33 @@ export const fetchOrders = () =>
       .catch(err => console.log(err))
 
 export function callOrderUpdate(id, updates, history) {
+<<<<<<< HEAD
   console.log('history :', history)
   console.log('called thunk', id)
+=======
+  // console.log('history :', history)
+  // console.log('called thunk', id)
+>>>>>>> 4bf570eefc529d3fd15580c1e4f46b72d0caa326
   return function thunk(dispatch) {
-    console.log('about to axios put these updates', updates);
+    // console.log('about to axios put these updates', updates);
     return axios.put(`/api/admin/orders/${id}`, updates)
     .then(res => {
-      console.log('attempting promise')
+      // console.log('attempting promise')
       return res.data})
     .then(update => {
       dispatch(fetchOrders());
+<<<<<<< HEAD
       history.push('/');
+=======
+      // history.push('/orders/all');
+>>>>>>> 4bf570eefc529d3fd15580c1e4f46b72d0caa326
     })
     .catch(err => console.error(err));
   };
 }
 
 export function createNewOrder(data){
-  console.log('about to create with ', data)
+  // console.log('about to create with ', data)
     return function thunk(dispatch){
       return axios.post(`/api/admin/orders`, data)
       .then(res => {

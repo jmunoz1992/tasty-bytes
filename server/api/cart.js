@@ -64,7 +64,7 @@ router.put('/', (req, res, next) => {
     if (req.body.id === req.session.cart[i].id) {
       // const oldQty = req.session.cart.products[i].qty;
       // req.session.cart.products[i].qty += req.body.qty - oldQty;
-      req.session.cart[i].qty = req.body.qty;
+      req.session.cart[i].qty += req.body.qty;
       if (req.session.cart[i].qty === 0) {
         req.session.cart.splice(i, 1);
       }

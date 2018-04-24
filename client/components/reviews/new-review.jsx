@@ -17,7 +17,9 @@ export class NewReview extends Component {
         content: '',
         imgUrl: '',
         numStars: 0,
-      }
+      },
+      errors: [],
+      dirty: false,
     }
   }
 
@@ -27,8 +29,9 @@ export class NewReview extends Component {
     reviewInfo[field] = value;
 
     this.setState({
-      review: reviewInfo
-    })
+      review: reviewInfo,
+      dirty: true,
+    }, this.validate)
   }
 
   handleSubmit = (event) => {
@@ -37,18 +40,44 @@ export class NewReview extends Component {
     this.props.createReview(review)
   }
 
+  validate = () => {
+    let errors = [];
+    let review = this.state.review
+    if (this.state.dirty) {
+      if (!review.title.length) errors.push('Review title is required');
+      if (!review.content.length) errors.push('Review Content is required');
+      if (!review.numStars.length) errors.push('Number of Stars is required');
+      if (review.numStars < 0 || review.numStars > 5) errors.push('Number of Stars must be between 0 and 5');
+    }
+    this.setState({
+      errors: errors
+    })
+  }
+
   render() {
     const { reviews, user } = this.props;
     const review = this.state.review;
-
+    let disableSubmit = ((this.state.errors && this.state.errors.length) || !this.state.dirty) ? true : false;
     return (
       <div className="center-align">
         {
           user.email ?
             <div>
               <h2>Write A Review</h2>
+              <div className="errorMessage">
+              {
+                this.state.errors.length ?
+                <h5>{this.state.errors.join(`, `)}</h5>
+                :
+                <div />
+              }
+              </div>
               <form className="addRev" onSubmit={(event) => { this.handleSubmit(event) }} >
-                <Button onClick={this.handleSubmit} >Add Review</Button>
+                <Button
+                onClick={this.handleSubmit}
+                disabled={disableSubmit}
+                >Add Review
+                </Button>
                 <section>
                   <div className="inputGroup">
                     <label htmlFor="title"><h5>Review Title: </h5></label>
@@ -75,7 +104,7 @@ export class NewReview extends Component {
                       required
                       type="number"
                       min="0"
-                      min="5"
+                      max="5"
                       onChange={(evt) => this.handleChange(evt, 'numStars')}
                       name="numStars"
                       value={review.numStars}

@@ -54,6 +54,7 @@ export class OrderItem extends Component {
     let itemNum = this.props.content.orderlines[0].id - 1;
     return (
       <div>
+      <h5>Order: {this.props.content.id}</h5>
         {this.props
           .content
           .orderlines
@@ -62,7 +63,7 @@ export class OrderItem extends Component {
                 <div className="row" key={orderline.id}>
 
                 { products && products.map(product => {
-                    if(product.id === orderline.productId){
+                    if (product.id === orderline.productId){
                       return (<ProductCardView key={product.id} product={product} />)
                     }
                 })}
@@ -76,10 +77,19 @@ export class OrderItem extends Component {
                     </div>
                     <div className="col s2"> Order management <br /> Units: {orderline.qty} <br /> Cost Per Unit: {orderline.totalPrice / orderline.qty} <br /> Total cost: {orderline.totalPrice} <br />
                       <div>
+<<<<<<< HEAD
                         <OrderEdit
                         content={this.props.content}
                         products={this.props.products}
                         />
+=======
+                      {
+                        this.props.user.isAdmin ?
+                        <OrderEdit content={this.props.content} />
+                        :
+                        <div />
+                      }
+>>>>>>> 4bf570eefc529d3fd15580c1e4f46b72d0caa326
                       </div>
                     </div>
                   </div>
@@ -94,7 +104,8 @@ export class OrderItem extends Component {
 
 const mapState = state => {
   return {orders: state.orders,
-          products: state.products
+          products: state.products,
+          user: state.user
         };
 }
 

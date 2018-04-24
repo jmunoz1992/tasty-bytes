@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import { FiveStars } from '../index'
 
 export const ReviewCardView = (props) => {
-  const { title, content, numStars, imgUrl, id } = props.review;
+  const { title, content, numStars, imgUrl } = props.review;
   let isAdmin = false;
   if (props.user) {
     isAdmin = props.user.isAdmin
@@ -11,7 +10,7 @@ export const ReviewCardView = (props) => {
   return (
     <div className="review-item">
       <div className="review-content">
-        <FiveStars numStars={numStars} />
+        {numStars ? <FiveStars numStars={numStars} /> : null}
         <p id="numStars">{numStars} Stars</p>
         <h5 id="title"><em>Subject: </em>{title}</h5>
         {
