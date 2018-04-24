@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {fetchOrders, callOrderUpdate} from '../../store'
 import {Button, Dropdown, NavItem} from 'react-materialize'
-import { withRouter } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
+
 
 export const AdminSort = (props) => {
     return (
@@ -10,16 +11,18 @@ export const AdminSort = (props) => {
         <Dropdown trigger={
           <Button>Order Categories</Button>
         }>
-        <NavItem onClick = { () => props.handleCatSelect(1)}>New Orders</NavItem>
-        <NavItem divider />
-        <NavItem onClick = { () => props.handleCatSelect(2)}>Processing</NavItem>
-        <NavItem divider />
-        <NavItem onClick = { () => props.handleCatSelect(3)}>Canceled</NavItem>
-        <NavItem divider />
-        <NavItem onClick = { () => props.handleCatSelect(4)}>Completed</NavItem>
-        <NavItem divider />
-        <NavItem onClick = { () => props.handleCatSelect(5)}>All Categories</NavItem>
-      </Dropdown>
+        <div className='admin-sort'>
+        <NavLink to={ '/orders/new'} onClick = { () => {props.handleCatSelect('new')}}>New Orders</NavLink>
+        
+        <NavLink to={ '/orders/processing'} onClick = { () => props.handleCatSelect('processing')}>Processing</NavLink>
+        
+        <NavLink to={ '/orders/canceled'} onClick = { () => props.handleCatSelect('canceled')}>Canceled</NavLink>
+        
+        <NavLink to={ '/orders/completed'} onClick = { () => props.handleCatSelect('completed')}>Completed</NavLink>
+        
+        <NavLink to={ '/orders/all'} onClick = { () => props.handleCatSelect('all')}>All Categories</NavLink>
+       </div>
+        </Dropdown>
         </div>
       )
 
@@ -31,7 +34,7 @@ const mapState = state => {
         };
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     getOrders: () => {
       dispatch(fetchOrders())

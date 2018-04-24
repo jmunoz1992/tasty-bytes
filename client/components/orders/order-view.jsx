@@ -20,19 +20,22 @@ export class OrderView extends Component {
       .changeCat
       .bind(this)
     this.state = {
-      category: 5
+      category: this.props.match.params.category
     }
 
   }
+
+  
+
   componentDidMount() {
     this
       .props
       .getOrders();
 
 
-    if(this.props.initialCat){
-      this.changeCat(this.props.initialCat)
-    }
+    // if (this.props.match.params.category){
+    //   this.changeCat(this.props.match.params.category)
+    // }
 
   }
 
@@ -44,7 +47,7 @@ export class OrderView extends Component {
 
 
     let newFilteredOrders = [];
-    if (cat === 1) {
+    if (cat === 'new') {
       newFilteredOrders = orders.filter(order => {
         if (order.cancel === null && order.startProcessing === null) {
           return order
@@ -52,8 +55,8 @@ export class OrderView extends Component {
           return false;
         }
       })
-      // this.props.history.push('/orders')
-    } else if (cat === 2) {
+      // this.props.history.push('/orders/new')
+    } else if (cat === 'processing') {
       newFilteredOrders = orders.filter(order => {
         if (order.cancel === null && order.startProcessing !== null && order.shipped === null) {
           return order
@@ -62,7 +65,7 @@ export class OrderView extends Component {
         }
       })
       // this.props.history.push('/orders/processing')
-    } else if (cat === 3) {
+    } else if (cat === 'canceled') {
       newFilteredOrders = orders.filter(order => {
         if (order.cancel !== null) {
           return order
@@ -71,7 +74,7 @@ export class OrderView extends Component {
         }
       })
       // this.props.history.push('/orders/canceled')
-    } else if (cat === 4) {
+    } else if (cat === 'completed') {
       newFilteredOrders = orders.filter(order => {
         if (order.cancel === null && order.shipped !== null) {
           return order
@@ -81,7 +84,7 @@ export class OrderView extends Component {
       })
       // this.props.history.push('/orders/completed')
 
-    } else if (cat === 5) {
+    } else if (cat === 'all') {
       newFilteredOrders = this.props.orders;
       // this.props.history.push('/orders/all')
     }
