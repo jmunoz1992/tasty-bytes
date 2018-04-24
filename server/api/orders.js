@@ -2,21 +2,21 @@ const router = require('express')();
 const { Order, OrderLine } = require('../db/models');
 
 
-// // GET particular order.
-// router.get('/:id', (req, res, next) => {
-//   Order.findOne({
-//     where: {
-//       id: req.params.id
-//     },
-//     include: {
-//       model: OrderLine
-//     }
-//   })
-//   .then(order => {
-//     res.status(200).json(order)
-//   })
-//   .catch(next)
-// })
+// GET particular order.
+router.get('/', (req, res, next) => {
+  Order
+    .findAll({
+    include: {
+      model: OrderLine
+    }
+  })
+    .then(orders => {
+      res
+        .status(200)
+        .json(orders);
+    })
+    .catch(next)
+})
 
 //POST a new order.
 router.post('/', (req, res, next) => {

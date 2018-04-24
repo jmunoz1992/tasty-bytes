@@ -141,7 +141,6 @@ const mapState = state => {
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-  // console.log('the real ownprops are: ', ownProps)
   return {
     getOrders: () => {
       dispatch(fetchOrders(ownProps.history))
