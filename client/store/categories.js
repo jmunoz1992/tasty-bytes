@@ -32,17 +32,17 @@ export const addCategory = (category) => {
     return axios.post('/api/admin/categories', category)
         .then(res => res.data)
         .then(createdCategory => {
-          if (typeof createdCategory === 'string') {
-            let message = createdCategory
+          console.log(createdCategory)
+            dispatch(newCategory(createdCategory))
+        })
+        .catch(error => {
+          let message = error.response.data
             if (message.indexOf("name must be unique") > -1) {
               message = "Category name must be unique; please enter a different category name"
             }
             dispatch(newErrorMessage(message))
-          } else {
-            dispatch(newCategory(createdCategory))
-          }
+          console.error(error)
         })
-        .catch(error => console.log(error))
   }
 }
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { clearCart, getCartProducts } from './index'
+import { clearCart, getCartProducts, newErrorMessage } from './index'
 
 /**
  * ACTION TYPES
@@ -54,16 +54,22 @@ export const auth = (email, password, username, name, method) => {
     }
 
 export const login = (credentials, history) => dispatch => {
-  axios.put('/auth/local/login', credentials)
+  axios.post('/auth/login', credentials)
     .then(res => setUserAndRedirect(res.data, history, dispatch))
-    .catch(err => console.error(`Logging in with ${credentials.email} and ${credentials.password} was unsuccesful`, err));
+    .catch(err => {
+      dispatch(newErrorMessage("Login Unsuccessful- "+ err.response.data))
+      console.error(`Logging in with ${credentials.email} and ${credentials.password} was unsuccesful`, err.response.data)
+    })
 };
 
 
 export const signup = (credentials, history) => dispatch => {
-  axios.post('/auth/local/signup', credentials)
+  axios.post('/auth/signup', credentials)
     .then(res => setUserAndRedirect(res.data, history, dispatch))
-    .catch(err => console.error(`Signing up with ${credentials.email} and ${credentials.password} was unsuccesful`, err));
+    .catch(err => {
+      dispatch(newErrorMessage("Sign Up Unsuccessful- " + err.response.data))
+      console.error(`Signing up with ${credentials.email} and ${credentials.password} was unsuccesful`, err.response.data)}
+    );
 };
 
 export const logout = (user) =>
