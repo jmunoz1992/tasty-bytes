@@ -7,6 +7,7 @@ router.use('/products', require('./products'))
 router.use('/orders', require('./orders'))
 router.use('/reviews', require('./reviews'))
 router.use('/cart', require('./cart'))
+router.use('/email', require('./email'))
 
 
 // // USE BELOW ONCE WE HAVE ADMIN USERS AND STUFF...
