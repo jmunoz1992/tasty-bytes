@@ -73,17 +73,16 @@ export function addProduct(product, history) {
     axios.post('/api/admin/products/', product)
       .then(res => res.data)
       .then(createdProduct => {
-        if (typeof createdProduct === 'string') {
-          console.log(createdProduct)
-          let message = createdProduct
+          dispatch(newProduct(createdProduct));
+          history.push('/')
+      })
+      .catch(error => {
+        let message = error.response.data
           if (message.indexOf("title must be unique") > -1) {
             message = "Product name must be unique; please enter a different product name"
           }
           dispatch(newErrorMessage(message))
-        } else {
-          dispatch(newProduct(createdProduct));
-          history.push('/')
-        }
+        console.error(error)
       });
   };
 }

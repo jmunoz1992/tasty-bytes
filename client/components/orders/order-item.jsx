@@ -10,6 +10,7 @@ import { orderShipped } from '../../store/index.js';
 export class OrderItem extends Component {
   constructor(props){
     super(props)
+    
   }
 
   render(){

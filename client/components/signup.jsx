@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { signup as signupFromReducer } from '../store/user';
 import {Row, Input} from 'react-materialize';
+import { ErrorMessage } from './index';
+import { newErrorMessage } from '../store/index'
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -15,6 +17,15 @@ class Signup extends React.Component {
     const { message } = this.props;
     return (
       <div className="signin-container">
+      {
+        this.props.errorMessage.length ?
+        <ErrorMessage
+        errorMessage={this.props.errorMessage}
+        clearError={this.props.clearError}
+        />
+        :
+        <div />
+      }
         <div className="buffer local">
             <form onSubmit={this.onSignupSubmit}>
               <Row>
@@ -59,9 +70,17 @@ class Signup extends React.Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = () => ({ message: 'Signup' });
+const mapState = (state) => ({
+  message: 'Signup',
+  errorMessage: state.errorMessage
+});
 const mapDispatch = (dispatch, ownProps) => ({
-  signup: credentials => dispatch(signupFromReducer(credentials, ownProps.history))
+  signup: credentials => {
+    dispatch(signupFromReducer(credentials, ownProps.history))
+  },
+  clearError() {
+    dispatch(newErrorMessage(''))
+  }
 });
 
 export default connect(mapState, mapDispatch)(Signup);

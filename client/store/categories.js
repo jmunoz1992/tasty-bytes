@@ -33,18 +33,16 @@ export const addCategory = (category) => {
         .then(res => res.data)
         .then(createdCategory => {
           console.log(createdCategory)
-          if (typeof createdCategory === 'string') {
-            console.log(createdCategory)
-            let message = createdCategory
+            dispatch(newCategory(createdCategory))
+        })
+        .catch(error => {
+          let message = error.response.data
             if (message.indexOf("name must be unique") > -1) {
               message = "Category name must be unique; please enter a different category name"
             }
             dispatch(newErrorMessage(message))
-          } else {
-            dispatch(newCategory(createdCategory))
-          }
+          console.error(error)
         })
-        .catch(error => console.log(error))
   }
 }
 

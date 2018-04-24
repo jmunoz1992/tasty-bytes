@@ -10,6 +10,7 @@ const db = require('./db')
 const sessionStore = new SequelizeStore({db})
 const app = express()
 const socketio = require('socket.io')
+const exphbs  = require('express-handlebars');
 module.exports = app
 
 /**
@@ -35,6 +36,10 @@ passport.deserializeUser((id, done) =>
 const createApp = () => {
   // logging middleware
   app.use(morgan('dev'))
+
+  //View engine setup
+  app.engine('handlebars', exphbs());
+  app.set('view engine', 'handlebars');
 
   // body parsing middleware
   app.use(bodyParser.json())
@@ -100,9 +105,14 @@ const createApp = () => {
 
   // error handling endware
   app.use((err, req, res, next) => {
-    // console.error(err.stack)
-    let message = err.errors.map(error => error.message).join(".  ")
-    res.send( message || 'Internal server error.')
+    console.error(err)
+    if (err.errors) {
+      let message = err.errors.map(error => error.message).join(".  ")
+      res.status(500).send( message || 'Internal server error.')
+    }
+    else {
+      res.status(500).send( err || 'Internal server error.')
+    }
   })
 }
 
