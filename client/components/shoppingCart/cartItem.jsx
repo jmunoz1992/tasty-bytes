@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ProductCardView } from '../index.js';
 // import { addOrUpdateCart } from '../../store/index.js'
 // need to add prop components into ProductCardView
-
+import { Link } from 'react-router-dom'
 import { cartItem } from './cartItem.jsx';
 import { Table, Input } from 'react-materialize';
 
@@ -45,13 +45,13 @@ export class CartItem extends Component {
     const { currentItem, deleteClickHandler, handleQtyChange } = this.props;
     return (
       <tr>
-      <td><img width="125" src={currentItem.image} /></td>
-            <td>{currentItem.title}</td>
+      <td><Link to={`/products/${currentItem.id}`}><img width="125" src={currentItem.image} /></Link></td>
+      <td><Link to={`/products/${currentItem.id}`}>{currentItem.title}</Link></td>
 
             <td>
             <form onSubmit={this.handleSubmit}>
 
-              <input type="number" name={currentItem.id.toString()} defaultValue={currentItem.qty} onBlur={this.handleQty} onChange={this.onChange} />
+              <input id="order-qty" type="number" name={currentItem.id.toString()} defaultValue={currentItem.qty} onBlur={this.handleQty} onChange={this.onChange} />
 
           </form>
 
