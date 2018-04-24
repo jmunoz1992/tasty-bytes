@@ -33,7 +33,7 @@ export class Navbar extends Component {
                   >
                     <Link to={'/admin/users'} style={{color: '#26a69a'}}>Users</Link>
                     <Link to={'/admin/orders'} style={{color: '#26a69a'}}>Orders</Link>
-                    <Link to={'/products'} style={{color: '#26a69a'}}>Products</Link>
+                    <Link to={'/'} style={{color: '#26a69a'}}>Products</Link>
                     <Link to={'/admin/categories'} style={{color: '#26a69a'}}>Product Categories</Link>
                   </Dropdown>
                 ) :

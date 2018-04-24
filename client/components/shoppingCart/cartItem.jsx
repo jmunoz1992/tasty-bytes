@@ -51,15 +51,15 @@ export class CartItem extends Component {
             <td>
             <form onSubmit={this.handleSubmit}>
 
-              <input type="text" name={currentItem.id.toString()} defaultValue={currentItem.qty} onBlur={this.handleQty} onChange={this.onChange} />
+              <input type="number" name={currentItem.id.toString()} defaultValue={currentItem.qty} onBlur={this.handleQty} onChange={this.onChange} />
 
           </form>
 
 
             </td>
-            <td>{currentItem.currentPrice}</td>
+            <td>$ {currentItem.currentPrice}</td>
               {(currentItem.currentPrice) ? (
-            <td>{Number(Math.round(currentItem.currentPrice * currentItem.qty * 100) / 100).toFixed(2)}</td>
+            <td>$ {Number(Math.round(currentItem.currentPrice * currentItem.qty * 100) / 100).toFixed(2)}</td>
             ) :
              null
             }
