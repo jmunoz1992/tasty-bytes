@@ -22,22 +22,49 @@ async function seed () {
 
   const products = await Promise.all([
     Product.create({
-      title: 'Chocolate Strawberries',
+      title: 'Dark Chocolate Strawberries',
       shortDescription: 'tasty strawberries covered in chocolate',
       fullDescription: 'show your love with some delicious strawberries glazed with the most decadent chocolate in the world',
       inventoryQty: 1000,
       pdtWt: 30, // 30 strawberries/box
       priceCents: 9999,
-      image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
+      image: "http://images.godiva.com/is/image/godiva/dark-chocolate-dipped-strawberries-dozen~~191241-1?$pdp-main$"
     }),
     Product.create({
-      title: 'Chocolate Truffles',
-      shortDescription: 'rich chocolate truffles',
+      title: 'Dark Chocolate Nuts',
+      shortDescription: 'rich chocolate nuts',
+      fullDescription: 'dazzle your loved one with the best chocolate nuts',
+      inventoryQty: 500,
+      pdtWt: 24, // 24 chocolates per box
+      priceCents: 8999,
+      image: "http://paleogrubs.com/wp-content/uploads/2015/02/paleochocolatebark.jpg"
+    }),
+    Product.create({
+      title: 'Dark Chocolate Bars',
+      shortDescription: 'rich chocolate bars',
+      fullDescription: 'dazzle your loved one with the best chocolate bars',
+      inventoryQty: 500,
+      pdtWt: 24, // 24 chocolates per box
+      priceCents: 8999,
+      image: "https://cdn.shopify.com/s/files/1/0938/5272/products/72dpi_Caragh_Chocolates_Bar-Dark_2048x2048.jpg?v=1475524721"
+    }),
+    Product.create({
+      title: 'Dark Chocolate Cocoa',
+      shortDescription: 'rich chocolate cocoa',
+      fullDescription: 'dazzle your loved one with the best chocolate cocoa',
+      inventoryQty: 500,
+      pdtWt: 24, // 24 chocolates per box
+      priceCents: 8999,
+      image: "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2013/10/18/0/FNK_Peppermint-Hot-Cocoa_s4x3.jpg.rend.hgtvcom.616.462.suffix/1383787064560.jpeg"
+    }),
+    Product.create({
+      title: 'Dark Chocolate Cookies',
+      shortDescription: 'rich chocolate cookies',
       fullDescription: 'dazzle your loved one with the best chocolate truffles',
       inventoryQty: 500,
       pdtWt: 24, // 24 chocolates per box
       priceCents: 8999,
-      image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
+      image: "https://img.taste.com.au/7jFlsVdA/taste/2016/11/fudgy-chocolate-caramel-biscuits-74737-1.jpeg"
     }),
     Product.create({
       title: 'Sour Gummies',
@@ -49,7 +76,7 @@ async function seed () {
       image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
     }),
     Product.create({
-      title: 'Luscious Lollipops',
+      title: 'Hard Candy Lollipops',
       shortDescription: 'lollies that you keep lickin',
       fullDescription: 'the most luscious lollipops youve ever licked, lick it up',
       inventoryQty: 700,
@@ -58,7 +85,7 @@ async function seed () {
       image: "https://www.godivachocolates.eu/images/gene/prod/zoom/goch000340_01_godiva-gold-collection-gift-box-34pc.jpg"
     }),
     Product.create({
-      title: 'Ice Cream',
+      title: 'Sour Chocolate Ice Cream',
       shortDescription: 'the most velvety creamy ice cream',
       fullDescription: 'this ice icream is what dreams are made of, you cant get enough of it',
       inventoryQty: 100,
@@ -68,22 +95,21 @@ async function seed () {
     }),
   ]);
 
-  const categories = await Promise.all([
-    Category.create({name: 'chocolate', description: 'candy that contains chocolate'}),
-    Category.create({name: 'sour', description: 'candy that is sour'}),
-    Category.create({name: 'hard candy', description: 'this is hard candy'}),
-    Category.create({name: 'nuts', description: 'candy that contains nuts'}),
-    Category.create({name: 'organic', description: 'candy that is made from only organic ingredients'}),
-    Category.create({name: 'fair trade', description: 'candy that is made from only fair trade ingredients'}),
+  let categories = await Promise.all([
+    Category.create({name: 'Dark Chocolate', description: 'candy that contains chocolate'}), // 3
+    Category.create({name: 'Lollipops', description: 'candy on sticks'}), // 1
+    Category.create({name: 'Hard Candy', description: 'this is hard candy'}), // 1
+    Category.create({name: 'Nuts', description: 'candy that contains nuts'}), // 1
+    Category.create({name: 'Gummies', description: 'chewy candy'}), // 1
+    Category.create({name: 'Sour', description: 'candy that is sour'}), // 2
+    Category.create({name: 'Ice Cream', description: 'candy that is creamy and cold'}), // 1
     ])
 
   const updatedProds= []
-
   products.forEach((product) => {
-    updatedProds.push(product.setCategories([
-      categories[product.id-1],
-      categories[product.id]
-    ]))
+    const productName = product.title.toLowerCase();
+    const result = categories.filter(category => productName.indexOf(category.name.toLowerCase()) > -1);
+    updatedProds.push(product.setCategories(result))
   })
 
   await Promise.all(updatedProds)

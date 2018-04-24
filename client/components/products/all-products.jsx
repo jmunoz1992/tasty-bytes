@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from './product-card.jsx';
-import { fetchProducts, fetchCartProducts, addOrUpdateCart, deleteProduct, fetchCategories } from '../../store';
+import { fetchProducts, fetchCartProducts, addToCart, deleteProduct, fetchCategories } from '../../store';
 import { withRouter, Link } from 'react-router-dom'
 import { Dropdown, Button } from 'react-materialize';
 
@@ -37,11 +37,20 @@ export class AllProductsHome extends Component {
   }
 
   render() {
-    const { products, updateCart, user, removeProduct, categories } = this.props;
+    const { products, updateCart, user, removeProduct } = this.props;
     let isAdmin = false;
     if (user) {
       isAdmin = user.isAdmin
     }
+    let categories = this.props.categories;
+    categories.sort(function compare(a, b) {
+      if (a.name < b.name)
+        return -1;
+      if (a.name > b.name)
+        return 1;
+      return 0;
+    });
+
     let filtered = this.filterProducts(products);
     return (
       <div id="center-align all-products">
@@ -73,7 +82,8 @@ export class AllProductsHome extends Component {
             required
             onChange={(evt) => this.handleChange(evt, 'title')}
             name="title"
-            style={{'width': '1000', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px'}}
+            style={{'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px'}}
+
             placeholder="SEARCH PRODUCTS"
             value={this.state.search} />
             <i className="material-icons"
@@ -91,6 +101,7 @@ export class AllProductsHome extends Component {
           }
           <div className="row">
             {filtered && filtered.map(product => {
+              console.log('product ', product);
               return (
                 <ProductCardView
                   key={product.id}
@@ -128,7 +139,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchCartProducts());
     },
     updateCart(id, qty) {
-      dispatch(addOrUpdateCart(id, qty));
+      dispatch(addToCart(id, qty));
     },
     loadCategories() {
       dispatch(fetchCategories());

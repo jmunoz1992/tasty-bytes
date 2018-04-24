@@ -57,14 +57,14 @@ router.post('/productInfo', (req, res, next) => {
 // Go through the cart - if the product already exists in the cart, increase the current quantity by 1
 // If the product isn't in your cart, push relevant product info to cart
 // One either is done, send the cart array back to the client
-router.put('/', (req, res, next) => {
+router.put('/addToCart', (req, res, next) => {
   if (!req.session.cart) req.session.cart = [];
   let found = false;
   for (let i = 0; i < req.session.cart.length; i++) {
     if (req.body.id === req.session.cart[i].id) {
       // const oldQty = req.session.cart.products[i].qty;
-      // req.session.cart.products[i].qty += req.body.qty - oldQty;
-      req.session.cart[i].qty += req.body.qty;
+      // req.session.cart.products[i].qty += (+req.body.qty) - (+oldQty);
+      req.session.cart[i].qty += (+req.body.qty);
       if (req.session.cart[i].qty === 0) {
         req.session.cart.splice(i, 1);
       }
@@ -90,6 +90,46 @@ router.put('/', (req, res, next) => {
     .catch(next);
   }
 });
+
+// This route is triggered when you press any 'add to cart' button
+// If your cart doesn't already exist, make a new array to hold it
+// Go through the cart - if the product already exists in the cart, increase the current quantity by 1
+// If the product isn't in your cart, push relevant product info to cart
+// One either is done, send the cart array back to the client
+router.put('/updateQuantity', (req, res, next) => {
+  if (!req.session.cart) req.session.cart = [];
+  let found = false;
+  for (let i = 0; i < req.session.cart.length; i++) {
+    if (req.body.id === req.session.cart[i].id) {
+      // const oldQty = req.session.cart.products[i].qty;
+      // req.session.cart.products[i].qty += (+req.body.qty) - (+oldQty);
+      req.session.cart[i].qty = (+req.body.qty);
+      if (req.session.cart[i].qty === 0) {
+        req.session.cart.splice(i, 1);
+      }
+      res.json(req.session.cart);
+      found = true;
+      break;
+    }
+  }
+  if (found === false) {
+    Product.findById(req.body.id)
+    .then(product => {
+      req.session.cart.push({
+        id: product.id,
+        title: product.title,
+        shortDescription: product.shortDescription,
+        // priceActual: product.priceActual,
+        // inventoryQty: product.inventoryQty,
+        image: product.image,
+        qty: req.body.qty
+      });
+      res.json(req.session.cart);
+    })
+    .catch(next);
+  }
+});
+
 
 router.post('/clearCart', (req, res, next) => {
   req.session.cart = [];

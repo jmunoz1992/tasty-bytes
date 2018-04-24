@@ -45,6 +45,27 @@ export function addOrUpdateCart(id, qty) {
   };
 }
 
+
+// Add to Cart button
+export const addToCart = (id, qty) => {
+  if (!qty) qty = 1;
+  return function thunk(dispatch) {
+     axios.put('/api/cart/addToCart', {id, qty})
+      .then(res => dispatch(getCartProducts(res.data)))
+      .catch(err => console.error(err));
+  }
+}
+
+// SHOPPING CART PAGE
+export const updateQuantity = (id, qty) => {
+  return function thunk(dispatch) {
+    axios.put('/api/cart/updateQuantity', {id, qty})
+      .then(res => dispatch(getCartProducts(res.data)))
+      .catch(err => console.error(err));
+  }
+}
+
+
 export function deleteCartItem(id) {
   return function thunk(dispatch) {
     axios.delete(`/api/cart/${id}`)
