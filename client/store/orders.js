@@ -22,24 +22,24 @@ export const fetchOrders = () =>
       .catch(err => console.log(err))
 
 export function callOrderUpdate(id, updates, history) {
-  console.log('history :', history)
-  console.log('called thunk', id)
+  // console.log('history :', history)
+  // console.log('called thunk', id)
   return function thunk(dispatch) {
-    console.log('about to axios put these updates', updates);
+    // console.log('about to axios put these updates', updates);
     return axios.put(`/api/admin/orders/${id}`, updates)
     .then(res => {
-      console.log('attempting promise')
+      // console.log('attempting promise')
       return res.data})
     .then(update => {
       dispatch(fetchOrders());
-      history.push('/');
+      // history.push('/orders/all');
     })
     .catch(err => console.error(err));
   };
 }
 
 export function createNewOrder(data){
-  console.log('about to create with ', data)
+  // console.log('about to create with ', data)
     return function thunk(dispatch){
       return axios.post(`/api/admin/orders`, data)
       .then(res => {
