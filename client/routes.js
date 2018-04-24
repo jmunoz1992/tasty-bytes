@@ -22,6 +22,7 @@ import {
   from './components'
 
 
+
 import { me, fetchCartProducts, fetchProducts } from './store'
 
 class Routes extends Component {
@@ -51,12 +52,14 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
             <Route exact path="/" component={AllProductsHome} />
           </Switch>
+
         }
         <Route exact path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={ShoppingCart} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/orderPreview" component={OrderPreview} />
+        <Route path="/confirmation" component={Confirmation} />
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/categories/:id" component={CategorySelected} />
         <Route exact path="/" component={AllProductsHome} />

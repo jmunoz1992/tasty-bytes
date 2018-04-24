@@ -10,7 +10,7 @@ export const ReviewCardView = (props) => {
   return (
     <div className="review-item">
       <div className="review-content">
-        <FiveStars numStars={numStars} />
+        {numStars ? <FiveStars numStars={numStars} /> : null}
         <p id="numStars">{numStars} Stars</p>
         <h5 id="title"><em>Subject: </em>{title}</h5>
         {

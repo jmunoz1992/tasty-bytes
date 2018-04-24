@@ -17,6 +17,20 @@ export class Navbar extends Component {
 
   const { isLoggedIn, user, cartItems, handleClick } = this.props
 
+  let totalItemsInCart = 0;
+  if(cartItems) {
+    cartItems.map(item => {
+      totalItemsInCart += (+item.qty);
+    })
+  }
+
+  let message = '';
+  if(totalItemsInCart === 1) {
+    message = `${totalItemsInCart} item`;
+  } else if(totalItemsInCart > 1) {
+    message = `${totalItemsInCart} items`;
+  }
+
   return (
       <div>
         <nav>
@@ -33,7 +47,7 @@ export class Navbar extends Component {
                   >
                     <Link to={'/admin/users'} style={{color: '#26a69a'}}>Users</Link>
                     <Link to={'/orders'} style={{color: '#26a69a'}}>Orders</Link>
-                    <Link to={'/products'} style={{color: '#26a69a'}}>Products</Link>
+                    <Link to={'/'} style={{color: '#26a69a'}}>Products</Link>
                     <Link to={'/admin/categories'} style={{color: '#26a69a'}}>Product Categories</Link>
                   </Dropdown>
                 ) :
@@ -67,7 +81,7 @@ export class Navbar extends Component {
               </li>
               <li><Link to={'/cart'}><i className="material-icons left">shopping_cart</i>
               {cartItems && cartItems.length ?
-                `${cartItems.length} item(s)` : null
+                message : null
               }</Link></li>
             </ul>
           </div>

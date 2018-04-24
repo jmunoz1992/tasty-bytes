@@ -7,7 +7,7 @@ import {
   deleteCartItem,
   addShippingInfo,
   addOrUpdateCart,
-  createNewOrder
+  createNewOrder,
 } from '../../store/index.js'
 
 // need to add prop components into ProductCardView
@@ -38,17 +38,20 @@ export class OrderPreview extends Component {
         .props
         .history
         .push('/')
-    } else if (evt.target.name === 'editCart') {
+    }
+    else if (evt.target.name === 'editCart') {
       this
         .props
         .history
         .push('/cart')
-    } else if (evt.target.name === 'editInfo') {
+    }
+    else if (evt.target.name === 'editInfo') {
       this
         .props
         .history
         .push('/checkout')
-    } else if (evt.target.name === 'submit') {
+    }
+    else if (evt.target.name === 'submit') {
       const {user} = this.props
       console.log('the props are ', this.props)
       let orderline = [];
@@ -67,16 +70,18 @@ export class OrderPreview extends Component {
         this
           .props
           .newOrderMade(orderToAdd);
-      } else {
+      }
+      else {
         let orderToAdd = new Map();
         orderToAdd.set(userId, null)
         orderToAdd.set(orderlines, {orderlines: orderline})
-        console.log(this.props.shippingInfo.email)        
+        console.log(this.props.shippingInfo.email)
         orderToAdd.set(email, this.props.shippingInfo.email)
         this
           .props
           .newOrderMade(orderToAdd);
       }
+      this.props.history.push('/confirmation')
     }
   }
 
@@ -108,7 +113,7 @@ export class OrderPreview extends Component {
       <div className="center-align">
 
         <h3>Order Preview</h3>
-        <br/>
+        <br />
         <table >
           <thead>
             <tr>
@@ -123,21 +128,40 @@ export class OrderPreview extends Component {
           <tbody>
 
             {cartItems.map(item => {
-              return (<OrderPrevItem key={item.id} currentItem={item}/>)
+              return (<OrderPrevItem key={item.id} currentItem={item} />)
             })
 }
 
           </tbody>
+          </table>
 
-          <thead className="right-align">
-            <tr >
-              <th className="right-align" data-field="Sub Total">Sub Total: ${Number(Math.round(sum * 100) / 100).toFixed(2)}
-              </th>
-            </tr>
-          </thead>
-        </table>
+          <div className="container">
+              <div className="right-align" data-field="Sub Total"><b>Sub Total: ${Number(Math.round(sum * 100) / 100).toFixed(2)}</b>
+              </div>
+          </div>
 
-        <br/>
+        <br />
+        <br />
+        { this.props.shippingInfo.email ?
+        <div style={{maxWidth: '600px'}} className="container left-align">
+        <ul className="collection with-header">
+        <li className="collection-header"><h5>shippingInfo: </h5></li>
+        <li className="collection-item">Name: {this.props.shippingInfo.firstName} {this.props.shippingInfo.lastName}</li>
+        <li className="collection-item">Address: {this.props.shippingInfo.address}</li>
+        {this.props.shippingInfo.address2 ?
+          <li className="collection-item">
+          {this.props.shippingInfo.address2}</li>
+        :
+      null}
+        <li className="collection-item">{this.props.shippingInfo.city} {this.props.shippingInfo.state}, {this.props.shippingInfo.zip}</li>
+        <li className="collection-item">Email: {this.props.shippingInfo.email}</li>
+      </ul>
+      </div>
+      :
+      null
+        }
+      <br />
+      <br />
 
         <Button
           name="back"

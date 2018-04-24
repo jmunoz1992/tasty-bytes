@@ -80,6 +80,7 @@ export class Checkout extends Component {
             autoComplete="name"
             onChange={this.textChangeHandler} />
             <label htmlFor="name">Full Name</label>
+
           </div>
         </div>
         <div className="row">

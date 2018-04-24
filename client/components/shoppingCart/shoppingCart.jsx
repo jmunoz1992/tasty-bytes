@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchCartProducts} from '../../store/index.js'
 import {ProductCardView} from '../index.js';
-import {fetchProducts, deleteCartItem, addOrUpdateCart, createNewOrder} from '../../store/index.js'
+import {fetchProducts, deleteCartItem, addOrUpdateCart, createNewOrder, clearCart} from '../../store/index.js'
 
 // need to add prop components into ProductCardView
 
@@ -30,11 +30,19 @@ export class ShoppingCart extends Component {
   deleteClickHandler(evt) {
     this
       .props
-      .deleteItem(+ evt.target.name);
+      .deleteItem(+evt.target.name);
   }
 
-  submitClickHandler(){
-    this.props.history.push('/checkout')
+  submitClickHandler(evt){
+    if (evt.target.name === 'Checkout'){
+      this.props.history.push('/checkout');
+    }
+    else if (evt.target.name === 'Back'){
+      this.props.history.push('/');
+    }
+    else if (evt.target.name === 'Delete'){
+      this.props.clearShoppingCart();
+    }
   }
 
 
@@ -68,7 +76,7 @@ export class ShoppingCart extends Component {
         <div className="center-align">
 
           <h3>Your Shopping Cart</h3>
-          <br/>
+          <br />
           <table >
             <thead>
               <tr>
@@ -88,28 +96,40 @@ export class ShoppingCart extends Component {
                   key={item.id}
                   currentItem={item}
                   deleteClickHandler={this.deleteClickHandler}
-                  updateCart={this.props.updateCart}/>)
+                  updateCart={this.props.updateCart} />)
               })
 }
 
             </tbody>
-
-            <thead className="right-align">
-              <tr>
-                <th>
-                  <Button waves='light'>Update Cart</Button>
-                </th>
-                <th className="right-align" data-field="Sub Total">Sub Total: ${sum}
-                </th>
-              </tr>
-            </thead>
           </table>
+            <div className="container row">
 
-          <Button waves='light' style={{
-            marginRight: '15px'
-          }}>Go back to shopping</Button>
+
+                <div className="right-align" data-field="Sub Total"><b>Sub Total: $ {Number(Math.round(sum * 100) / 100).toFixed(2)}
+                </b></div>
+              </div>
+
           <Button
-            waves='light'
+          className="left-align"
+          name="Delete"
+          waves="light"
+          style={{
+            marginRight: '15px'
+          }}
+          onClick={this.submitClickHandler}>Delete Cart</Button>
+
+          <Button
+            name="Back"
+            waves="light"
+            style={{
+              marginLeft: '15px',
+              marginRight: '15px'
+          }}
+          onClick={this.submitClickHandler}>Go back to shopping</Button>
+
+          <Button
+            name="Checkout"
+            waves="light"
             style={{
             marginLeft: '15px'
           }}
@@ -148,6 +168,9 @@ const mapDispatchToProps = dispatch => {
     },
     newOrderMade(data) {
       dispatch(createNewOrder(data));
+    },
+    clearShoppingCart(){
+      dispatch(clearCart());
     }
   };
 };
