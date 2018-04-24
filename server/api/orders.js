@@ -20,26 +20,31 @@ const { Order, OrderLine } = require('../db/models');
 
 //POST a new order.
 router.post('/', (req, res, next) => {
-  Order.create({
-    id: req.body.id,
-    orderlines: {
-      id: req.body.orderlines.id,
-      qty: req.body.orderlines.qty,
-      priceCents: req.body.orderlines.price * 100,
-      productId: req.body.orderlines.productId,
-      orderId: req.body.orderlines.orderId,
-    }
-  }, {
-    include: {
-      model: OrderLine,
-      as: 'orderlines'
-    }
-  })
-  .then(order => {
-    res.status(201).json(order)
-  })
-  .catch(next);
-});
+  if (req.body[0][1] !== null) {
+    Order.create({
+      userId: req.body[0][1], email: req.body[2][1]
+    }).then((orderCreated) => {
+      req
+        .body[1][1]
+        .orderlines
+        .forEach((orderline) => {
+          OrderLine.create({orderId: orderCreated.dataValues.id, qty: orderline.qty, priceCents: orderline.priceCents, productId: orderline.productId})
+        })
+    })
+  } else {
+    Order
+      .create({
+      userId: null, email: req.body[2][1]
+    }).then((orderCreated) => {
+      req
+        .body[1][1]
+        .orderlines
+        .forEach((orderline) => {
+          OrderLine.create({orderId: orderCreated.dataValues.id, qty: orderline.qty, priceCents: orderline.priceCents, productId: orderline.productId})
+        })
+    })
+  }
+})
 
 //PUT update an order's infomration.
 router.put('/:id', (req, res, next) => {
