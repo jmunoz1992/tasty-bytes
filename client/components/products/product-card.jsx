@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { FiveStars } from '../index';
+import { Button } from 'react-materialize';
 
 export const ProductCardView = (props) => {
   const { title, shortDescription, priceActual, image, id, avgRating, reviews } = props.product;
@@ -9,11 +10,11 @@ export const ProductCardView = (props) => {
     isAdmin = props.user.isAdmin
   }
   return (
-    <div className="col s12 m6 center-align">
-      <div className="card blue-grey darken-1 center-align">
+    <div className="col s6 m4 center-align">
+      <div className="card brown darken-1 center-align">
         <div className="card-content white-text center-align">
-          <Link to={`/products/${id}`}><span className="card-title" id="title">{title}</span></Link>
-          <Link to={`/products/${id}`}><img src={image} alt="Chocolate" height="100" width="100" /></Link>
+          <Link to={`/products/${id}`}><span className="card-title" id="title" style={{color: '#cfb56a'}}>{title}</span></Link>
+          <Link to={`/products/${id}`}><img src={image} alt="Chocolate" height="200" width="200" /></Link>
           <p id="shortDescrip">{shortDescription} </p>
           <br />
           <p id="priceActual">${priceActual} </p>
@@ -28,9 +29,9 @@ export const ProductCardView = (props) => {
           }
         </div>
         <div>
-          <Link to={`/products/${id}`}>See Details</Link>
+        <Button waves='light' node='a' href={`/products/${id}`} style={{'background-color': '#000000', 'color': '#ffffff'}}>See Details</Button>
           &nbsp; &nbsp; &nbsp;
-          <Link to='#' onClick={() => { props.updateCart(id) }}>Add to Cart</Link>
+          <Button waves='light' node='a' href={`/products/${id}`} style={{'background-color': '#000000', 'color': '#ffffff'}} onClick={() => { props.updateCart(id) }}>Add to Cart</Button>
           <br />
           {
             isAdmin ?
