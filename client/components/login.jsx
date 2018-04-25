@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { login as loginFromReducer} from '../store/user';
 import { ErrorMessage } from './index';
 import { newErrorMessage } from '../store/index'
+import { Input, Icon, Button } from 'react-materialize';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -15,7 +16,7 @@ class Login extends React.Component {
   render() {
     const { message } = this.props;
     return (
-      <div className="signin-container">
+      <div className="container center-align" style={{'width': '500px'}}>
       {
         this.props.errorMessage.length ?
         <ErrorMessage
@@ -26,43 +27,51 @@ class Login extends React.Component {
         <div />
       }
         <div className="buffer local">
+        <h5 style={{'fontFamily': 'Georgia, serif'}}>Please log in your email and password below</h5>
+          <br />
           <form onSubmit={this.onLoginSubmit}>
             <div className="form-group">
-              <label>email</label>
-              <input
+              <Input s={6}
                 name="email"
                 type="email"
                 className="form-control"
+                placeholder="email"
                 required
-              />
+                validate>
+                <Icon>email</Icon>
+              </Input>
             </div>
             <div className="form-group">
-                <label>password</label>
-                <input
-                  name="password"
-                  type="password"
-                  className="form-control"
-                  required
-                />
+                <Input s={6}
+                name="password"
+                type="password"
+                className="form-control"
+                placeholder="password"
+                required
+                validate>
+                <Icon>lock</Icon>
+              </Input>
             </div>
-            <button type="submit" className="btn btn-block btn-primary">{message}</button>
+            <div classname="center-align">
+              <button
+              type="submit"
+              className="btn btn-primary"
+              style={{ 'backgroundColor': '#000000', 'color': '#ffffff', 'borderRadius': '10px' }}
+              >{message}</button>
+            </div>
           </form>
-        </div>
-        <div className="or buffer">
-          <div className="back-line">
-            <span>OR</span>
-          </div>
-        </div>
-        <div className="buffer oauth">
-          <p>
+          <div classname="center-align">
+            <p>OR</p>
             <a
               target="_self"
               href="/auth/google"
-              className="btn btn-social btn-google">
+              className="btn btn-social btn-google"
+              style={{ 'backgroundColor': '#000000', 'color': '#ffffff', 'borderRadius': '10px' }}
+              >
               <i className="fa fa-google" />
               <span>{message} with Google</span>
             </a>
-          </p>
+          </div>
         </div>
       </div>
     );

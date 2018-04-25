@@ -27,7 +27,7 @@ async function seed () {
       fullDescription: 'show your love with some delicious strawberries glazed with the most decadent chocolate in the world',
       inventoryQty: 1000,
       pdtWt: 30, // 30 strawberries/box
-      priceCents: 9999,
+      priceCents: 3999,
       image: "http://images.godiva.com/is/image/godiva/dark-chocolate-dipped-strawberries-dozen~~191241-1?$pdp-main$"
     }),
     Product.create({
@@ -36,7 +36,7 @@ async function seed () {
       fullDescription: 'dazzle your loved one with the best chocolate nuts',
       inventoryQty: 500,
       pdtWt: 24, // 24 chocolates per box
-      priceCents: 8999,
+      priceCents: 2999,
       image: "http://paleogrubs.com/wp-content/uploads/2015/02/paleochocolatebark.jpg"
     }),
     Product.create({
@@ -45,7 +45,7 @@ async function seed () {
       fullDescription: 'dazzle your loved one with the best chocolate bars',
       inventoryQty: 500,
       pdtWt: 24, // 24 chocolates per box
-      priceCents: 8999,
+      priceCents: 2999,
       image: "https://cdn.shopify.com/s/files/1/0938/5272/products/72dpi_Caragh_Chocolates_Bar-Dark_2048x2048.jpg?v=1475524721"
     }),
     Product.create({
@@ -54,7 +54,7 @@ async function seed () {
       fullDescription: 'dazzle your loved one with the best chocolate cocoa',
       inventoryQty: 500,
       pdtWt: 24, // 24 chocolates per box
-      priceCents: 8999,
+      priceCents: 2999,
       image: "https://spicysouthernkitchen.com/wp-content/uploads/hot-cocoa-3.jpg"
     }),
     Product.create({
@@ -63,7 +63,7 @@ async function seed () {
       fullDescription: 'dazzle your loved one with the best chocolate truffles',
       inventoryQty: 500,
       pdtWt: 24, // 24 chocolates per box
-      priceCents: 8999,
+      priceCents: 2999,
       image: "https://www.meals.com/imagesrecipes/144807lrg.jpg"
     }),
     Product.create({
@@ -72,7 +72,7 @@ async function seed () {
       fullDescription: 'show your love with some delicious strawberries glazed with the most decadent chocolate in the world',
       inventoryQty: 1000,
       pdtWt: 30, // 30 strawberries/box
-      priceCents: 9999,
+      priceCents: 3999,
       image: "http://makenmold.com/wp-content/uploads/valentines-day-dipped-strawberries-project-maken-mold.jpg"
     }),
     Product.create({
@@ -81,7 +81,7 @@ async function seed () {
       fullDescription: 'dazzle your loved one with the best chocolate nuts',
       inventoryQty: 500,
       pdtWt: 24, // 24 chocolates per box
-      priceCents: 8999,
+      priceCents: 2999,
       image: "https://3.imimg.com/data3/NF/KI/MY-1126930/nut-cholates-pan-coated-chocolates-500x500.jpg"
     }),
     Product.create({
@@ -90,7 +90,7 @@ async function seed () {
       fullDescription: 'dazzle your loved one with the best chocolate cocoa',
       inventoryQty: 500,
       pdtWt: 24, // 24 chocolates per box
-      priceCents: 8999,
+      priceCents: 2999,
       image: "http://www.honeyandbirch.com/wp-content/uploads/2014/01/slow-cookier-kahlua-hot-cocoa-fi.jpg"
     }),
     Product.create({
@@ -99,7 +99,7 @@ async function seed () {
       fullDescription: 'dazzle your loved one with the best chocolate truffles',
       inventoryQty: 500,
       pdtWt: 24, // 24 chocolates per box
-      priceCents: 8999,
+      priceCents: 2999,
       image: "https://www.averiecooks.com/wp-content/uploads/2015/08/cowboycookies-10.jpg"
     }),
     Product.create({
@@ -108,7 +108,7 @@ async function seed () {
       fullDescription: 'dazzle your loved one with the best chocolate cocoa',
       inventoryQty: 500,
       pdtWt: 24, // 24 chocolates per box
-      priceCents: 8999,
+      priceCents: 2999,
       image: "http://www.gifttree.com/images/gt_large/22150a_White-Belgium-Chocolate-Covered-Strawberries.jpg"
     }),
     Product.create({
@@ -117,7 +117,7 @@ async function seed () {
       fullDescription: 'dazzle your loved one with the best chocolate truffles',
       inventoryQty: 500,
       pdtWt: 24, // 24 chocolates per box
-      priceCents: 8999,
+      priceCents: 2999,
       image: "https://ameliaschocolate.co.uk/wp-content/uploads/2015/09/white-bar-02.jpg"
     }),
     Product.create({

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { logout } from '../store/user'
 
-import { NavItem, Dropdown, Navbar as NavBar } from 'react-materialize';
+import { Dropdown, Navbar as NavBar } from 'react-materialize';
 
 export class Navbar extends Component {
 
@@ -35,7 +35,7 @@ export class Navbar extends Component {
       <div>
         <nav>
           <div className="brown nav-wrapper">
-            <Link to={'/'} style={{'fontSize': '25px', color: '#cfb56a'}}>Home</Link>
+            <Link to={'/'} style={{'fontSize': '25px', color: '#cfb56a', 'fontFamily': 'Georgia, serif'}}>WELCOME TO TASTY BYTES</Link>
             <ul id="nav-mobile" className="center-align right hide-on-med-and-down">
               <li>
                 {(user && user.isAdmin) ? (
@@ -45,10 +45,10 @@ export class Navbar extends Component {
                     }
                     options={{ belowOrigin: true, hover: true }}
                   >
-                    <Link to={'/admin/users'} style={{color: '#26a69a'}}>Users</Link>
-                    <Link to={'/orders'} style={{color: '#26a69a'}}>Orders</Link>
-                    <Link to={'/'} style={{color: '#26a69a'}}>Products</Link>
-                    <Link to={'/admin/categories'} style={{color: '#26a69a'}}>Product Categories</Link>
+                    <Link to={'/admin/users'} style={{color: '#cfb56a'}}>Users</Link>
+                    <Link to={'/orders'} style={{color: '#cfb56a'}}>Orders</Link>
+                    <Link to={'/'} style={{color: '#cfb56a'}}>Products</Link>
+                    <Link to={'/admin/categories'} style={{color: '#cfb56a'}}>Product Categories</Link>
                   </Dropdown>
                 ) :
                   null
@@ -62,10 +62,10 @@ export class Navbar extends Component {
                       }
                       options={{ belowOrigin: true, hover: true }}
                     >
-                      <Link to={'/home'} style={{color: '#26a69a'}}>My Account</Link>
-                      <Link to={'/orders'} style={{color: '#26a69a'}}>My Orders</Link>
-                      <Link to={'/users/reviews'} style={{color: '#26a69a'}}>My Reviews</Link>
-                      <Link to={'#'} onClick={(evt) => handleClick(evt, user)} style={{color: '#26a69a'}}>Logout</Link>
+                      <Link to={'/home'} style={{color: '#cfb56a'}}>My Account</Link>
+                      <Link to={'/orders'} style={{color: '#cfb56a'}}>My Orders</Link>
+                      <Link to={'/users/reviews'} style={{color: '#cfb56a'}}>My Reviews</Link>
+                      <Link to={'#'} onClick={(evt) => handleClick(evt, user)} style={{color: '#cfb56a'}}>Logout</Link>
                     </Dropdown>
                 ) : (
                     <Dropdown
@@ -74,8 +74,8 @@ export class Navbar extends Component {
                       }
                       options={{ belowOrigin: true, hover: true }}
                     >
-                      <Link to={'/login'} style={{color: '#26a69a'}}>Login</Link>
-                      <Link to={'/signup'} style={{color: '#26a69a'}}>Signup</Link>
+                      <Link to={'/login'} style={{color: '#cfb56a'}}>Login</Link>
+                      <Link to={'/signup'} style={{color: '#cfb56a'}}>Signup</Link>
                     </Dropdown>
                   )}
               </li>

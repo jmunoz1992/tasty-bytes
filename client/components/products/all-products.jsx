@@ -53,11 +53,11 @@ export class AllProductsHome extends Component {
 
     let filtered = this.filterProducts(products);
     return (
-      <div id="all-products">
-        <div className="inputGroup" style={{'alignItems': 'flex-start'}}>
+      <div id="all-products" className="row center-align">
+        <div className="inputGroup center-align" style={{'alignItems': 'flex-start'}}>
             <Dropdown
               trigger={
-                <Button style={{'backgroundColor': '#000000', 'color': '#ffffff'}}>CATEGORIES</Button>
+                <Button style={{'backgroundColor': '#000000', 'color': '#ffffff', 'height': '50px', 'width':'200px', 'borderRadius': '0px' }}>CATEGORIES</Button>
               }
               options={{ belowOrigin: true, hover: true }}
             >
@@ -78,14 +78,14 @@ export class AllProductsHome extends Component {
             required
             onChange={(evt) => this.handleChange(evt, 'title')}
             name="title"
-            style={{'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px'}}
+            style={{'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px', 'border': 'solid 4px black', 'borderRadius': '20px'}}
             placeholder="SEARCH PRODUCTS"
             value={this.state.search} />
             <i className="material-icons"
-              style={{'fontSize': '3rem'}}>search</i>
+              style={{'fontSize': '3rem', 'border': 'solid 4px black', 'borderRadius': '20px'}}>search</i>
         </div>
         <div className="center-align">
-          <h1 style={{'fontFamily': 'Georgia, serif'}}>ALL PRODUCTS</h1>
+          <h3 style={{'fontFamily': 'Georgia, serif'}}>ALL PRODUCTS</h3>
           {
             isAdmin ?
               <div>
