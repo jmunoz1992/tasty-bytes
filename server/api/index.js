@@ -12,10 +12,9 @@ router.use('/categories', require('./categories'));
 
 // // USE BELOW ONCE WE HAVE ADMIN USERS AND STUFF...
 function isAdmin (req, res, next) {
-  if (req.user && req.user.isAdmin === true) {
-    next();
-  }
-  if (req.session.passport.user && req.session.passport.user.isAdmin === true) {
+  console.log(req.user.dataValues)
+  console.log("PASSPORT-----------", req.session.passport)
+  if (req.user && req.user.dataValues.isAdmin === true) {
     next();
   }
   else {

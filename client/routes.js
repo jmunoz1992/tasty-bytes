@@ -41,12 +41,12 @@ class Routes extends Component {
             <Switch>
               <Route path="/orders/" component={OrderView} />
               <Route path="/orders/:category" component={OrderView} />
-
               <Route exact path="/admin/users" component={AllUsers} />
               <Route exact path="/admin/products/add" component={AddProduct} />
               <Route exact path="/products/:id/edit" render={() => <SingleProduct edit={true} /> } />
               <Route exact path="/products/:id" component={SingleProduct} />
               <Route path="/admin/categories" component={AllCategories} />
+              <Route exact path="/categories/:id" component={CategorySelected} />
               <Route path="/users/reviews" component={UserReviews} />
               <Route path="/cart" component={ShoppingCart} />
               <Route path="/checkout" component={Checkout} />

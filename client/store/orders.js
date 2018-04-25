@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { clearCart } from './index'
 
 const GET_ORDERS = 'GET_ORDERS'
 const UPDATE_ORDER = 'UPDATE_ORDER'
@@ -39,8 +40,8 @@ export function createNewOrder(data){
       return axios.post(`/api/orders`, data)
       .then(res => {
         console.log('here is the res.data ', res.data)
+        dispatch(clearCart());
         return res.data})
-        //may want to call update on this and fetch somethinbg
       .catch(err => console.error(err));
       }
 }
