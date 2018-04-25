@@ -103,7 +103,17 @@ export class NewReview extends Component {
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="numStars"><h5>Number of Stars:</h5></label>
-                      onChange={(evt) => this.handleChange(evt, 'numStars')}
+                     <input
+                      className="col s1"
+                      required
+                      type="number"
+                      min="0"
+                      max="5"
+                       onChange={(evt) => this.handleChange(evt, 'numStars')}
+                      name="numStars"
+                      value={review.numStars}
+                      text-align="right"
+                    />
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="imgUrl"><h5>Product Image: </h5></label>
