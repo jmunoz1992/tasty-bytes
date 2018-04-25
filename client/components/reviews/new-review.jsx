@@ -23,6 +23,7 @@ export class NewReview extends Component {
     }
   }
 
+
   handleChange = (event, field) => {
     let reviewInfo = Object.assign({}, this.state.review)
     const value = event.target.value;
@@ -102,13 +103,13 @@ export class NewReview extends Component {
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="numStars"><h5>Number of Stars:</h5></label>
-                    <input
+                     <input
                       className="col s1"
                       required
                       type="number"
                       min="0"
                       max="5"
-                      onChange={(evt) => this.handleChange(evt, 'numStars')}
+                       onChange={(evt) => this.handleChange(evt, 'numStars')}
                       name="numStars"
                       value={review.numStars}
                       text-align="right"
