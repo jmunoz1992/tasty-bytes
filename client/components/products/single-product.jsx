@@ -70,7 +70,7 @@ export class SingleProduct extends Component {
                     <br />
                     <p>{productSelected.fullDescription} </p>
                     <br />
-                    <p>${productSelected.priceActual} </p>
+                    <p>${productSelected.priceActual} per 24pc.</p>
                     {productSelected.avgRating ? <FiveStars numStars={productSelected.avgRating} /> : null}
                     <p>{productSelected.reviews.length} Review(s)</p>
                     <br />

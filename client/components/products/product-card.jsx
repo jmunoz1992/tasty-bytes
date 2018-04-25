@@ -12,7 +12,7 @@ export const ProductCardView = (props) => {
   return (
     <div className="center-align">
       <div className="col s6 m3 center-align">
-        <div className="card brown darken-1 center-align" style={{ 'borderRadius': '20px', 'height': '600px'}}>
+        <div className="card brown darken-1 center-align" style={{ 'borderRadius': '20px', 'height': '650px'}}>
           <div className="card-content white-text center-align">
             <Link to={`/products/${id}`}><span className="card-title" id="title" style={{ color: '#cfb56a' }}>{title}</span></Link>
             <Link to={`/products/${id}`}>
@@ -26,7 +26,7 @@ export const ProductCardView = (props) => {
             </Link>
             <p id="shortDescrip">{shortDescription} </p>
             <br />
-            <p id="priceActual">${priceActual} </p>
+            <p id="priceActual">${priceActual} per 24pc.</p>
             {
               avgRating ?
                 <div>

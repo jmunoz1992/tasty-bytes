@@ -48,10 +48,7 @@ export class CategorySelected extends Component {
     let categoryId = +this.props.match.params.id;
     let categoryName = '';
 
-    // get selected category
     const categorySelected = categories.filter(category => category.id === categoryId)[0];
-    console.log('categorySelected ', categorySelected);
-    console.log('products ', products);
 
     const selectedProducts = [];
     if(categorySelected) {
@@ -68,8 +65,6 @@ export class CategorySelected extends Component {
       }
     }
 
-    console.log('selected products ', selectedProducts);
-
     categories.sort(function compare(a, b) {
       if (a.name < b.name)
         return -1;
@@ -84,7 +79,7 @@ export class CategorySelected extends Component {
           {(categories) ? (
             <Dropdown
               trigger={
-                <Button style={{'backgroundColor': '#000000', 'color': '#ffffff'}}>CATEGORIES</Button>
+                <Button style={{'backgroundColor': '#000000', 'color': '#ffffff', 'height': '50px', 'width':'200px', 'borderRadius': '0px' }}>CATEGORIES</Button>
               }
               options={{ belowOrigin: true, hover: true }}
             >
@@ -108,14 +103,14 @@ export class CategorySelected extends Component {
             required
             onChange={(evt) => this.handleChange(evt, 'title')}
             name="title"
-            style={{'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px'}}
+            style={{'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px', 'border': 'solid 4px black', 'borderRadius': '20px'}}
             placeholder="SEARCH PRODUCTS"
             value={this.state.search} />
             <i className="material-icons"
-              style={{'fontSize': '3rem'}}>search</i>
+              style={{'fontSize': '3rem', 'border': 'solid 4px black', 'borderRadius': '20px'}}>search</i>
         </div>
         <div className="center-align">
-          <h1 style={{'fontFamily': 'Georgia, serif'}}>{categoryName} Products</h1>
+          <h3 style={{'fontFamily': 'Georgia, serif'}}>{categoryName} Products</h3>
 
           {
             isAdmin ?

@@ -16,7 +16,7 @@ class Signup extends React.Component {
   render() {
     const { message } = this.props;
     return (
-      <div className="signin-container">
+      <div className="container center-align" style={{'width': '500px'}}>
       {
         this.props.errorMessage.length ?
         <ErrorMessage
@@ -27,32 +27,61 @@ class Signup extends React.Component {
         <div />
       }
         <div className="buffer local">
+            <h5 style={{'fontFamily': 'Georgia, serif'}}>Please fill in the required fields below</h5>
+            <br />
             <form onSubmit={this.onSignupSubmit}>
               <Row>
-                  <Input s={6} label="Full Name" name="name" />
-                  <Input type="email" label="Email" s={12} name="email" />
-                  <Input s={6} label="Username" name="username" />
-                  <Input type="password" label="Password" s={12} name="password" />
+                  <Input
+                    s={12}
+                    label="Full Name"
+                    name="name"
+                    required
+                    validate
+                  />
+                  <Input
+                    type="email"
+                    label="Email"
+                    s={12}
+                    name="email"
+                    required
+                    validate
+                  />
+                  <Input
+                    s={12}
+                    label="Username"
+                    name="username"
+                    required
+                    validate
+                  />
+                  <Input
+                    type="password"
+                    label="Password"
+                    s={12}
+                    name="password"
+                    required
+                    validate
+                  />
               </Row>
-              <button type="submit" className="btn btn-block btn-primary">{message}</button>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                style={{ 'backgroundColor': '#000000', 'color': '#ffffff', 'borderRadius': '10px' }}>
+                {message}
+              </button>
             </form>
           </div>
-          <div className="or buffer">
-          <div className="back-line">
-            <span>OR</span>
-          </div>
-        </div>
-        <div className="buffer oauth">
-          <p>
+          <div classname="center-align">
+            <p>OR</p>
             <a
               target="_self"
               href="/auth/google"
-              className="btn btn-social btn-google">
+              className="btn btn-social btn-google"
+              style={{ 'backgroundColor': '#000000', 'color': '#ffffff', 'borderRadius': '10px' }}
+              >
               <i className="fa fa-google" />
               <span>{message} with Google</span>
             </a>
-          </p>
-        </div>
+          </div>
       </div>
     );
   }
