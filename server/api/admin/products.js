@@ -21,6 +21,23 @@ router.post('/', (req, res, next) => {
 
 // update product to database- purely for admin
 router.put('/:id', (req, res, next) => {
+  console.log('inside the products api route')
+  if (!req.body.title){
+  Product.update({
+    inventoryQty: req.body.inventoryQty
+  }, {
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(function (results) {
+    console.log(results[0], 'here are results')
+    const updated = results[0];
+    res.json(updated);
+  })
+  .catch(next);
+  }
+else {
   Product.update({
     title: req.body.title,
     shortDescription: req.body.shortDescription,
@@ -40,6 +57,7 @@ router.put('/:id', (req, res, next) => {
       res.json(updated);
     })
     .catch(next);
+  }
 });
 
 router.put('/:productId/delete', (req, res, next) => {

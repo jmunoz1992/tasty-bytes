@@ -89,8 +89,12 @@ export function addProduct(product, history) {
 
 export function editProduct(product, history) {
   return function thunk(dispatch) {
+    console.log('about to axios')
+    console.log( product, history)
     axios.put(`/api/admin/products/${product.id}`, product)
-      .then(res => res.data)
+      .then(res => {
+        console.log('im inside the edit axios')
+        return res.data})
       .then(updatedProduct => {
         dispatch(fetchProducts());
         history.push(`/products/${product.id}`)

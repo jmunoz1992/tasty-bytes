@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from './product-card.jsx';
-import { fetchProducts, fetchCartProducts, addToCart, deleteProduct, fetchCategories, fetchOrders } from '../../store';
+import { fetchProducts, fetchCartProducts, addToCart, deleteProduct, fetchCategories, fetchOrders, editProduct } from '../../store';
 import { withRouter, Link } from 'react-router-dom'
 import { Dropdown, Button } from 'react-materialize';
 
@@ -43,6 +43,11 @@ export class AllProductsHome extends Component {
     console.log(this.props)
     //loop through this.props.orders and get the oerlines.
     let orderlinesOut = []
+    let productExtracted = {}
+    this.props.products.forEach( product => {
+          productExtracted[product.id] = product.inventoryQty
+    })
+
     this.props.orders.forEach( order => {
       for (var i = 0; i < order.orderlines.length; i++){
         orderlinesOut.push(order.orderlines[i])
@@ -62,8 +67,26 @@ export class AllProductsHome extends Component {
         purchasedObj[purchasedId] += purchasedQty;
       }
     })
-    
+
     console.log('the purchase obj is ', purchasedObj)
+    //it's alive! let's investigate product update
+    let idArr = [];
+        idArr = Object.keys(purchasedObj)
+    let qtyArr = []
+        qtyArr = Object.values(purchasedObj)
+        console.log('idArr ---------', idArr)
+        console.log('qtyArr----------', qtyArr)
+      console.log('PRODUCTS EXTRACTED----', productExtracted)
+    for (var j = 0; j < idArr.length; j++){
+
+        let data = {
+        id: Number(idArr[j]),
+        inventoryQty: productExtracted[Number(idArr[j])] - purchasedObj[Number(idArr[j])]
+      }
+      console.log(data)
+      this.props.updateInventories(data)
+
+    }
 
   }
 
@@ -84,7 +107,7 @@ export class AllProductsHome extends Component {
 
     let filtered = this.filterProducts(products);
     return (
-      <div id="all-products">
+      <div id="center-align all-products">
         <div className="inputGroup" style={{'alignItems': 'flex-start'}}>
             <Dropdown
               trigger={
@@ -110,6 +133,7 @@ export class AllProductsHome extends Component {
             onChange={(evt) => this.handleChange(evt, 'title')}
             name="title"
             style={{'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px'}}
+
             placeholder="SEARCH PRODUCTS"
             value={this.state.search} />
             <i className="material-icons"
@@ -122,21 +146,21 @@ export class AllProductsHome extends Component {
               <div>
                 <Link to="/admin/products/add" className="add-button" ><button>Add New Product</button></Link>
                 <div>
-                <button type="submit" className="btn btn-block btn-primary" onClick={this.handleQtyUpdate} > Update Quantity</button>
+                <button type="submit" className="btn btn-block btn-primary" onClick={this.handleQtyUpdate} > Update Quantity - post seed, only once</button>
               </div>
               </div>
               :
               null
           }
-          <div className="row center-align">
+          <div className="row">
             {filtered && filtered.map(product => {
               return (
-                  <ProductCardView
-                    key={product.id}
-                    product={product}
-                    removeProduct={removeProduct}
-                    updateCart={updateCart}
-                    user={user} />
+                <ProductCardView
+                  key={product.id}
+                  product={product}
+                  removeProduct={removeProduct}
+                  updateCart={updateCart}
+                  user={user} />
               );
             })}
           </div>
@@ -176,6 +200,9 @@ const mapDispatchToProps = dispatch => {
     loadCategories() {
       dispatch(fetchCategories());
     },
+    updateInventories(data) {
+      dispatch(editProduct(data))
+    }
   };
 };
 
