@@ -31,7 +31,7 @@ export class CategorySelected extends Component {
   filterProducts = (products) => {
     if (products && products.length) {
       let search = this.state.search
-      var regex = new RegExp( search, 'gi' );
+      var regex = new RegExp(search, 'gi');
       return products.filter(product => {
         return product.title.match(regex)
       })
@@ -51,7 +51,7 @@ export class CategorySelected extends Component {
     const categorySelected = categories.filter(category => category.id === categoryId)[0];
 
     const selectedProducts = [];
-    if(categorySelected) {
+    if (categorySelected) {
       const categorySelectedProducts = categorySelected.products;
       categoryName = categorySelected.name;
       for (let i = 0; i < products.length; i++) {
@@ -72,23 +72,31 @@ export class CategorySelected extends Component {
         return 1;
       return 0;
     });
-
+    let filtered = this.filterProducts(selectedProducts);
     return (
       <div className="row center-align">
-        <div className="inputGroup center-align" style={{'alignItems': 'flex-start'}}>
-          {(categories) ? (
-            <Dropdown
-              trigger={
-                <Button style={{'backgroundColor': '#000000', 'color': '#ffffff', 'height': '50px', 'width':'200px', 'borderRadius': '0px' }}>CATEGORIES</Button>
-              }
-              options={{ belowOrigin: true, hover: true }}
-            >
+        <div className="inputGroup center-align" style={{ 'alignItems': 'flex-start' }}>
+        {(categories) ? (
+          <Dropdown
+          trigger={
+            <Button style={{ 'backgroundColor': '#000000', 'color': '#ffffff', 'height': '50px', 'width': '200px', 'borderRadius': '0px' }}>CATEGORIES</Button>
+          }
+          options={{ belowOrigin: true, hover: true }}
+          >
+          <div>
+            <Link
+              to={`/`}
+              style={{ color: '#cfb56a' }}
+            >ALL
+        </Link>
+            <br />
+          </div>
               {categories && categories.map(category => {
                 return (
                   <div key={category.id}>
                     <Link
                       to={`/categories/${category.id}`}
-                      style={{color: '#cfb56a'}}
+                      style={{ color: '#cfb56a' }}
                     >{category.name}
                     </Link>
                     <br />
@@ -103,14 +111,12 @@ export class CategorySelected extends Component {
             required
             onChange={(evt) => this.handleChange(evt, 'title')}
             name="title"
-            style={{'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px', 'border': 'solid 4px black', 'borderRadius': '20px'}}
+            style={{ 'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px', 'border': 'solid 4px black', 'borderRadius': '20px' }}
             placeholder="SEARCH PRODUCTS"
             value={this.state.search} />
-            <i className="material-icons"
-              style={{'fontSize': '3rem', 'border': 'solid 4px black', 'borderRadius': '20px'}}>search</i>
         </div>
         <div className="center-align">
-          <h3 style={{'fontFamily': 'Georgia, serif'}}>{categoryName} Products</h3>
+          <h3 style={{ 'fontFamily': 'Georgia, serif' }}>{categoryName} Products</h3>
 
           {
             isAdmin ?
@@ -121,7 +127,7 @@ export class CategorySelected extends Component {
               null
           }
           <div className="row center-align">
-            {selectedProducts && selectedProducts.map(product => {
+            {filtered && filtered.map(product => {
               return (
                 <ProductCardView
                   key={product.id}
@@ -133,7 +139,7 @@ export class CategorySelected extends Component {
             })}
           </div>
         </div>
-          </div>
+      </div>
     );
   }
 }
