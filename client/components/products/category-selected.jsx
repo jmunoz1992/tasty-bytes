@@ -79,8 +79,8 @@ export class CategorySelected extends Component {
     });
 
     return (
-      <div id="center-align all-products">
-        <div className="inputGroup" style={{'alignItems': 'flex-start'}}>
+      <div className="row center-align">
+        <div className="inputGroup center-align" style={{'alignItems': 'flex-start'}}>
           {(categories) ? (
             <Dropdown
               trigger={
@@ -108,7 +108,7 @@ export class CategorySelected extends Component {
             required
             onChange={(evt) => this.handleChange(evt, 'title')}
             name="title"
-            style={{'width': '1000', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px'}}
+            style={{'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px'}}
             placeholder="SEARCH PRODUCTS"
             value={this.state.search} />
             <i className="material-icons"
@@ -125,7 +125,7 @@ export class CategorySelected extends Component {
               :
               null
           }
-          <div className="row">
+          <div className="row center-align">
             {selectedProducts && selectedProducts.map(product => {
               return (
                 <ProductCardView
