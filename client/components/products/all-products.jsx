@@ -30,7 +30,7 @@ export class AllProductsHome extends Component {
 
   filterProducts = (products) => {
     let search = this.state.search
-    var regex = new RegExp( search, 'gi' );
+    var regex = new RegExp(search, 'gi');
     return products.filter(product => {
       return product.title.match(regex)
     })
@@ -54,38 +54,45 @@ export class AllProductsHome extends Component {
     let filtered = this.filterProducts(products);
     return (
       <div id="all-products" className="row center-align">
-        <div className="inputGroup center-align" style={{'alignItems': 'flex-start'}}>
-            <Dropdown
-              trigger={
-                <Button style={{'backgroundColor': '#000000', 'color': '#ffffff', 'height': '50px', 'width':'200px', 'borderRadius': '0px' }}>CATEGORIES</Button>
-              }
-              options={{ belowOrigin: true, hover: true }}
-            >
-              {categories && categories.map(category => {
+        <div className="inputGroup center-align" style={{ 'alignItems': 'flex-start' }}>
+          <Dropdown
+            trigger={
+              <Button style={{ 'backgroundColor': '#000000', 'color': '#ffffff', 'height': '50px', 'width': '200px', 'borderRadius': '0px' }}>CATEGORIES</Button>
+            }
+            options={{ belowOrigin: true, hover: true }}
+          >
+            <div>
+              <Link
+                to={`/`}
+                style={{ color: '#cfb56a' }}
+              >ALL
+              </Link>
+              <br />
+            </div>
+            {
+              categories && categories.map(category => {
                 return (
                   <div key={category.id}>
                     <Link
                       to={`/categories/${category.id}`}
-                      style={{color: '#cfb56a'}}
+                      style={{ color: '#cfb56a' }}
                     >{category.name}
                     </Link>
                     <br />
                   </div>
                 );
               })}
-            </Dropdown>
+          </Dropdown>
           <input
             required
             onChange={(evt) => this.handleChange(evt, 'title')}
             name="title"
-            style={{'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px', 'border': 'solid 4px black', 'borderRadius': '20px'}}
+            style={{ 'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px', 'border': 'solid 4px black', 'borderRadius': '20px' }}
             placeholder="SEARCH PRODUCTS"
             value={this.state.search} />
-            <i className="material-icons"
-              style={{'fontSize': '3rem', 'border': 'solid 4px black', 'borderRadius': '20px'}}>search</i>
         </div>
         <div className="center-align">
-          <h3 style={{'fontFamily': 'Georgia, serif'}}>ALL PRODUCTS</h3>
+          <h3 style={{ 'fontFamily': 'Georgia, serif' }}>ALL PRODUCTS</h3>
           {
             isAdmin ?
               <div>
@@ -97,12 +104,12 @@ export class AllProductsHome extends Component {
           <div className="row center-align">
             {filtered && filtered.map(product => {
               return (
-                  <ProductCardView
-                    key={product.id}
-                    product={product}
-                    removeProduct={removeProduct}
-                    updateCart={updateCart}
-                    user={user} />
+                <ProductCardView
+                  key={product.id}
+                  product={product}
+                  removeProduct={removeProduct}
+                  updateCart={updateCart}
+                  user={user} />
               );
             })}
           </div>
