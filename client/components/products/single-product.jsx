@@ -41,7 +41,6 @@ export class SingleProduct extends Component {
   }
 
   render() {
-    // console.log(this.props, "props are")
     let { products, user } = this.props;
 
     const productId = +this.props.match.params.id;
@@ -59,14 +58,17 @@ export class SingleProduct extends Component {
           <div className="row center-align">
             <div className="col s3 m3 center-align" />
             <div className="col s6 m6 center-align">
-                <div className="card blue-grey darken-1 center-align">
+                <div className="card brown darken-1 center-align" style={{ 'borderRadius': '20px', 'height': '700px', 'marginTop': '20px'}}>
                   <div className="card-content white-text center-align">
-                    <span className="card-title">{productSelected.title}</span>
-                    <img src={productSelected.image} alt="Chocolate" height="100" width="100" />
+                    <span className="card-title" style={{ color: '#cfb56a' }}>{productSelected.title}</span>
+                    <img
+                      src={productSelected.image}
+                      alt="Chocolate"
+                      height="300"
+                      width="300"
+                      style={{ 'borderRadius': '20px' }}/>
                     <br />
-                    <p>FULL DESCRIPTION: {productSelected.fullDescription} </p>
-                    <br />
-                    <p>CATEGORY: </p>
+                    <p>{productSelected.fullDescription} </p>
                     <br />
                     <p>${productSelected.priceActual} </p>
                     {productSelected.avgRating ? <FiveStars numStars={productSelected.avgRating} /> : null}
@@ -89,13 +91,14 @@ export class SingleProduct extends Component {
                     defaultValue={this.state.qty} />
                     <br/>
                   <Button
+                    style={{ 'backgroundColor': '#000000', 'color': '#ffffff', 'borderRadius': '10px' }}
                     onClick={() => { this.props.updateCart(productSelected.id, this.state.qty) }}
                   >ADD TO CART
                     </Button>
                   <br />
                   {
                     isAdmin ?
-                      <Button onClick={this.handleEdit} >Edit Product</Button>
+                      <Button onClick={this.handleEdit} style={{ 'backgroundColor': '#000000', 'color': '#ffffff', 'borderRadius': '10px' }}>Edit Product</Button>
                       :
                       <div />
                     }

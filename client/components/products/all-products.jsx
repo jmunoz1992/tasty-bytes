@@ -84,7 +84,7 @@ export class AllProductsHome extends Component {
 
     let filtered = this.filterProducts(products);
     return (
-      <div id="center-align all-products">
+      <div id="all-products">
         <div className="inputGroup" style={{'alignItems': 'flex-start'}}>
             <Dropdown
               trigger={
@@ -110,7 +110,6 @@ export class AllProductsHome extends Component {
             onChange={(evt) => this.handleChange(evt, 'title')}
             name="title"
             style={{'width': '1500', 'textAlign': 'center', 'marginLeft': '20px', 'padding': '0px', 'fontSize': '25px'}}
-
             placeholder="SEARCH PRODUCTS"
             value={this.state.search} />
             <i className="material-icons"
@@ -129,15 +128,15 @@ export class AllProductsHome extends Component {
               :
               null
           }
-          <div className="row">
+          <div className="row center-align">
             {filtered && filtered.map(product => {
               return (
-                <ProductCardView
-                  key={product.id}
-                  product={product}
-                  removeProduct={removeProduct}
-                  updateCart={updateCart}
-                  user={user} />
+                  <ProductCardView
+                    key={product.id}
+                    product={product}
+                    removeProduct={removeProduct}
+                    updateCart={updateCart}
+                    user={user} />
               );
             })}
           </div>
