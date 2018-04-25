@@ -33,10 +33,10 @@ export class Checkout extends Component {
     this.submit = this.submit.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.shippingInfo.email){
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.shippingInfo.email){
+  //   }
+  // }
 
   validation(){
     let error = []

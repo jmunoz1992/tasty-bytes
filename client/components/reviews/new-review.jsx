@@ -79,6 +79,9 @@ export class NewReview extends Component {
                 >Add Review
                 </Button>
                 <section>
+                <row>
+                  <div className="col s2" />
+                  <div className="col s8">
                   <div className="inputGroup">
                     <label htmlFor="title"><h5>Review Title: </h5></label>
                     <input
@@ -97,10 +100,10 @@ export class NewReview extends Component {
                       value={review.content}
                     />
                   </div>
-
                   <div className="inputGroup">
                     <label htmlFor="numStars"><h5>Number of Stars:</h5></label>
                     <input
+                      className="col s1"
                       required
                       type="number"
                       min="0"
@@ -108,6 +111,7 @@ export class NewReview extends Component {
                       onChange={(evt) => this.handleChange(evt, 'numStars')}
                       name="numStars"
                       value={review.numStars}
+                      text-align="right"
                     />
                   </div>
                   <div className="inputGroup">
@@ -115,8 +119,11 @@ export class NewReview extends Component {
                     <input
                       onChange={(evt) => this.handleChange(evt, 'imgUrl')}
                       name="imgUrl"
-                      value={review.imgUrl} />
+                      value={review.imgUrl}
+                      />
                   </div>
+                  </div>
+                  </row>
                 </section>
               </form>
             </div>
