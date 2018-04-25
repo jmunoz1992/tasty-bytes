@@ -43,7 +43,10 @@ export class Confirmation extends Component {
       waves="light"
       style={{
         marginLeft: '15px',
-        marginRight: '15px'
+        marginRight: '15px',
+        backgroundColor: '#000000',
+        color: '#ffffff',
+        borderRadius: '10px',
     }}
     onClick={this.submitClickHandler}>Go back to shopping</Button>
       </div>
