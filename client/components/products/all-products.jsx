@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ProductCardView } from './product-card.jsx';
-import { fetchProducts, fetchCartProducts, addToCart, deleteProduct, fetchCategories } from '../../store';
+import { fetchProducts, fetchCartProducts, addToCart, deleteProduct, fetchCategories, fetchOrders } from '../../store';
 import { withRouter, Link } from 'react-router-dom'
 import { Dropdown, Button } from 'react-materialize';
 
@@ -19,6 +19,7 @@ export class AllProductsHome extends Component {
     this.props.loadProducts();
     this.props.loadCart();
     this.props.loadCategories();
+    this.props.loadOrders();
   }
 
   handleChange = (event) => {
@@ -34,6 +35,36 @@ export class AllProductsHome extends Component {
     return products.filter(product => {
       return product.title.match(regex)
     })
+  }
+  handleQtyUpdate = () => {
+
+
+    console.log('in here')
+    console.log(this.props)
+    //loop through this.props.orders and get the oerlines.
+    let orderlinesOut = []
+    this.props.orders.forEach( order => {
+      for (var i = 0; i < order.orderlines.length; i++){
+        orderlinesOut.push(order.orderlines[i])
+      }
+    })
+    console.log('finished-----------', orderlinesOut);
+    let purchasedObj = {};
+    orderlinesOut.forEach(orderline => {
+
+      let purchasedQty = orderline.qty;
+      let purchasedId = orderline.productId;
+      
+      if (!purchasedObj[purchasedId]){
+        purchasedObj[purchasedId] = purchasedQty;
+      }
+      else {
+        purchasedObj[purchasedId] += purchasedQty;
+      }
+    })
+    
+    console.log('the purchase obj is ', purchasedObj)
+
   }
 
   render() {
@@ -91,13 +122,15 @@ export class AllProductsHome extends Component {
             isAdmin ?
               <div>
                 <Link to="/admin/products/add" className="add-button" ><button>Add New Product</button></Link>
+                <div>
+                <button type="submit" className="btn btn-block btn-primary" onClick={this.handleQtyUpdate} > Update Quantity</button>
+              </div>
               </div>
               :
               null
           }
           <div className="row">
             {filtered && filtered.map(product => {
-              console.log('product ', product);
               return (
                 <ProductCardView
                   key={product.id}
@@ -120,6 +153,7 @@ const mapStateToProps = state => {
     reviews: state.reviews,
     user: state.user,
     categories: state.categories,
+    orders: state.orders
   };
 };
 
@@ -127,6 +161,9 @@ const mapDispatchToProps = dispatch => {
   return {
     loadProducts() {
       dispatch(fetchProducts());
+    },
+    loadOrders(){
+      dispatch(fetchOrders());
     },
     removeProduct(prodId) {
       dispatch(deleteProduct(prodId));

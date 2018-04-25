@@ -110,7 +110,6 @@ export class OrderView extends Component {
       <div>
         <div>
             <AdminSort handleCatSelect={this.changeCat} orders={orders}/>
-
         </div>
         {!orders
           ? <div>
