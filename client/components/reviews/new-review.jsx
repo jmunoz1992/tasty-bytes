@@ -4,6 +4,10 @@ import { addReview } from '../../store';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { Button } from 'react-materialize';
+import ReactStars from 'react-stars'
+import { render } from 'react-dom'
+
+
 
 export class NewReview extends Component {
 
@@ -22,8 +26,18 @@ export class NewReview extends Component {
       dirty: false,
     }
   }
+  ratingChanged = (newRating) => {
+    console.log(newRating)
+    this.setState({
+      review: {
+        numStars: newRating
+      }
+    })
+  }
+
 
   handleChange = (event, field) => {
+    console.log('event is : ', event )
     let reviewInfo = Object.assign({}, this.state.review)
     const value = event.target.value;
     reviewInfo[field] = value;
@@ -102,17 +116,11 @@ export class NewReview extends Component {
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="numStars"><h5>Number of Stars:</h5></label>
-                    <input
-                      className="col s1"
-                      required
-                      type="number"
-                      min="0"
-                      max="5"
+                      <ReactStars
+                      count={5}
                       onChange={(evt) => this.handleChange(evt, 'numStars')}
-                      name="numStars"
-                      value={review.numStars}
-                      text-align="right"
-                    />
+                      size={24}
+                      color2={'#ffd700'} />,
                   </div>
                   <div className="inputGroup">
                     <label htmlFor="imgUrl"><h5>Product Image: </h5></label>
