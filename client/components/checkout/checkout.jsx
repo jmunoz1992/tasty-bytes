@@ -150,7 +150,7 @@ export class Checkout extends Component {
             {this.state.error.indexOf('state') !== -1 ? <label htmlFor="state" style={{color: 'red'}}>State</label> : <label htmlFor="state">State</label>}
           </div>
           <div className="input-field col s4">
-          <input id="zip_code" type="number" className="validate" autoComplete="zip_code" onChange={this.textChangeHandler} />
+          <input id="zip_code" type="text" className="validate" autoComplete="zip_code" onChange={this.textChangeHandler} />
           {this.state.error.indexOf('zip') !== -1 ? <label htmlFor="zip_code" style={{color: 'red'}}>Zip Code</label> : <label htmlFor="zip_code">Zip Code</label>}
         </div>
         </div>

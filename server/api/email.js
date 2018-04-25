@@ -14,12 +14,11 @@ router.post('/sendConformation', (req, res, next) => {
 
 
   const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
+    service: 'gmail',
     auth: {
-      user: 'skgavqn6gayy4z74@ethereal.email',
-      pass: '2UqpPDd9N37rwMVVWy'
-    },
+           user: 'tastybytestest@gmail.com',
+           pass: 'RJJJ1234'
+       },
     tls: {
       rejectUnauthorized: false
     }
@@ -27,7 +26,7 @@ router.post('/sendConformation', (req, res, next) => {
 
     // setup email data with unicode symbols
     let mailOptions = {
-        from: '"Tasty Bytes" <skgavqn6gayy4z74@ethereal.email>', // sender address
+        from: '"Tasty Bytes" <tastybytestest@gmail.com>', // sender address
         to: req.body.email, // list of receivers
         subject: 'Order Conformation from Tasty Bytes', // Subject line
         text: ' ', // plain text body
