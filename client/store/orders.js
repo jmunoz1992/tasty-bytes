@@ -24,7 +24,7 @@ export const fetchOrders = () =>
 export function callOrderUpdate(id, updates, history) {
 
   return function thunk(dispatch) {
-    return axios.put(`/api/orders/${id}`, updates)
+    return axios.put(`/api/admin/orders/${id}`, updates)
     .then(res => {
       return res.data})
     .then(update => {
